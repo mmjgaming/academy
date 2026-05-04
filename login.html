@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+
+<style>
+body{
+  background:#0f172a;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family:Arial;
+}
+
+.box{
+  background:#1e293b;
+  padding:30px;
+  border-radius:10px;
+  width:300px;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  border:none;
+  border-radius:5px;
+}
+
+button{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:none;
+  background:#3b82f6;
+  color:white;
+  cursor:pointer;
+  border-radius:5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>Login / Signup</h2>
+
+<input id="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
+
+<button onclick="signup()">Sign Up</button>
+<button onclick="login()">Login</button>
+
+<button onclick="google()">Google</button>
+<button onclick="github()">GitHub</button>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script>
+const supabaseClient = supabase.createClient(
+  "YOUR_URL",
+  "YOUR_ANON_KEY"
+);
+
+async function signup(){
+  const email = emailInput();
+  const password = passInput();
+
+  const { error } = await supabaseClient.auth.signUp({ email, password });
+
+  alert(error ? error.message : "Signup done");
+}
+
+async function login(){
+  const email = emailInput();
+  const password = passInput();
+
+  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+  if(!error) window.location="index.html";
+  else alert(error.message);
+}
+
+async function google(){
+  await supabaseClient.auth.signInWithOAuth({ provider:"google" });
+}
+
+async function github(){
+  await supabaseClient.auth.signInWithOAuth({ provider:"github" });
+}
+
+function emailInput(){
+  return document.getElementById("email").value;
+}
+
+function passInput(){
+  return document.getElementById("password").value;
+}
+</script>
+
+</body>
+</html>
