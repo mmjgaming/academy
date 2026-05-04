@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MMJ Academy</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0f172a;
+  color:white;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:220px;
+  height:100vh;
+  background:#020617;
+  position:fixed;
+  padding:20px;
+}
+
+.sidebar h2{
+  margin-bottom:20px;
+}
+
+.sidebar a{
+  display:block;
+  color:#cbd5f5;
+  text-decoration:none;
+  margin:10px 0;
+}
+
+.sidebar a:hover{
+  color:white;
+}
+
+/* TOPBAR */
+.topbar{
+  margin-left:220px;
+  padding:15px;
+  background:#1e293b;
+  display:flex;
+  justify-content:space-between;
+}
+
+/* CONTENT */
+.content{
+  margin-left:220px;
+  padding:30px;
+}
+
+.card{
+  background:#1e293b;
+  padding:20px;
+  border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>📘 MMJ Academy</h2>
+  <a href="#">Home</a>
+  <a href="#">YT Updates</a>
+  <a href="#">Downloads</a>
+  <a href="#">Courses</a>
+  <a href="#">Products</a>
+  <a href="#">About</a>
+</div>
+
+<div class="topbar">
+  <div id="status">Checking...</div>
+  <a href="login.html" style="color:white;">Login</a>
+</div>
+
+<div class="content">
+  <div class="card">
+    <h2>Thanks for joining to our academy</h2>
+
+    <p>
+    An academy is an educational institution or organization dedicated to specialized learning, training, or research in a particular field or discipline. Academies can focus on a wide range of subjects, including the arts, sciences, sports, technology, military, or professional development. They are designed to cultivate skills, foster knowledge, and promote excellence among students or members.
+    </p>
+
+    <p>
+    Academies often provide structured courses, expert instruction, and hands-on experience, making them ideal environments for individuals who seek to deepen their understanding or pursue a career in a specific area. Depending on the type, an academy may offer certifications, diplomas, or degrees upon successful completion of its programs.
+    </p>
+
+    <p>
+    we will sell item and give you support in our academy.<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MMJ Academy - Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.container{
+  background:#020617;
+  padding:30px;
+  border-radius:12px;
+  width:350px;
+  box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+
+h2{
+  margin-bottom:10px;
+}
+
+p{
+  color:#94a3b8;
+  font-size:14px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:6px;
+  background:#1e293b;
+  color:white;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.primary{
+  background:#3b82f6;
+  color:white;
+}
+
+.secondary{
+  background:#334155;
+  color:white;
+}
+
+.divider{
+  text-align:center;
+  margin:15px 0;
+  color:#64748b;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Welcome to MMJ Academy</h2>
+<p>Login or create your account to access courses, downloads, and exclusive content.</p>
+
+<input id="email" type="email" placeholder="Enter your email">
+<input id="password" type="password" placeholder="Enter your password">
+
+<button class="primary" onclick="login()">Login</button>
+<button class="secondary" onclick="signup()">Create Account</button>
+
+<div class="divider">OR</div>
+
+<button onclick="googleLogin()">Continue with Google</button>
+<button onclick="githubLogin()">Continue with GitHub</button>
+
+<p style="margin-top:15px;">
+By continuing, you agree to our academy terms and conditions.
+</p>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script>
+const supabaseClient = supabase.createClient(
+  "YOUR_URL",
+  "YOUR_ANON_KEY"
+);
+
+function getEmail(){
+  return document.getElementById("email").value;
+}
+
+function getPass(){
+  return document.getElementById("password").value;
+}
+
+async function signup(){
+  const { error } = await supabaseClient.auth.signUp({
+    email: getEmail(),
+    password: getPass()
+  });
+
+  alert(error ? error.message : "Account created! You can now login.");
+}
+
+async function login(){
+  const { error } = await supabaseClient.auth.signInWithPassword({
+    email: getEmail(),
+    password: getPass()
+  });
+
+  if(!error){
+    alert("Login successful!");
+    window.location.href = "index.html";
+  } else {
+    alert(error.message);
+  }
+}
+
+async function googleLogin(){
+  await supabaseClient.auth.signInWithOAuth({ provider:"google" });
+}
+
+async function githubLogin(){
+  await supabaseClient.auth.signInWithOAuth({ provider:"github" });
+}
+</script>
+
+</body>
+</html>
