@@ -2,495 +2,268 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>MMJ Academy - Courses, Downloads & Exclusive Content</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Primary Meta Tags -->
-<meta name="title" content="MMJ Academy - Courses, Downloads & Exclusive Content">
-<meta name="description" content="Join MMJ Academy for specialized courses, premium downloads, video tutorials, and exclusive digital products. Learn from expert instruction and grow your skills.">
-<meta name="keywords" content="MMJ Academy, online courses, digital products, downloads, video tutorials, YouTube updates, learning platform, skill development, premium content">
-<meta name="author" content="MMJ Gaming">
-<meta name="robots" content="index, follow">
-<meta name="language" content="English">
-
-<!-- Canonical URL -->
+<title>MMJ Academy - Courses, Downloads & Exclusive Content</title>
+<meta name="description" content="Join MMJ Academy for specialized courses, premium downloads, video tutorials, and exclusive digital products.">
 <link rel="canonical" href="https://mmjgaming.github.io/academy/index.html">
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://mmjgaming.github.io/academy/index.html">
 <meta property="og:title" content="MMJ Academy - Courses, Downloads & Exclusive Content">
-<meta property="og:description" content="Join MMJ Academy for specialized courses, premium downloads, video tutorials, and exclusive digital products. Learn from expert instruction and grow your skills.">
+<meta property="og:description" content="Join MMJ Academy for specialized courses, premium downloads, video tutorials, and exclusive digital products.">
 <meta property="og:image" content="https://mmjgaming.github.io/academy/og-image.png">
-<meta property="og:site_name" content="MMJ Academy">
-<meta property="og:locale" content="en_US">
-
-<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://mmjgaming.github.io/academy/index.html">
-<meta name="twitter:title" content="MMJ Academy - Courses, Downloads & Exclusive Content">
-<meta name="twitter:description" content="Join MMJ Academy for specialized courses, premium downloads, video tutorials, and exclusive digital products.">
-<meta name="twitter:image" content="https://mmjgaming.github.io/academy/og-image.png">
-
-<!-- Favicon -->
 <link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-<!-- Preconnect for performance -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-<!-- Structured Data / JSON-LD -->
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "EducationalOrganization",
-  "name": "MMJ Academy",
-  "url": "https://mmjgaming.github.io/academy/index.html",
-  "logo": "https://mmjgaming.github.io/academy/favicon.png",
-  "description": "MMJ Academy offers specialized courses, premium downloads, video tutorials, and exclusive digital products for skill development.",
-  "sameAs": [],
-  "offers": {
-    "@type": "AggregateOffer",
-    "lowPrice": "0",
-    "highPrice": "99",
-    "priceCurrency": "USD",
-    "offerCount": "36"
-  },
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Academy Content",
-    "itemListElement": [
-      {
-        "@type": "Course",
-        "name": "Video Tutorials",
-        "description": "YouTube updates and video tutorials"
-      },
-      {
-        "@type": "Course",
-        "name": "Premium Downloads",
-        "description": "Templates, resources, and downloadable files"
-      },
-      {
-        "@type": "Course",
-        "name": "Structured Courses",
-        "description": "Learning paths for all skill levels"
-      }
-    ]
-  }
+  "@context":"https://schema.org",
+  "@type":"EducationalOrganization",
+  "name":"MMJ Academy",
+  "url":"https://mmjgaming.github.io/academy/index.html",
+  "description":"MMJ Academy offers specialized courses, premium downloads, video tutorials, and exclusive digital products.",
+  "offers":{"@type":"AggregateOffer","lowPrice":"0","highPrice":"99","priceCurrency":"USD","offerCount":"36"}
 }
 </script>
 
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;background:#030712;color:#fff;min-height:100vh;overflow-x:hidden}
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: #030712;
-    color: #ffffff;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  /* ── Sidebar ── */
+  .sidebar{width:240px;height:100vh;background:#0a0a0a;border-right:1px solid rgba(255,255,255,.05);position:fixed;top:0;left:0;padding:24px 16px;display:flex;flex-direction:column;z-index:50;transition:transform .3s ease}
+  .sidebar-brand{display:flex;align-items:center;gap:10px;padding:0 8px 20px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:16px}
+  .sidebar-brand .icon-wrap{width:36px;height:36px;border-radius:10px;background:linear-gradient(to top right,#06b6d4,#2563eb);box-shadow:0 4px 12px rgba(6,182,212,.3);display:flex;align-items:center;justify-content:center;font-size:16px}
+  .sidebar-brand h2{font-size:16px;font-weight:600;letter-spacing:-.02em;background:linear-gradient(to right,#fff,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .sidebar nav{flex:1;display:flex;flex-direction:column;gap:2px}
+  .sidebar a{display:flex;align-items:center;gap:10px;padding:10px 12px;color:#64748b;text-decoration:none;font-size:13px;border-radius:8px;transition:all .2s}
+  .sidebar a:hover{color:#fff;background:rgba(255,255,255,.04)}
+  .sidebar a.active{color:#22d3ee;background:rgba(34,211,238,.06)}
+  .sidebar a svg{width:18px;height:18px;flex-shrink:0;opacity:.7}
+  .sidebar a:hover svg,.sidebar a.active svg{opacity:1}
+  .sidebar-footer{padding-top:16px;border-top:1px solid rgba(255,255,255,.06)}
 
-  .sidebar {
-    width: 240px;
-    height: 100vh;
-    background: #0a0a0a;
-    border-right: 1px solid rgba(255,255,255,0.05);
-    position: fixed;
-    top: 0; left: 0;
-    padding: 24px 16px;
-    display: flex;
-    flex-direction: column;
-    z-index: 50;
-    transition: transform 0.3s ease;
-  }
+  /* ── Main ── */
+  .main-wrapper{margin-left:240px;min-height:100vh}
+  .topbar{position:sticky;top:0;z-index:40;padding:14px 32px;background:rgba(3,7,18,.8);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center}
+  .topbar-left{display:flex;align-items:center;gap:12px}
+  .mobile-menu-btn{display:none;background:none;border:none;color:#94a3b8;cursor:pointer}
+  .status-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#64748b}
+  .status-dot{width:6px;height:6px;border-radius:50%;background:#f59e0b}
+  .status-dot.online{background:#34d399;box-shadow:0 0 8px rgba(52,211,153,.5)}
+  .topbar-right{display:flex;align-items:center;gap:10px}
 
-  .sidebar-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 8px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    margin-bottom: 16px;
-  }
+  .btn-login{padding:7px 18px;border-radius:8px;background:0 0;border:1px solid rgba(255,255,255,.1);color:#e2e8f0;font-size:13px;font-weight:500;text-decoration:none;transition:all .2s;font-family:'Inter',sans-serif}
+  .btn-login:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#fff}
+  .btn-signup{padding:7px 18px;border-radius:8px;background:linear-gradient(to right,#0891b2,#2563eb);border:none;color:#fff;font-size:13px;font-weight:500;text-decoration:none;transition:all .2s;box-shadow:0 0 16px rgba(6,182,212,.2);font-family:'Inter',sans-serif}
+  .btn-signup:hover{box-shadow:0 0 24px rgba(6,182,212,.4);transform:translateY(-1px)}
+  .user-pill{display:none;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:13px;color:#cbd5e1;text-decoration:none}
+  .user-pill .avatar-fallback{width:26px;height:26px;border-radius:50%;background:linear-gradient(to top right,#06b6d4,#2563eb);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff}
+  .user-pill .avatar-img{width:26px;height:26px;border-radius:50%;object-fit:cover}
+  .btn-signout{display:none;padding:7px 18px;border-radius:8px;background:0 0;border:1px solid rgba(255,255,255,.1);color:#94a3b8;font-size:13px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
+  .btn-signout:hover{color:#f87171;border-color:rgba(248,113,113,.3)}
 
-  .sidebar-brand .icon-wrap {
-    width: 36px; height: 36px;
-    border-radius: 10px;
-    background: linear-gradient(to top right, #06b6d4, #2563eb);
-    box-shadow: 0 4px 12px rgb(6 182 212 / 0.3);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-  }
+  /* ── Content ── */
+  .content{padding:32px}
+  .hero-card{position:relative;background:linear-gradient(180deg,rgba(30,41,59,.4),rgba(15,23,42,.6));border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:48px 40px;margin-bottom:28px;overflow:hidden}
+  .hero-card::before{content:'';position:absolute;top:-60%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(6,182,212,.12),transparent 70%);filter:blur(60px);pointer-events:none}
+  .hero-card h1{font-size:28px;font-weight:500;line-height:1.2;letter-spacing:-.03em;margin-bottom:16px;position:relative;background:linear-gradient(to right,#fff,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .hero-card p{font-size:14px;font-weight:300;line-height:1.7;color:#94a3b8;max-width:620px;position:relative;margin-bottom:12px}
+  .hero-card .tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;position:relative}
+  .hero-tag{padding:5px 14px;border-radius:999px;font-size:11px;font-weight:500;letter-spacing:.02em;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#cbd5e1}
+  .hero-tag.cyan{border-color:rgba(34,211,238,.25);color:#22d3ee;background:rgba(34,211,238,.06)}
 
-  .sidebar-brand h2 {
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    background: linear-gradient(to right, #fff, #94a3b8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+  .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:28px}
+  .stat-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:20px;transition:all .3s}
+  .stat-card:hover{border-color:rgba(34,211,238,.2);transform:translateY(-2px)}
+  .stat-card .label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin-bottom:8px}
+  .stat-card .value{font-size:24px;font-weight:500;letter-spacing:-.02em;color:#fff}
+  .stat-card .sub{font-size:12px;color:#34d399;margin-top:4px}
 
-  .sidebar nav { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+  .section-title{font-size:16px;font-weight:500;letter-spacing:-.02em;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+  .section-title .dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(to top right,#06b6d4,#2563eb);box-shadow:0 0 8px rgba(6,182,212,.4)}
 
-  .sidebar a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    color: #64748b;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 400;
-    border-radius: 8px;
-    transition: all 0.2s;
-  }
+  .quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:28px}
+  .quick-card{position:relative;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:24px;text-decoration:none;color:#fff;transition:all .3s;overflow:hidden;display:flex;flex-direction:column;gap:12px}
+  .quick-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.03),transparent 50%);pointer-events:none}
+  .quick-card:hover{border-color:rgba(34,211,238,.25);transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.3)}
+  .quick-card .card-icon{width:40px;height:40px;border-radius:10px;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.15);display:flex;align-items:center;justify-content:center;font-size:18px}
+  .quick-card h3{font-size:14px;font-weight:500;letter-spacing:-.01em}
+  .quick-card p{font-size:12px;color:#64748b;font-weight:300;line-height:1.6}
 
-  .sidebar a:hover { color: #ffffff; background: rgba(255,255,255,0.04); }
-  .sidebar a.active { color: #22d3ee; background: rgba(34,211,238,0.06); }
-  .sidebar a svg { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.7; }
-  .sidebar a:hover svg, .sidebar a.active svg { opacity: 1; }
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .animate-in{animation:fadeUp .6s ease forwards;opacity:0}
+  .delay-1{animation-delay:.1s}.delay-2{animation-delay:.2s}.delay-3{animation-delay:.3s}.delay-4{animation-delay:.4s}
 
-  .sidebar-footer {
-    padding-top: 16px;
-    border-top: 1px solid rgba(255,255,255,0.06);
-  }
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:45}
 
-  .main-wrapper { margin-left: 240px; min-height: 100vh; }
-
-  .topbar {
-    position: sticky;
-    top: 0;
-    z-index: 40;
-    padding: 14px 32px;
-    background: rgba(3,7,18,0.8);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .topbar-left { display: flex; align-items: center; gap: 12px; }
-
-  .mobile-menu-btn {
-    display: none;
-    background: none; border: none; color: #94a3b8; cursor: pointer;
-  }
-
-  .status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    color: #64748b;
-    font-weight: 400;
-  }
-
-  .status-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #f59e0b;
-  }
-
-  .status-dot.online { background: #34d399; box-shadow: 0 0 8px rgba(52,211,153,0.5); }
-  .status-dot.offline { background: #64748b; }
-
-  .topbar-right { display: flex; align-items: center; gap: 10px; }
-
-  .btn-login {
-    padding: 7px 18px;
-    border-radius: 8px;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.1);
-    color: #e2e8f0;
-    font-size: 13px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.2s;
-    font-family: 'Inter', sans-serif;
-  }
-
-  .btn-login:hover {
-    background: rgba(255,255,255,0.08);
-    border-color: rgba(255,255,255,0.2);
-    color: #fff;
-  }
-
-  .btn-signup {
-    padding: 7px 18px;
-    border-radius: 8px;
-    background: linear-gradient(to right, #0891b2, #2563eb);
-    border: none;
-    color: #ffffff;
-    font-size: 13px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.2s;
-    box-shadow: 0 0 16px rgba(6,182,212,0.2);
-    font-family: 'Inter', sans-serif;
-  }
-
-  .btn-signup:hover {
-    box-shadow: 0 0 24px rgba(6,182,212,0.4);
-    transform: translateY(-1px);
-  }
-
-  .user-pill {
-    display: none;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 12px 6px 6px;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.06);
-    font-size: 13px;
-    color: #cbd5e1;
-    text-decoration: none;
-  }
-
-  .user-pill .avatar-fallback {
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    background: linear-gradient(to top right, #06b6d4, #2563eb);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 600; color: #fff;
-  }
-
-  .user-pill .avatar-img {
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
-  .btn-signout {
-    display: none;
-    padding: 7px 18px;
-    border-radius: 8px;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.1);
-    color: #94a3b8;
-    font-size: 13px;
-    font-weight: 400;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'Inter', sans-serif;
-  }
-
-  .btn-signout:hover { color: #f87171; border-color: rgba(248,113,113,0.3); }
-
-  .content { padding: 32px; }
-
-  .hero-card {
-    position: relative;
-    background: linear-gradient(180deg, rgba(30,41,59,0.4) 0%, rgba(15,23,42,0.6) 100%);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 16px;
-    padding: 48px 40px;
-    margin-bottom: 28px;
-    overflow: hidden;
-  }
-
-  .hero-card::before {
-    content: '';
-    position: absolute;
-    top: -60%; right: -20%;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%);
-    filter: blur(60px);
-    pointer-events: none;
-  }
-
-  .hero-card h1 {
-    font-size: 28px;
-    font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: -0.03em;
-    margin-bottom: 16px;
-    position: relative;
-    background: linear-gradient(to right, #fff, #94a3b8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .hero-card p {
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 1.7;
-    color: #94a3b8;
-    max-width: 620px;
-    position: relative;
-    margin-bottom: 12px;
-  }
-
-  .hero-card .tag-row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    position: relative;
-  }
-
-  .hero-tag {
-    padding: 5px 14px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    border: 1px solid rgba(255,255,255,0.08);
-    background: rgba(255,255,255,0.03);
-    color: #cbd5e1;
-    transition: all 0.2s;
-  }
-
-  .hero-tag.cyan {
-    border-color: rgba(34,211,238,0.25);
-    color: #22d3ee;
-    background: rgba(34,211,238,0.06);
-  }
-
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-
-  .stat-card {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 12px;
-    padding: 20px;
-    transition: all 0.3s;
-  }
-
-  .stat-card:hover {
-    border-color: rgba(34,211,238,0.2);
-    transform: translateY(-2px);
-  }
-
-  .stat-card .label {
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #64748b;
-    margin-bottom: 8px;
-  }
-
-  .stat-card .value {
-    font-size: 24px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    color: #fff;
-  }
-
-  .stat-card .sub {
-    font-size: 12px;
-    color: #34d399;
-    margin-top: 4px;
-    font-weight: 400;
-  }
-
-  .section-title {
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .section-title .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: linear-gradient(to top right, #06b6d4, #2563eb);
-    box-shadow: 0 0 8px rgba(6,182,212,0.4);
-  }
-
-  .quick-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-
-  .quick-card {
-    position: relative;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 12px;
-    padding: 24px;
-    text-decoration: none;
-    color: #fff;
-    transition: all 0.3s;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .quick-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 50%);
-    pointer-events: none;
-  }
-
-  .quick-card:hover {
-    border-color: rgba(34,211,238,0.25);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-  }
-
-  .quick-card .card-icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    background: rgba(34,211,238,0.08);
-    border: 1px solid rgba(34,211,238,0.15);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-  }
-
-  .quick-card h3 { font-size: 14px; font-weight: 500; letter-spacing: -0.01em; }
-  .quick-card p { font-size: 12px; color: #64748b; font-weight: 300; line-height: 1.6; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .animate-in { animation: fadeUp 0.6s ease forwards; opacity: 0; }
-  .delay-1 { animation-delay: 0.1s; }
-  .delay-2 { animation-delay: 0.2s; }
-  .delay-3 { animation-delay: 0.3s; }
-  .delay-4 { animation-delay: 0.4s; }
-
-  .sidebar-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    z-index: 45;
-  }
-
-  @media (max-width: 768px) {
-    .sidebar { transform: translateX(-100%); }
-    .sidebar.open { transform: translateX(0); }
-    .sidebar-overlay.open { display: block; }
-    .main-wrapper { margin-left: 0; }
-    .mobile-menu-btn { display: block; }
-    .content { padding: 20px; }
-    .hero-card { padding: 28px 20px; }
-    .hero-card h1 { font-size: 22px; }
-    .topbar { padding: 12px 16px; }
-    .topbar-right { gap: 6px; }
-    .btn-login, .btn-signup { padding: 6px 12px; font-size: 12px; }
+  @media(max-width:768px){
+    .sidebar{transform:translateX(-100%)}
+    .sidebar.open{transform:translateX(0)}
+    .sidebar-overlay.open{display:block}
+    .main-wrapper{margin-left:0}
+    .mobile-menu-btn{display:block}
+    .content{padding:20px}
+    .hero-card{padding:28px 20px}
+    .hero-card h1{font-size:22px}
+    .topbar{padding:12px 16px}
+    .topbar-right{gap:6px}
+    .btn-login,.btn-signup{padding:6px 12px;font-size:12px}
   }
 </style>
+</head>
+<body>
+
+<!-- Sidebar Overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="icon-wrap">⚡</div>
+    <h2>MMJ Academy</h2>
+  </div>
+  <nav>
+    <a href="#" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </a>
+    <a href="#courses">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      Courses
+    </a>
+    <a href="#downloads">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Downloads
+    </a>
+    <a href="#videos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Video Tutorials
+    </a>
+    <a href="#youtube">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.35 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+      YouTube Updates
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Settings
+    </a>
+  </div>
+</aside>
+
+<!-- Main Content -->
+<div class="main-wrapper">
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="mobile-menu-btn" id="menuBtn" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <span class="status-badge">
+        <span class="status-dot online" id="statusDot"></span>
+        <span id="statusText">All systems online</span>
+      </span>
+    </div>
+    <div class="topbar-right">
+      <a href="#login" class="btn-login" id="loginBtn">Log in</a>
+      <a href="#signup" class="btn-signup" id="signupBtn">Sign up free</a>
+      <a href="#" class="user-pill" id="userPill">
+        <span class="avatar-fallback" id="avatarFallback"></span>
+        <span id="userName"></span>
+      </a>
+      <button class="btn-signout" id="signoutBtn">Sign out</button>
+    </div>
+  </header>
+
+  <main class="content">
+    <!-- Hero -->
+    <div class="hero-card animate-in">
+      <h1>Welcome to MMJ Academy</h1>
+      <p>Your central hub for courses, premium downloads, video tutorials, and exclusive content — all designed to level up your skills.</p>
+      <p style="font-size:13px;color:#475569;">Sign in to unlock personalized access to all resources and track your progress.</p>
+      <div class="tag-row">
+        <span class="hero-tag cyan">36+ Resources</span>
+        <span class="hero-tag">Video Tutorials</span>
+        <span class="hero-tag">Premium Downloads</span>
+        <span class="hero-tag">Structured Courses</span>
+        <span class="hero-tag">YouTube Updates</span>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card animate-in delay-1">
+        <div class="label">Total Resources</div>
+        <div class="value">36+</div>
+        <div class="sub">Growing weekly</div>
+      </div>
+      <div class="stat-card animate-in delay-2">
+        <div class="label">Categories</div>
+        <div class="value">5</div>
+        <div class="sub">Courses · Downloads · Videos</div>
+      </div>
+      <div class="stat-card animate-in delay-3">
+        <div class="label">Free Content</div>
+        <div class="value">60%</div>
+        <div class="sub">No sign-in required</div>
+      </div>
+      <div class="stat-card animate-in delay-4">
+        <div class="label">Platform</div>
+        <div class="value">Web</div>
+        <div class="sub">All devices supported</div>
+      </div>
+    </div>
+
+    <!-- Quick Access -->
+    <div class="section-title"><span class="dot"></span> Quick Access</div>
+    <div class="quick-grid">
+      <a href="#courses" class="quick-card animate-in delay-1">
+        <div class="card-icon">📚</div>
+        <h3>Courses</h3>
+        <p>Structured learning paths from beginner to advanced across multiple topics.</p>
+      </a>
+      <a href="#downloads" class="quick-card animate-in delay-2">
+        <div class="card-icon">⬇️</div>
+        <h3>Downloads</h3>
+        <p>Premium templates, resources, and downloadable files ready to use.</p>
+      </a>
+      <a href="#videos" class="quick-card animate-in delay-3">
+        <div class="card-icon">🎬</div>
+        <h3>Video Tutorials</h3>
+        <p>Step-by-step video guides covering techniques and workflows.</p>
+      </a>
+      <a href="#youtube" class="quick-card animate-in delay-4">
+        <div class="card-icon">▶️</div>
+        <h3>YouTube Updates</h3>
+        <p>Latest video releases, channel updates, and behind-the-scenes content.</p>
+      </a>
+    </div>
+  </main>
+</div>
+
+<script>
+  // Mobile sidebar toggle
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const menuBtn = document.getElementById('menuBtn');
+  menuBtn?.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+  });
+  overlay?.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+  });
+
+  // Active nav link
+  document.querySelectorAll('.sidebar nav a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      document.querySelectorAll('.sidebar nav a').forEach(l => l.classList.remove('active'));
+      this.classList.add('active');
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>
