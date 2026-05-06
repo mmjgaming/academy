@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GRANNY — Meet Mabel</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+  <style>
+    :root {
+      --color-bg-main: #0a0a0a;
+      --color-bg-alt: #111111;
+      --color-text-primary: #ffffff;
+      --color-text-secondary: #a1a1aa;
+      --color-accent: #c05621;
+      --section-spacing: 160px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Geist', sans-serif;
+      background: var(--color-bg-main);
+      color: var(--color-text-primary);
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    .font-serif { font-family: 'Newsreader', serif; }
+
+    /* ── Reveal Animation ── */
+    @keyframes revealBlurSlide {
+      0% { opacity: 0; transform: translateY(40px) scale(0.98); filter: blur(12px); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0px); }
+    }
+    .reveal { opacity: 0; }
+    .reveal.active {
+      animation: revealBlurSlide 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .delay-100 { animation-delay: 100ms !important; }
+    .delay-200 { animation-delay: 200ms !important; }
+    .delay-300 { animation-delay: 300ms !important; }
+    .delay-400 { animation-delay: 400ms !important; }
+
+    /* ── Hero ── */
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://picsum.photos/seed/granny-warmth/1920/1080.jpg') center/cover no-repeat;
+      mix-blend-mode: soft-light;
+      filter: brightness(2);
+      opacity: 0.9;
+      mask-image: linear-gradient(to bottom, transparent, black 0%, black 80%, transparent);
+      -webkit-mask-image: linear-gradient(to bottom, transparent, black 0%, black 80%, transparent);
+    }
+
+    .hero-title {
+      font-size: clamp(7vw, 180px, 18vw);
+      font-weight: 700;
+      line-height: 0.85;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .hero-sub {
+      font-size: clamp(0.9rem, 1.2vw, 1.25rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    /* ── Floating Badge ── */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .float-badge {
+      animation: float 3s ease-in-out infinite;
+      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* ── About Image ── */
+    .about-image {
+      filter: grayscale(20%);
+      transition: filter 0.7s ease, transform 0.7s ease;
+    }
+    .about-image:hover {
+      filter: grayscale(0%);
+      transform: scale(1.03);
+    }
+
+    /* ── Beam Button ── */
+    .btn-beam {
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .btn-beam:hover {
+      transform: scale(1.02);
+      border-color: var(--color-accent);
+    }
+    .btn-beam::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 200%; height: 200%;
+      background: conic-gradient(from 0deg, transparent 0 340deg, white 360deg);
+      animation: beam-spin 3s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .btn-beam:hover::before { opacity: 1; }
+    .btn-beam::after {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      background: var(--color-bg-alt);
+      border-radius: inherit;
+      z-index: 0;
+    }
+    .btn-beam span { position: relative; z-index: 1; }
+
+    @keyframes beam-spin {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* ── Accent Button ── */
+    .btn-accent {
+      background: var(--color-accent);
+      color: #000;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 1.25rem 3.5rem;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 30px -5px var(--color-accent);
+    }
+    .btn-accent:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 50px -5px var(--color-accent);
+    }
+
+    /* ── Download Card ── */
+    .download-card {
+      background: var(--color-bg-alt);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 2.5rem;
+      transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .download-card:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px -15px rgba(192, 86, 33, 0.15);
+    }
+
+    /* ── Price Tag ── */
+    .price-free {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 9999px;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
+    }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      background: var(--color-bg-alt);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1rem 2rem;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ── Quote Marks ── */
+    .quote-mark {
+      font-size: 8rem;
+      line-height: 1;
+      color: var(--color-accent);
+      opacity: 0.15;
+      font-family: 'Newsreader', serif;
+    }
+
+    /* ── Trait Tags ── */
+    .trait-tag {
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+      transition: border-color 0.3s, color 0.3s;
+      cursor: default;
+    }
+    .trait-tag:hover {
+      border-color: var(--color-accent);
+      color: var(--color-text-primary);
+    }
+
+    /* ── Mobile Nav ── */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,10,0.97);
+      backdrop-filter: blur(20px);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobile-menu a {
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: #fff; }
+
+    /* ── Footer ── */
+    .footer-link {
+      color: #71717a;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .footer-link:hover {
+      color: white;
+      transform: translateX(5px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════ TOAST ════════ -->
+  <div class="toast" id="toast">
+    <p style="display:flex;align-items:center;gap:0.75rem;margin:0;">
+      <iconify-icon icon="solar:check-circle-linear" style="color:#22c55e;font-size:1.3rem;"></iconify-icon>
+      <span id="toast-msg" style="font-size:0.9rem;">Action completed</span>
+    </p>
+  </div>
+
+  <!-- ════════ MOBILE MENU ════════ -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="closeMobile()">About</a>
+    <a href="#traits" onclick="closeMobile()">Traits</a>
+    <a href="#buy" onclick="closeMobile()">Buy</a>
+    <a href="#download" onclick="closeMobile()">Download</a>
+    <button onclick="closeMobile()" style="background:none;border:1px solid rgba(255,255,255,0.1);color:#fff;padding:0.75rem 2rem;border-radius:9999px;cursor:pointer;margin-top:1rem;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;">Close</button>
+  </div>
+
+  <!-- ════════ NAV ════════ -->
+  <nav style="position:sticky;top:0;z-index:100;padding:1rem 5%;backdrop-filter:blur(8px);background:rgba(10,10,10,0.95);border-bottom:1px solid rgba(255,255,255,0.08);">
+    <div style="max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;">
+      <!-- Logo -->
+      <a href="#" style="text-decoration:none;display:flex;align-items:center;gap:0.6rem;">
+        <iconify-icon icon="solar:hand-heart-linear" style="color:var(--color-accent);font-size:1.5rem;"></iconify-icon>
+        <span style="font-size:1.1rem;font-weight:600;letter-spacing:-0.02em;color:#fff;">GRANNY</span>
+      </a>
+      <!-- Desktop Links -->
+      <div style="display:flex;align-items:center;gap:2.5rem;" class="desktop-nav">
+        <a href="#about" style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;color:#71717a;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#71717a'">About</a>
+        <a href="#traits" style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;color:#71717a;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#71717a'">Traits</a>
+        <a href="#buy" style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;color:#71717a;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#71717a'">Buy</a>
+        <a href="#download" style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;color:#71717a;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#71717a'">Download</a>
+      </div>
+      <!-- CTA + Mobile Toggle -->
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <a href="#buy" class="btn-accent desktop-nav" style="padding:0.65rem 1.8rem;font-size:0.75rem;text-decoration:none;display:inline-flex;">Get Granny</a>
+        <button id="menuToggle" onclick="toggleMobile()" style="display:none;background:none;border:1px solid rgba(255,255,255,0.1);color:#fff;width:44px;height:44px;border-radius:8px;cursor:pointer;align-items:center;justify-content:center;">
+          <iconify-icon icon="solar:hamburger-menu-linear" style="font-size:1.2rem;"></iconify-icon>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ════════ HERO ════════ -->
+  <section style="position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 5% 60px;overflow:hidden;">
+    <div class="hero-bg"></div>
+
+    <!-- Floating Badge -->
+    <div class="float-badge reveal active" style="position:absolute;top:22%;right:12%;padding:0.6rem 1.2rem;border-radius:9999px;display:flex;align-items:center;gap:0.5rem;z-index:2;" id="floatBadge">
+      <iconify-icon icon="solar:star-linear" style="color:var(--color-accent);font-size:0.9rem;"></iconify-icon>
+      <span style="font-size:0.8rem;color:rgba(255,255,255,0.7);letter-spacing:0.05em;">Character of the Year</span>
+    </div>
+
+    <div style="text-align:center;position:relative;z-index:2;">
+      <p class="hero-sub reveal active delay-100" style="margin-bottom:1.5rem;">A Story of Warmth & Mystery</p>
+      <h1 class="hero-title reveal active delay-200">Granny</h1>
+      <p class="reveal active delay-300" style="margin-top:2rem;font-size:1.25rem;font-weight:300;color:rgba(255,255,255,0.5);max-width:500px;margin-left:auto;margin-right:auto;line-height:1.7;">
+        She never forgot anything. And she had <em style="color:var(--color-accent);font-style:normal;font-weight:500;">secrets</em>.
+      </p>
+      <div class="reveal active delay-400" style="margin-top:3rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="#about" class="btn-beam" style="border-radius:9999px;padding:1rem 2.5rem;text-decoration:none;">
+          <span style="display:flex;align-items:center;gap:0.6rem;font-size:0.85rem;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:#fff;">
+            Discover Her Story
+            <iconify-icon icon="solar:arrow-right-down-linear" style="font-size:1rem;"></iconify-icon>
+          </span>
+        </a>
+        <a href="#buy" class="btn-accent" style="padding:1rem 2.5rem;font-size:0.85rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;">
+          Play Free
+          <iconify-icon icon="solar:download-linear" style="font-size:1rem;"></iconify-icon>
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div style="position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0.4;">
+      <span style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.2em;">Scroll</span>
+      <div style="width:1px;height:40px;background:linear-gradient(to bottom, #fff, transparent);"></div>
+    </div>
+  </section>
+
+  <!-- ════════ ABOUT ════════ -->
+  <section id="about" style="padding:var(--section-spacing) 5%;">
+    <div style="max-width:1600px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;" class="about-grid">
+
+      <!-- Image Side -->
+      <div class="reveal" style="position:relative;">
+        <div style="border-radius:12px;overflow:hidden;aspect-ratio:4/5;">
+          <img src="https://picsum.photos/seed/granny-mabel-portrait/800/1000.jpg" alt="Granny Mabel Portrait" class="about-image" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <!-- Overlay Quote -->
+        <div style="position:absolute;bottom:-30px;right:-20px;background:var(--color-bg-alt);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.5rem 2rem;max-width:280px;backdrop-filter:blur(8px);">
+          <p style="font-size:0.95rem;font-weight:400;line-height:1.6;color:rgba(255,255,255,0.8);">
+            "Her eyes missed nothing, especially mischief."
+          </p>
+        </div>
+      </div>
+
+      <!-- Text Side -->
+      <div>
+        <div class="reveal" style="margin-bottom:2rem;">
+          <span style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.25em;color:var(--color-accent);font-weight:600;">About</span>
+        </div>
+        <h2 class="font-serif reveal delay-100" style="font-size:clamp(2.5rem, 5vw, 4.5rem);font-weight:400;line-height:1.1;margin-bottom:2.5rem;">
+          Meet Granny<br>Mabel
+        </h2>
+        <div class="reveal delay-200" style="display:flex;flex-direction:column;gap:1.75rem;">
+          <p style="font-size:1.25rem;font-weight:300;line-height:1.8;color:rgba(255,255,255,0.7);">
+            Granny Mabel was the kind of woman whose presence warmed a room like fresh bread straight from the oven. Her silver hair, always tied in a loose bun, framed a face full of gentle wrinkles—each one a souvenir from a lifetime of laughter, worry, and wisdom.
+          </p>
+          <p style="font-size:1.25rem;font-weight:300;line-height:1.8;color:rgba(255,255,255,0.7);">
+            Her eyes, sharp as ever behind round spectacles, missed nothing, especially mischief. She wore floral aprons like armor and wielded a wooden spoon with the authority of a queen. Children adored her stories, always told by the hearth with a cup of cocoa in hand.
+          </p>
+          <p style="font-size:1.25rem;font-weight:400;line-height:1.8;color:var(--color-accent);">
+            But behind her soft voice and generous smile lay a mind sharper than most—Granny Mabel had secrets, and she never forgot anything.
+          </p>
+        </div>
+
+        <!-- Traits -->
+        <div id="traits" class="reveal delay-300" style="margin-top:3rem;display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <span class="trait-tag">Warm-hearted</span>
+          <span class="trait-tag">Sharp Mind</span>
+          <span class="trait-tag">Storyteller</span>
+          <span class="trait-tag">Keeper of Secrets</span>
+          <span class="trait-tag">Unforgettable</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="margin:0 5%;"></div>
+
+  <!-- ════════ FEATURES ════════ -->
+  <section style="padding:var(--section-spacing) 5%;">
+    <div style="max-width:1600px;margin:0 auto;">
+
+      <div style="text-align:center;margin-bottom:5rem;">
+        <span class="reveal" style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.25em;color:var(--color-accent);font-weight:600;">What Makes Her Special</span>
+        <h2 class="font-serif reveal delay-100" style="font-size:clamp(2.5rem, 5vw, 4.5rem);font-weight:400;line-height:1.1;margin-top:1rem;">
+          More Than Just a Granny
+        </h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px;" class="features-grid">
+        <!-- Feature 1 -->
+        <div class="reveal download-card" style="padding:3rem;">
+          <div style="width:56px;height:56px;border-radius:12px;background:rgba(192,86,33,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:2rem;">
+            <iconify-icon icon="solar:fire-linear" style="color:var(--color-accent);font-size:1.5rem;"></iconify-icon>
+          </div>
+          <h3 style="font-size:1.4rem;font-weight:600;margin-bottom:1rem;letter-spacing:-0.02em;">Warming Presence</h3>
+          <p style="font-size:1.05rem;font-weight:300;line-height:1.7;color:var(--color-text-secondary);">
+            Like fresh bread from the oven — her warmth fills every room she enters, making everyone feel at home.
+          </p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="reveal delay-100 download-card" style="padding:3rem;">
+          <div style="width:56px;height:56px;border-radius:12px;background:rgba(192,86,33,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:2rem;">
+            <iconify-icon icon="solar:eye-linear" style="color:var(--color-accent);font-size:1.5rem;"></iconify-icon>
+          </div>
+          <h3 style="font-size:1.4rem;font-weight:600;margin-bottom:1rem;letter-spacing:-0.02em;">Nothing Escapes Her</h3>
+          <p style="font-size:1.05rem;font-weight:300;line-height:1.7;color:var(--color-text-secondary);">
+            Sharp eyes behind round spectacles — she sees every hidden smile, every stolen cookie, every whispered secret.
+          </p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="reveal delay-200 download-card" style="padding:3rem;">
+          <div style="width:56px;height:56px;border-radius:12px;background:rgba(192,86,33,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:2rem;">
+            <iconify-icon icon="solar:lock-linear" style="color:var(--color-accent);font-size:1.5rem;"></iconify-icon>
+          </div>
+          <h3 style="font-size:1.4rem;font-weight:600;margin-bottom:1rem;letter-spacing:-0.02em;">Hidden Depths</h3>
+          <p style="font-size:1.05rem;font-weight:300;line-height:1.7;color:var(--color-text-secondary);">
+            Behind the cocoa and hearth stories lies a mind sharper than most. She has secrets — and never forgets anything.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="margin:0 5%;"></div>
+
+  <!-- ════════ QUOTE ════════ -->
+  <section style="padding:var(--section-spacing) 5%;position:relative;">
+    <div style="max-width:900px;margin:0 auto;text-align:center;position:relative;">
+      <span class="quote-mark reveal" style="position:absolute;top:-3rem;left:50%;transform:translateX(-50%);">"</span>
+      <blockquote class="font-serif reveal delay-100" style="font-size:clamp(1.8rem, 3.5vw, 3rem);font-weight:400;line-height:1.3;color:rgba(255,255,255,0.85);position:relative;z-index:1;">
+        She wielded a wooden spoon with the authority of a queen — and everyone in the kingdom knew it.
+      </blockquote>
+      <p class="reveal delay-200" style="margin-top:2rem;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--color-text-secondary);">— The Children of Mabel's Street</p>
+    </div>
+  </section>
+
+  <div class="divider" style="margin:0 5%;"></div>
+
+  <!-- ════════ BUY ════════ -->
+  <section id="buy" style="padding:var(--section-spacing) 5%;">
+    <div style="max-width:1600px;margin:0 auto;">
+
+      <div style="text-align:center;margin-bottom:5rem;">
+        <span class="reveal" style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.25em;color:var(--color-accent);font-weight:600;">Get The Game</span>
+        <h2 class="font-serif reveal delay-100" style="font-size:clamp(2.5rem, 5vw, 4.5rem);font-weight:400;line-height:1.1;margin-top:1rem;">
+          Bring Granny Home
+        </h2>
+      </div>
+
+      <!-- Pricing Card -->
+      <div class="reveal delay-200" style="max-width:600px;margin:0 auto;">
+        <div class="download-card" style="text-align:center;padding:4rem 3rem;position:relative;overflow:hidden;">
+          <!-- Glow -->
+          <div style="position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:400px;height:400px;background:radial-gradient(circle, rgba(192,86,33,0.08), transparent 70%);pointer-events:none;"></div>
+
+          <div style="position:relative;z-index:1;">
+            <span class="price-free" style="display:inline-block;margin-bottom:1.5rem;">Free</span>
+            <h3 style="font-size:2rem;font-weight:600;margin-bottom:0.5rem;letter-spacing:-0.02em;">Granny Mabel</h3>
+            <p style="font-size:1.05rem;color:var(--color-text-secondary);margin-bottom:2.5rem;line-height:1.6;">
+              Experience the warmth, uncover the secrets, and listen to her stories by the hearth.
+            </p>
+
+            <div style="display:flex;flex-direction:column;gap:0.75rem;text-align:left;margin-bottom:3rem;padding:0 1rem;">
+              <div style="display:flex;align-items:center;gap:0.75rem;">
+                <iconify-icon icon="solar:check-circle-linear" style="color:#22c55e;font-size:1.2rem;flex-shrink:0;"></iconify-icon>
+                <span style="font-size:0.95rem;color:rgba(255,255,255,0.7);">Full character storyline</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.75rem;">
+                <iconify-icon icon="solar:check-circle-linear" style="color:#22c55e;font-size:1.2rem;flex-shrink:0;"></iconify-icon>
+                <span style="font-size:0.95rem;color:rgba(255,255,255,0.7);">Hearth-side story mode</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.75rem;">
+                <iconify-icon icon="solar:check-circle-linear" style="color:#22c55e;font-size:1.2rem;flex-shrink:0;"></iconify-icon>
+                <span style="font-size:0.95rem;color:rgba(255,255,255,0.7);">Unlock Mabel's hidden secrets</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.75rem;">
+                <iconify-icon icon="solar:check-circle-linear" style="color:#22c55e;font-size:1.2rem;flex-shrink:0;"></iconify-icon>
+                <span style="font-size:0.95rem;color:rgba(255,255,255,0.7);">Future updates included</span>
+              </div>
+            </div>
+
+            <button class="btn-accent" style="width:100%;display:flex;align-items:center;justify-content:center;gap:0.6rem;" onclick="showToast('Granny Mabel added to your library!')">
+              <iconify-icon icon="solar:download-linear" style="font-size:1.1rem;"></iconify-icon>
+              Get Granny — Free
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" style="margin:0 5%;"></div>
+
+  <!-- ════════ DOWNLOAD ════════ -->
+  <section id="download" style="padding:var(--section-spacing) 5%;">
+    <div style="max-width:1600px;margin:0 auto;">
+
+      <div style="text-align:center;margin-bottom:5rem;">
+        <span class="reveal" style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.25em;color:var(--color-accent);font-weight:600;">Download</span>
+        <h2 class="font-serif reveal delay-100" style="font-size:clamp(2.5rem, 5vw, 4.5rem);font-weight:400;line-height:1.1;margin-top:1rem;">
+          Choose Your Platform
+        </h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:40px;max-width:800px;margin:0 auto;" class="download-grid">
+        <!-- PC -->
+        <div class="reveal download-card" style="display:flex;flex-direction:column;align-items:center;text-align:center;cursor:pointer;" onclick="showToast('Downloading Granny for PC...')">
+          <div style="width:72px;height:72px;border-radius:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;">
+            <iconify-icon icon="solar:laptop-linear" style="color:#fff;font-size:2rem;"></iconify-icon>
+          </div>
+          <h3 style="font-size:1.5rem;font-weight:600;margin-bottom:0.5rem;">PC</h3>
+          <p style="font-size:0.9rem;color:var(--color-text-secondary);margin-bottom:2rem;line-height:1.6;">Windows & macOS</p>
+          <div class="btn-beam" style="border-radius:9999px;padding:0.8rem 2rem;">
+            <span style="display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:#fff;">
+              <iconify-icon icon="solar:download-linear" style="font-size:1rem;"></iconify-icon>
+              Download
+            </span>
+          </div>
+        </div>
+
+        <!-- Mobile -->
+        <div class="reveal delay-100 download-card" style="display:flex;flex-direction:column;align-items:center;text-align:center;cursor:pointer;" onclick="showToast('Searching for mobile download links...')">
+          <div style="width:72px;height:72px;border-radius:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;">
+            <iconify-icon icon="solar:smartphone-linear" style="color:#fff;font-size:2rem;"></iconify-icon>
+          </div>
+          <h3 style="font-size:1.5rem;font-weight:600;margin-bottom:0.5rem;">Mobile</h3>
+          <p style="font-size:0.9rem;color:var(--color-text-secondary);margin-bottom:2rem;line-height:1.6;">iOS & Android</p>
+          <div class="btn-beam" style="border-radius:9999px;padding:0.8rem 2rem;">
+            <span style="display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:#fff;">
+              <iconify-icon icon="solar:magnifer-linear" style="font-size:1rem;"></iconify-icon>
+              Find Links
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer style="padding:6rem 5% 3rem;border-top:1px solid rgba(255,255,255,0.05);">
+    <div style="max-width:1600px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px;margin-bottom:4rem;" class="footer-grid">
+
+        <!-- Brand -->
+        <div>
+          <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1.5rem;">
+            <iconify-icon icon="solar:hand-heart-linear" style="color:var(--color-accent);font-size:1.5rem;"></iconify-icon>
+            <span style="font-size:1.1rem;font-weight:600;letter-spacing:-0.02em;">GRANNY</span>
+          </div>
+          <p style="font-size:0.95rem;color:#71717a;line-height:1.7;max-width:300px;">
+            A character-driven experience about warmth, wisdom, and the secrets we keep.
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <h4 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.15em;color:#fff;font-weight:600;margin-bottom:1.5rem;">Game</h4>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <a href="#about" class="footer-link">About</a>
+            <a href="#buy" class="footer-link">Pricing</a>
+            <a href="#download" class="footer-link">Download</a>
+          </div>
+        </div>
+        <div>
+          <h4 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.15em;color:#fff;font-weight:600;margin-bottom:1.5rem;">Community</h4>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <a href="#" class="footer-link" onclick="event.preventDefault();showToast('Discord coming soon!')">Discord</a>
+            <a href="#" class="footer-link" onclick="event.preventDefault();showToast('Twitter coming soon!')">Twitter</a>
+            <a href="#" class="footer-link" onclick="event.preventDefault();showToast('Newsletter coming soon!')">Newsletter</a>
+          </div>
+        </div>
+        <div>
+          <h4 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.15em;color:#fff;font-weight:600;margin-bottom:1.5rem;">Legal</h4>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <a href="#" class="footer-link" onclick="event.preventDefault();">Privacy</a>
+            <a href="#" class="footer-link" onclick="event.preventDefault();">Terms</a>
+            <a href="#" class="footer-link" onclick="event.preventDefault();">Support</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider" style="margin-bottom:2rem;"></div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+        <p style="font-size:0.8rem;color:#52525b;">© 2025 Granny Mabel. All rights reserved.</p>
+        <p style="font-size:0.8rem;color:#52525b;">Made with <iconify-icon icon="solar:heart-linear" style="color:var(--color-accent);font-size:0.85rem;vertical-align:middle;"></iconify-icon> and a wooden spoon.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ════════ JS ════════ -->
+  <script>
+    // ── Intersection Observer for Reveals ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -100px 0px', threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── Mobile Menu ──
+    function toggleMobile() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+    function closeMobile() {
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
+
+    // ── Toast ──
+    let toastTimer;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // ── Responsive: show/hide mobile toggle ──
+    function handleResize() {
+      const w = window.innerWidth;
+      const toggle = document.getElementById('menuToggle');
+      const desktopNav = document.querySelectorAll('.desktop-nav');
+
+      if (w <= 900) {
+        toggle.style.display = 'flex';
+        desktopNav.forEach(el => el.style.display = 'none');
+      } else {
+        toggle.style.display = 'none';
+        desktopNav.forEach(el => el.style.display = '');
+        closeMobile();
+      }
+
+      // Grid adjustments
+      const aboutGrid = document.querySelector('.about-grid');
+      if (aboutGrid) {
+        aboutGrid.style.gridTemplateColumns = w <= 900 ? '1fr' : '1fr 1.2fr';
+        aboutGrid.style.gap = w <= 900 ? '40px' : '80px';
+      }
+
+      const featuresGrid = document.querySelector('.features-grid');
+      if (featuresGrid) {
+        featuresGrid.style.gridTemplateColumns = w <= 900 ? '1fr' : 'repeat(3,1fr)';
+      }
+
+      const downloadGrid = document.querySelector('.download-grid');
+      if (downloadGrid) {
+        downloadGrid.style.gridTemplateColumns = w <= 600 ? '1fr' : 'repeat(2,1fr)';
+      }
+
+      const footerGrid = document.querySelector('.footer-grid');
+      if (footerGrid) {
+        footerGrid.style.gridTemplateColumns = w <= 900 ? '1fr 1fr' : '1.3fr 1fr 1fr 1fr';
+      }
+
+      // Float badge position
+      const badge = document.getElementById('floatBadge');
+      if (badge) {
+        badge.style.position = w <= 900 ? 'relative' : 'absolute';
+        badge.style.top = w <= 900 ? '0' : '22%';
+        badge.style.right = w <= 900 ? 'auto' : '12%';
+        badge.style.marginBottom = w <= 900 ? '1rem' : '0';
+      }
+    }
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+  </script>
+</body>
+</html>
