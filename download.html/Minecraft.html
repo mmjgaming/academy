@@ -3,16 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minecraft - MMJ Academy</title>
-<meta name="description" content="Download Minecraft Java Edition and Bedrock Edition for PC and Mobile. Free downloads available from MMJ Academy.">
-<meta name="keywords" content="Minecraft download, Minecraft Java Edition, Minecraft Bedrock Edition, free Minecraft PC, free Minecraft mobile, MMJ Academy">
+<title>Minecraft - Download - MMJ Academy</title>
+<meta name="description" content="Download Minecraft for free on PC (Java Edition) and Mobile (Java & Bedrock Edition) from MMJ Academy.">
+<meta name="keywords" content="Minecraft download, Minecraft Java Edition, Minecraft Bedrock Edition, free Minecraft, MMJ Academy">
 <meta name="author" content="MMJ Gaming">
 <meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mmjgaming.github.io/academy/download.html/Minecraft">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mmjgaming.github.io/academy/download.html/Minecraft">
+<meta property="og:title" content="Minecraft - Free Download - MMJ Academy">
+<meta property="og:description" content="Download Minecraft Java and Bedrock Edition for PC and Mobile for free.">
+<meta property="og:image" content="https://mmjgaming.github.io/academy/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Minecraft",
+  "applicationCategory": "Game",
+  "operatingSystem": "Windows, macOS, Linux, Android, iOS",
+  "offers": [
+    { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free download - Java Edition PC" },
+    { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free download - Java Edition Mobile" },
+    { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free download - Bedrock Edition Mobile" }
+  ],
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "MMJ Academy",
+    "url": "https://mmjgaming.github.io/academy/index.html"
+  }
+}
+</script>
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,163 +77,112 @@
 
   .content { padding: 32px; max-width: 900px; }
 
-  /* ── Back link ── */
-  .back-link { display: inline-flex; align-items: center; gap: 8px; color: #64748b; font-size: 13px; text-decoration: none; margin-bottom: 28px; transition: color .2s; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: #64748b; text-decoration: none; font-size: 13px; font-weight: 400; margin-bottom: 28px; transition: color .2s; }
   .back-link:hover { color: #22d3ee; }
   .back-link svg { width: 16px; height: 16px; transition: transform .2s; }
   .back-link:hover svg { transform: translateX(-3px); }
 
-  /* ── Hero banner ── */
-  .hero-banner {
-    position: relative;
-    border-radius: 20px;
-    padding: 48px 40px;
-    margin-bottom: 40px;
-    overflow: hidden;
-    background: rgba(255,255,255,.02);
-    border: 1px solid rgba(255,255,255,.06);
-  }
-  .hero-banner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(74,124,63,.15) 0%, rgba(45,80,22,.08) 40%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-banner::after {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 300px; height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(74,124,63,.2), transparent 70%);
-    pointer-events: none;
-  }
-  .hero-inner { position: relative; z-index: 1; display: flex; align-items: center; gap: 32px; }
-  .hero-icon {
-    width: 88px; height: 88px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, #4a7c3f, #2d5016);
-    border: 1px solid rgba(74,124,63,.4);
-    box-shadow: 0 8px 32px rgba(74,124,63,.3);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    overflow: hidden;
-  }
-  .hero-icon svg { width: 52px; height: 52px; position: relative; z-index: 1; }
-  .hero-text h1 { font-size: 32px; font-weight: 500; letter-spacing: -.03em; margin-bottom: 8px; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .hero-text .hero-subtitle { font-size: 14px; color: #64748b; font-weight: 300; line-height: 1.7; max-width: 500px; }
-  .hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; border-radius: 999px; font-size: 11px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; background: rgba(74,124,63,.12); border: 1px solid rgba(74,124,63,.25); color: #6ee756; margin-bottom: 12px; }
+  /* ── Hero ── */
+  .dl-hero { position: relative; border-radius: 20px; overflow: hidden; margin-bottom: 40px; border: 1px solid rgba(74,124,63,.15); background: rgba(74,124,63,.03); }
+  .dl-hero-bg { position: absolute; inset: 0; opacity: .15; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='30' height='30' fill='%234a7c3f' opacity='.3'/%3E%3Crect x='30' y='0' width='30' height='30' fill='%236b4f12' opacity='.2'/%3E%3Crect x='0' y='30' width='30' height='30' fill='%236b4f12' opacity='.2'/%3E%3Crect x='30' y='30' width='30' height='30' fill='%234a7c3f' opacity='.3'/%3E%3C/svg%3E"); background-size: 60px 60px; }
+  .dl-hero-glow { position: absolute; top: -60%; right: -30%; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(74,124,63,.12), transparent 70%); pointer-events: none; }
+  .dl-hero-content { position: relative; z-index: 1; padding: 40px; display: flex; align-items: center; gap: 28px; }
+  .dl-hero-icon { width: 90px; height: 90px; border-radius: 20px; background: linear-gradient(135deg, #4a7c3f, #2d5016); border: 1px solid rgba(74,124,63,.3); box-shadow: 0 8px 32px rgba(74,124,63,.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .dl-hero-icon svg { width: 52px; height: 52px; }
+  .dl-hero-text h1 { font-size: 32px; font-weight: 500; letter-spacing: -.03em; margin-bottom: 6px; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .dl-hero-text .dl-hero-cat { font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: #6ee756; margin-bottom: 10px; }
+  .dl-hero-text p { font-size: 14px; color: #64748b; font-weight: 300; line-height: 1.7; max-width: 500px; }
 
-  /* ── Section styles ── */
+  /* ── Section label ── */
   .section-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; color: #475569; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
   .section-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.05); }
 
-  .about-section { margin-bottom: 40px; }
-  .about-card {
+  /* ── About ── */
+  .about-section { margin-bottom: 44px; }
+  .about-section h2 { font-size: 20px; font-weight: 500; letter-spacing: -.02em; margin-bottom: 20px; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .about-text { font-size: 14px; color: #94a3b8; font-weight: 300; line-height: 1.85; }
+  .about-text p { margin-bottom: 16px; }
+  .about-text p:last-child { margin-bottom: 0; }
+  .about-text strong { color: #e2e8f0; font-weight: 500; }
+
+  .mode-list { list-style: none; margin: 16px 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .mode-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #94a3b8; font-weight: 300; line-height: 1.6; }
+  .mode-list li .mode-dot { width: 6px; height: 6px; border-radius: 2px; background: #6ee756; margin-top: 7px; flex-shrink: 0; box-shadow: 0 0 6px rgba(110,231,86,.3); }
+  .mode-list li strong { color: #e2e8f0; font-weight: 500; }
+
+  /* ── Download cards ── */
+  .dl-section { margin-bottom: 44px; }
+  .dl-section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .dl-section-header .free-badge { padding: 4px 12px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: rgba(110,231,86,.08); border: 1px solid rgba(110,231,86,.2); color: #6ee756; }
+  .dl-section-header .buy-badge { padding: 4px 12px; border-radius: 999px; font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: rgba(251,191,36,.08); border: 1px solid rgba(251,191,36,.2); color: #fbbf24; }
+  .dl-section-header h2 { font-size: 20px; font-weight: 500; letter-spacing: -.02em; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  .dl-options { display: flex; flex-direction: column; gap: 14px; }
+
+  .dl-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 28px;
+    border-radius: 14px;
     background: rgba(255,255,255,.02);
     border: 1px solid rgba(255,255,255,.06);
-    border-radius: 16px;
-    padding: 32px;
-  }
-  .about-card h2 { font-size: 20px; font-weight: 500; letter-spacing: -.02em; margin-bottom: 20px; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .about-card p { font-size: 14px; color: #94a3b8; font-weight: 300; line-height: 1.85; margin-bottom: 16px; }
-  .about-card p:last-child { margin-bottom: 0; }
-
-  /* ── Modes list ── */
-  .modes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 20px; }
-  .mode-card {
-    background: rgba(255,255,255,.02);
-    border: 1px solid rgba(255,255,255,.06);
-    border-radius: 12px;
-    padding: 20px;
-    transition: all .3s;
-  }
-  .mode-card:hover { border-color: rgba(74,124,63,.25); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
-  .mode-card h4 { font-size: 14px; font-weight: 500; margin-bottom: 6px; color: #e2e8f0; }
-  .mode-card p { font-size: 12px; color: #64748b; font-weight: 300; line-height: 1.7; }
-
-  /* ── Download sections ── */
-  .download-section { margin-bottom: 40px; }
-  .download-block {
-    background: rgba(255,255,255,.02);
-    border: 1px solid rgba(255,255,255,.06);
-    border-radius: 16px;
-    padding: 32px;
-    margin-top: 16px;
-  }
-  .download-block h3 { font-size: 18px; font-weight: 500; letter-spacing: -.02em; margin-bottom: 20px; color: #e2e8f0; }
-  .download-block h3 .free-tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 999px; font-size: 10px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; background: rgba(52,211,153,.1); border: 1px solid rgba(52,211,153,.2); color: #34d399; margin-left: 10px; vertical-align: middle; }
-  .download-block h3 .buy-tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 999px; font-size: 10px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; background: rgba(251,191,36,.1); border: 1px solid rgba(251,191,36,.2); color: #fbbf24; margin-left: 10px; vertical-align: middle; }
-
-  .dl-list { display: flex; flex-direction: column; gap: 12px; }
-  .dl-item {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 20px;
-    background: rgba(255,255,255,.02);
-    border: 1px solid rgba(255,255,255,.06);
-    border-radius: 12px;
-    transition: all .3s;
-  }
-  .dl-item:hover { border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.04); }
-  .dl-item-left { display: flex; align-items: center; gap: 14px; }
-  .dl-item-icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .dl-item-icon svg { width: 20px; height: 20px; }
-  .dl-item-info h4 { font-size: 13px; font-weight: 500; color: #e2e8f0; margin-bottom: 2px; }
-  .dl-item-info span { font-size: 11px; color: #64748b; font-weight: 300; }
-  .dl-item-platform { font-size: 11px; color: #64748b; font-weight: 300; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.05); }
-
-  .dl-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 8px 20px;
-    border-radius: 8px;
-    font-size: 12px; font-weight: 500;
     text-decoration: none;
-    transition: all .25s;
-    font-family: 'Inter', sans-serif;
-    cursor: pointer;
-    border: none;
-  }
-  .dl-btn svg { width: 14px; height: 14px; }
-  .dl-btn-free {
-    background: linear-gradient(to right, #059669, #10b981);
     color: #fff;
-    box-shadow: 0 0 16px rgba(16,185,129,.2);
+    transition: all .35s cubic-bezier(.4,0,.2,1);
+    overflow: hidden;
   }
-  .dl-btn-free:hover { box-shadow: 0 0 24px rgba(16,185,129,.4); transform: translateY(-1px); }
-  .dl-btn-buy {
-    background: linear-gradient(to right, #0891b2, #2563eb);
-    color: #fff;
-    box-shadow: 0 0 16px rgba(6,182,212,.2);
-  }
-  .dl-btn-buy:hover { box-shadow: 0 0 24px rgba(6,182,212,.4); transform: translateY(-1px); }
 
-  /* ── Platform colors ── */
-  .platform-pc .dl-item-icon { background: linear-gradient(135deg, #4a7c3f, #2d5016); border: 1px solid rgba(74,124,63,.3); }
-  .platform-pc .dl-item-icon svg { color: #6ee756; }
-  .platform-mobile .dl-item-icon { background: linear-gradient(135deg, #1e40af, #1e3a5f); border: 1px solid rgba(30,64,175,.3); }
-  .platform-mobile .dl-item-icon svg { color: #60a5fa; }
+  .dl-option::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(74,124,63,.04) 0%, transparent 50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .35s;
+  }
+
+  .dl-option:hover { border-color: rgba(74,124,63,.25); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,.3); }
+  .dl-option:hover::before { opacity: 1; }
+
+  .dl-option-buy:hover { border-color: rgba(251,191,36,.2); }
+  .dl-option-buy::before { background: linear-gradient(90deg, rgba(251,191,36,.04) 0%, transparent 50%); }
+
+  .dl-option-left { display: flex; align-items: center; gap: 16px; position: relative; z-index: 1; }
+  .dl-option-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .dl-option-icon.green { background: rgba(74,124,63,.12); border: 1px solid rgba(74,124,63,.2); }
+  .dl-option-icon.amber { background: rgba(251,191,36,.08); border: 1px solid rgba(251,191,36,.15); }
+  .dl-option-icon svg { width: 22px; height: 22px; }
+  .dl-option-info h3 { font-size: 14px; font-weight: 500; letter-spacing: -.01em; margin-bottom: 3px; }
+  .dl-option-info span { font-size: 12px; color: #64748b; font-weight: 300; }
+
+  .dl-option-right { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .dl-option-tag { padding: 4px 12px; border-radius: 999px; font-size: 10px; font-weight: 500; letter-spacing: .03em; border: 1px solid rgba(255,255,255,.06); background: rgba(255,255,255,.02); color: #94a3b8; }
+  .dl-option-tag.free { color: #6ee756; border-color: rgba(110,231,86,.15); background: rgba(110,231,86,.04); }
+  .dl-option-tag.paid { color: #fbbf24; border-color: rgba(251,191,36,.15); background: rgba(251,191,36,.04); }
+
+  .dl-option-arrow {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.06);
+    display: flex; align-items: center; justify-content: center;
+    transition: all .3s;
+  }
+  .dl-option-arrow svg { width: 16px; height: 16px; color: #64748b; transition: all .3s; }
+  .dl-option:hover .dl-option-arrow { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.12); }
+  .dl-option:hover .dl-option-arrow svg { color: #fff; transform: translateX(2px); }
 
   /* ── Divider ── */
-  .section-divider { height: 1px; background: rgba(255,255,255,.05); margin: 40px 0; }
+  .section-divider { height: 1px; background: linear-gradient(to right, transparent, rgba(255,255,255,.06), transparent); margin: 40px 0; }
 
-  /* ── Bottom CTA ── */
-  .bottom-cta {
-    text-align: center;
-    padding: 40px 32px;
-    background: rgba(255,255,255,.02);
-    border: 1px solid rgba(255,255,255,.06);
-    border-radius: 16px;
-    margin-top: 40px;
-  }
-  .bottom-cta h3 { font-size: 18px; font-weight: 500; letter-spacing: -.02em; margin-bottom: 8px; color: #e2e8f0; }
-  .bottom-cta p { font-size: 13px; color: #64748b; font-weight: 300; margin-bottom: 20px; line-height: 1.7; }
-  .bottom-cta .dl-btn { padding: 10px 28px; font-size: 13px; }
+  /* ── Info bar ── */
+  .info-bar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
+  .info-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; font-size: 11px; font-weight: 400; color: #64748b; background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.05); }
+  .info-chip svg { width: 13px; height: 13px; opacity: .6; }
 
   /* ── Animations ── */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -221,6 +197,13 @@
 
   .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 45; }
 
+  /* ── Toast notification ── */
+  .toast { position: fixed; bottom: 24px; right: 24px; z-index: 100; padding: 14px 22px; border-radius: 12px; background: rgba(10,10,10,.95); border: 1px solid rgba(255,255,255,.08); backdrop-filter: blur(16px); font-size: 13px; color: #cbd5e1; font-weight: 300; display: flex; align-items: center; gap: 10px; transform: translateY(100px); opacity: 0; transition: all .4s cubic-bezier(.4,0,.2,1); pointer-events: none; }
+  .toast.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .toast svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .toast.success svg { color: #34d399; }
+  .toast.info svg { color: #22d3ee; }
+
   @media (max-width: 768px) {
     .sidebar { transform: translateX(-100%); }
     .sidebar.open { transform: translateX(0); }
@@ -228,19 +211,16 @@
     .main-wrapper { margin-left: 0; }
     .mobile-menu-btn { display: block; }
     .content { padding: 20px; }
-    .hero-inner { flex-direction: column; text-align: center; gap: 20px; }
-    .hero-icon { width: 72px; height: 72px; }
-    .hero-icon svg { width: 44px; height: 44px; }
-    .hero-text h1 { font-size: 24px; }
-    .hero-banner { padding: 32px 24px; }
+    .dl-hero-content { flex-direction: column; padding: 28px 20px; gap: 20px; }
+    .dl-hero-icon { width: 70px; height: 70px; border-radius: 16px; }
+    .dl-hero-icon svg { width: 40px; height: 40px; }
+    .dl-hero-text h1 { font-size: 24px; }
     .topbar { padding: 12px 16px; }
     .topbar-right { gap: 6px; }
     .btn-login, .btn-signup { padding: 6px 12px; font-size: 12px; }
-    .about-card, .download-block { padding: 24px; }
-    .modes-grid { grid-template-columns: 1fr; }
-    .dl-item { flex-direction: column; align-items: flex-start; gap: 12px; }
-    .dl-item-left { width: 100%; }
-    .dl-btn { width: 100%; justify-content: center; }
+    .dl-option { flex-direction: column; align-items: flex-start; padding: 20px; }
+    .dl-option-right { width: 100%; justify-content: flex-end; }
+    .info-bar { gap: 8px; }
   }
 </style>
 </head>
@@ -260,7 +240,7 @@
       Home
     </a>
     <a href="ytupdates.html">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-1.5A1.125 1.125 0 0118 18.375M20.625 4.5H3.375m17.25 0c.621 0 1.125.504 1.125 1.125M20.625 4.5h-1.5C18.504 4.5 18 5.004 18 5.625m3.75 0v1.5c0 .621-.504 1.125-1.125 1.125M3.375 4.5c-.621 0-1.125.504-1.125 1.125M3.375 4.5h1.5C5.496 4.5 6 5.004 6 5.625m-3.75 0v1.5c0 .621.504 1.125 1.125 1.125m0 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m1.5-3.75C5.496 8.25 6 7.746 6 7.125v-1.5M4.875 8.25C5.496 8.25 6 8.754 6 9.375v1.5m0-5.25v5.25m0-5.25C6 5.004 6.504 4.5 7.125 4.5h9.75c.621 0 1.125.504 1.125 1.125m1.125 2.625h1.5m-1.5 0A1.125 1.125 0 0118 7.125v-1.5m1.125 2.625c-.621 0-1.125.504-1.125 1.125v1.5m2.625-2.625c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125M18 5.625v5.25M7.125 12h9.75m-9.75 0A1.125 1.125 0 016 10.875M7.125 12C6.504 12 6 12.504 6 13.125m0-2.25C6 11.496 5.496 12 4.875 12M18 10.875c0 .621-.504 1.125-1.125 1.125M18 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m-12 5.25v-5.25m0 5.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125m-12 0v-1.5c0-.621-.504-1.125-1.125-1.125M18 18.375v-5.25m0 5.25v-1.5c0-.621.504-1.125-1.125-1.125M18 13.125v1.5c0 .621.504 1.125 1.125 1.125M18 13.125c0-.621.504-1.125 1.125-1.125M6 13.125v1.5c0 .621-.504 1.125-1.125 1.125M6 13.125C6 12.504 5.496 12 4.875 12m-1.5 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M19.125 12h1.5m0 0c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h1.5m14.25 0h1.5"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-1.5A1.125 1.125 0 0118 18.375M20.625 4.5H3.375m17.25 0c.621 0 1.125.504 1.125 1.125M20.625 4.5h-1.5C18.504 4.5 18 5.004 18 5.625m3.75 0v1.5c0 .621-.504 1.125-1.125 1.125M3.375 4.5c-.621 0-1.125.504-1.125 1.125M3.375 4.5h1.5C5.496 4.5 6 5.004 6 5.625m-3.75 0v1.5c0 .621.504 1.125 1.125 1.125m0 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m1.5-3.75C5.496 8.25 6 7.746 6 7.125v-1.5M4.875 8.25C5.496 8.25 6 8.754 6 9.375v1.5m0-5.25v5.25m0-5.25C6 5.004 6.504 4.5 7.125 4.5h9.75c.621 0 1.125.504 1.125 1.125m1.125 2.625h1.5m-1.5 0A1.125 1.125 0 0118 7.125v-1.5m1.125 2.625c-.621 0-1.125.504-1.125 1.125v1.5m2.625-2.625c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125M18 5.625v5.25M7.125 12h9.75m-9.75 0A1.125 1.125 0 016 10.875M7.125 12C6.504 12 6 12.504 6 13.125m0-2.25C6 11.496 5.496 12 4.875 12M18 10.875c0 .621-.504 1.125-1.125 1.125M18 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m-12 5.25v-5.25m0 5.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125m-12 0v-1.5c0-.621-.504-1.125-1.125-1.125M18 18.375v-5.25m0 5.25v-1.5c0-.621.504-1.125 1.125-1.125M18 13.125v1.5c0 .621.504 1.125 1.125 1.125M18 13.125c0-.621.504-1.125 1.125-1.125M6 13.125v1.5c0 .621-.504 1.125-1.125 1.125M6 13.125C6 12.504 5.496 12 4.875 12m-1.5 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M19.125 12h1.5m0 0c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h1.5m14.25 0h1.5"/></svg>
       YT Updates
     </a>
     <a href="downloads.html" class="active">
@@ -313,16 +293,18 @@
 
   <main class="content">
 
-    <!-- Back Link -->
+    <!-- Back link -->
     <a href="downloads.html" class="back-link animate-in">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
       Back to Downloads
     </a>
 
-    <!-- Hero Banner -->
-    <div class="hero-banner animate-in delay-1">
-      <div class="hero-inner">
-        <div class="hero-icon">
+    <!-- Hero -->
+    <div class="dl-hero animate-in delay-1">
+      <div class="dl-hero-bg"></div>
+      <div class="dl-hero-glow"></div>
+      <div class="dl-hero-content">
+        <div class="dl-hero-icon">
           <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="4" y="4" width="10" height="10" fill="#8B6914" opacity=".9"/>
             <rect x="14" y="4" width="10" height="10" fill="#6B4F12" opacity=".9"/>
@@ -336,185 +318,205 @@
             <rect x="17" y="17" width="3" height="3" rx=".5" fill="#A0822A"/>
           </svg>
         </div>
-        <div class="hero-text">
-          <div class="hero-badge">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
-            Sandbox Game
-          </div>
+        <div class="dl-hero-text">
+          <div class="dl-hero-cat">Sandbox Game</div>
           <h1>Minecraft</h1>
-          <p class="hero-subtitle">Build, explore, and survive in infinite blocky worlds. Download the full game for PC and Mobile, or purchase the official version.</p>
+          <p>Build, explore, and survive in infinite blocky worlds. Download for PC or Mobile and start crafting your adventure today.</p>
         </div>
       </div>
     </div>
 
-    <!-- About Section -->
-    <section class="about-section animate-in delay-2">
-      <div class="section-label">About</div>
-      <div class="about-card">
-        <h2>About Minecraft</h2>
-        <p>Minecraft is a sandbox video game developed by Mojang Studios and originally created by Markus Persson, also known as "Notch." It was officially released in 2011, and since then, it has become one of the best-selling video games of all time.</p>
-        <p>In Minecraft, players explore a blocky, procedurally generated 3D world made up of different types of blocks—like dirt, stone, wood, and ores. The game features several modes, each offering a unique gameplay experience that caters to different playstyles and creative preferences.</p>
-        <p>Minecraft encourages creativity, exploration, and problem-solving. Players can build anything from simple houses to massive cities, working solo or with friends online. The game also supports mods, texture/resource packs, and community-made content, which expands its possibilities even more. It's available on multiple platforms, including PC, consoles (like Xbox and PlayStation), mobile devices, and even VR.</p>
+    <!-- Info chips -->
+    <div class="info-bar animate-in delay-2">
+      <div class="info-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z"/></svg>
+        Mojang Studios
       </div>
-    </section>
+      <div class="info-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+        Released 2011
+      </div>
+      <div class="info-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"/></svg>
+        PC · Mobile · Console · VR
+      </div>
+      <div class="info-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+        Best-Selling Game
+      </div>
+    </div>
 
-    <!-- Game Modes -->
-    <section class="animate-in delay-3">
-      <div class="section-label">Game Modes</div>
-      <div class="modes-grid">
-        <div class="mode-card">
-          <h4>Survival Mode</h4>
-          <p>Players must gather resources, manage hunger, and fend off enemies like zombies, skeletons, and creepers. Mine deeper, build shelters, and survive the night.</p>
-        </div>
-        <div class="mode-card">
-          <h4>Creative Mode</h4>
-          <p>Players have unlimited resources and can fly, making it perfect for building and designing without restrictions. Create anything your imagination allows.</p>
-        </div>
-        <div class="mode-card">
-          <h4>Adventure Mode</h4>
-          <p>Designed for custom maps and challenges with specific rules. Players interact with the world through commands and crafted experiences.</p>
-        </div>
-        <div class="mode-card">
-          <h4>Spectator Mode</h4>
-          <p>Players can freely fly through the world without interacting with it. Observe builds, explore, and watch other players without affecting gameplay.</p>
-        </div>
+    <!-- About -->
+    <section class="about-section animate-in delay-3">
+      <div class="section-label">About</div>
+      <div class="about-text">
+        <p><strong>Minecraft</strong> is a sandbox video game developed by Mojang Studios and originally created by Markus Persson, also known as "Notch." It was officially released in 2011, and since then, it has become one of the best-selling video games of all time.</p>
+        <p>In Minecraft, players explore a blocky, procedurally generated 3D world made up of different types of blocks—like dirt, stone, wood, and ores. The game features several modes, including:</p>
+
+        <ul class="mode-list">
+          <li>
+            <span class="mode-dot"></span>
+            <span><strong>Survival Mode</strong> – Players must gather resources, manage hunger, and fend off enemies (like zombies, skeletons, and creepers).</span>
+          </li>
+          <li>
+            <span class="mode-dot"></span>
+            <span><strong>Creative Mode</strong> – Players have unlimited resources and can fly, making it perfect for building and designing without restrictions.</span>
+          </li>
+          <li>
+            <span class="mode-dot"></span>
+            <span><strong>Adventure Mode</strong> – Designed for custom maps and challenges with specific rules.</span>
+          </li>
+          <li>
+            <span class="mode-dot"></span>
+            <span><strong>Spectator Mode</strong> – Players can freely fly through the world without interacting with it.</span>
+          </li>
+        </ul>
+
+        <p>Minecraft encourages creativity, exploration, and problem-solving. Players can build anything from simple houses to massive cities, working solo or with friends online. The game also supports mods, texture/resource packs, and community-made content, which expands its possibilities even more.</p>
+        <p>It's available on multiple platforms, including PC, consoles (like Xbox and PlayStation), mobile devices, and even VR.</p>
       </div>
     </section>
 
     <div class="section-divider"></div>
 
     <!-- Free Downloads -->
-    <section class="download-section animate-in delay-4">
-      <div class="section-label">Free Downloads</div>
-      <div class="download-block">
-        <h3>
-          Free Minecraft
-          <span class="free-tag">Free</span>
-        </h3>
-        <div class="dl-list">
+    <section class="dl-section animate-in delay-4">
+      <div class="dl-section-header">
+        <h2>Free Minecraft</h2>
+        <span class="free-badge">Free Download</span>
+      </div>
+      <div class="section-label" style="margin-top:4px;">Available for free</div>
 
-          <!-- PC Java Edition -->
-          <div class="dl-item platform-pc">
-            <div class="dl-item-left">
-              <div class="dl-item-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z"/></svg>
-              </div>
-              <div class="dl-item-info">
-                <h4>PC (Java Edition)</h4>
-                <span>Full game for Windows / Mac / Linux</span>
-              </div>
+      <div class="dl-options">
+
+        <!-- PC Java Edition -->
+        <a href="#" class="dl-option" onclick="handleDownload(event, 'Minecraft Java Edition (PC)')">
+          <div class="dl-option-left">
+            <div class="dl-option-icon green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#6ee756" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"/></svg>
             </div>
-            <span class="dl-item-platform">PC</span>
-            <a href="#" class="dl-btn dl-btn-free" onclick="alert('Download starting...')">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
-              Download Free
-            </a>
-          </div>
-
-          <!-- Mobile Java Edition -->
-          <div class="dl-item platform-mobile">
-            <div class="dl-item-left">
-              <div class="dl-item-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
-              </div>
-              <div class="dl-item-info">
-                <h4>Mobile (Java Edition)</h4>
-                <span>Java Edition for Android / iOS</span>
-              </div>
+            <div class="dl-option-info">
+              <h3>PC — Java Edition</h3>
+              <span>Windows, macOS, Linux · Full game</span>
             </div>
-            <span class="dl-item-platform">Mobile</span>
-            <a href="#" class="dl-btn dl-btn-free" onclick="alert('Download starting...')">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
-              Download Free
-            </a>
           </div>
-
-          <!-- Mobile Bedrock Edition -->
-          <div class="dl-item platform-mobile">
-            <div class="dl-item-left">
-              <div class="dl-item-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
-              </div>
-              <div class="dl-item-info">
-                <h4>Mobile (Bedrock Edition)</h4>
-                <span>Bedrock Edition for Android / iOS</span>
-              </div>
+          <div class="dl-option-right">
+            <span class="dl-option-tag free">Free</span>
+            <div class="dl-option-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
             </div>
-            <span class="dl-item-platform">Mobile</span>
-            <a href="#" class="dl-btn dl-btn-free" onclick="alert('Download starting...')">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
-              Download Free
-            </a>
           </div>
+        </a>
 
-        </div>
+        <!-- Mobile Java Edition -->
+        <a href="#" class="dl-option" onclick="handleDownload(event, 'Minecraft Java Edition (Mobile)')">
+          <div class="dl-option-left">
+            <div class="dl-option-icon green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#6ee756" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
+            </div>
+            <div class="dl-option-info">
+              <h3>Mobile — Java Edition</h3>
+              <span>Android · Java Edition port</span>
+            </div>
+          </div>
+          <div class="dl-option-right">
+            <span class="dl-option-tag free">Free</span>
+            <div class="dl-option-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Mobile Bedrock Edition -->
+        <a href="#" class="dl-option" onclick="handleDownload(event, 'Minecraft Bedrock Edition (Mobile)')">
+          <div class="dl-option-left">
+            <div class="dl-option-icon green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#6ee756" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
+            </div>
+            <div class="dl-option-info">
+              <h3>Mobile — Bedrock Edition</h3>
+              <span>Android, iOS · Cross-platform play</span>
+            </div>
+          </div>
+          <div class="dl-option-right">
+            <span class="dl-option-tag free">Free</span>
+            <div class="dl-option-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+            </div>
+          </div>
+        </a>
+
       </div>
     </section>
 
     <div class="section-divider"></div>
 
     <!-- Buy Minecraft -->
-    <section class="download-section animate-in delay-5">
-      <div class="section-label">Buy Minecraft</div>
-      <div class="download-block">
-        <h3>
-          Buy Minecraft
-          <span class="buy-tag">Premium</span>
-        </h3>
-        <p style="font-size:13px;color:#64748b;font-weight:300;line-height:1.7;margin-bottom:20px;">Get the official version with full multiplayer access, skin packs, marketplace content, and regular updates from Mojang Studios.</p>
-        <div class="dl-list">
+    <section class="dl-section animate-in delay-5">
+      <div class="dl-section-header">
+        <h2>Buy Minecraft</h2>
+        <span class="buy-badge">Official Purchase</span>
+      </div>
+      <div class="section-label" style="margin-top:4px;">Support the developers</div>
 
-          <!-- Buy PC -->
-          <div class="dl-item platform-pc">
-            <div class="dl-item-left">
-              <div class="dl-item-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z"/></svg>
-              </div>
-              <div class="dl-item-info">
-                <h4>Minecraft for PC</h4>
-                <span>Official Java &amp; Bedrock Edition bundle</span>
-              </div>
+      <div class="dl-options">
+
+        <!-- Buy PC -->
+        <a href="https://www.minecraft.net/en-us/store/minecraft-java-bedrock-edition-pc" target="_blank" rel="noopener noreferrer" class="dl-option dl-option-buy">
+          <div class="dl-option-left">
+            <div class="dl-option-icon amber">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"/></svg>
             </div>
-            <span class="dl-item-platform">PC</span>
-            <a href="#" class="dl-btn dl-btn-buy" onclick="alert('Redirecting to purchase page...')">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
-              Buy Now
-            </a>
-          </div>
-
-          <!-- Buy Mobile -->
-          <div class="dl-item platform-mobile">
-            <div class="dl-item-left">
-              <div class="dl-item-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
-              </div>
-              <div class="dl-item-info">
-                <h4>Minecraft for Mobile</h4>
-                <span>Official Bedrock Edition from App Store / Play Store</span>
-              </div>
+            <div class="dl-option-info">
+              <h3>PC — Java & Bedrock Bundle</h3>
+              <span>Windows, macOS · Includes both editions</span>
             </div>
-            <span class="dl-item-platform">Mobile</span>
-            <a href="#" class="dl-btn dl-btn-buy" onclick="alert('Redirecting to store...')">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
-              Buy Now
-            </a>
           </div>
+          <div class="dl-option-right">
+            <span class="dl-option-tag paid">Buy</span>
+            <div class="dl-option-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+            </div>
+          </div>
+        </a>
 
-        </div>
+        <!-- Buy Mobile -->
+        <a href="https://www.minecraft.net/en-us/store/minecraft-bedrock" target="_blank" rel="noopener noreferrer" class="dl-option dl-option-buy">
+          <div class="dl-option-left">
+            <div class="dl-option-icon amber">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
+            </div>
+            <div class="dl-option-info">
+              <h3>Mobile — Bedrock Edition</h3>
+              <span>Android, iOS · App Store / Play Store</span>
+            </div>
+          </div>
+          <div class="dl-option-right">
+            <span class="dl-option-tag paid">Buy</span>
+            <div class="dl-option-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+            </div>
+          </div>
+        </a>
+
       </div>
     </section>
 
-    <!-- Bottom CTA -->
-    <div class="bottom-cta animate-in delay-6">
-      <h3>Ready to start building?</h3>
-      <p>Choose your edition and platform above to download or purchase Minecraft. Join millions of players worldwide in the ultimate sandbox experience.</p>
-      <a href="downloads.html" class="dl-btn dl-btn-buy" style="display:inline-flex;">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"/></svg>
-        Browse All Downloads
+    <!-- Back to home -->
+    <div style="margin-top: 48px; padding-bottom: 40px;" class="animate-in delay-6">
+      <a href="index.html" class="back-link" style="margin-bottom: 0;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955a1.126 1.126 0 011.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
+        Back to Home
       </a>
     </div>
 
   </main>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+  <span id="toastMsg"></span>
 </div>
 
 <script>
@@ -574,6 +576,22 @@
   function closeSidebar() {
     document.getElementById('sidebar').classList.remove('open');
     document.getElementById('sidebarOverlay').classList.remove('open');
+  }
+
+  // Toast notification
+  function showToast(msg, type) {
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+    toast.className = 'toast ' + type;
+    toastMsg.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => { toast.classList.remove('show'); }, 3500);
+  }
+
+  // Handle free download clicks
+  function handleDownload(e, name) {
+    e.preventDefault();
+    showToast('Preparing download: ' + name + '...', 'success');
   }
 </script>
 
