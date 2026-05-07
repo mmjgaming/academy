@@ -75,7 +75,6 @@
     <div class="glow-orb glow-orb-2"></div>
     <div class="toast-c" id="toastC"></div>
 
-    <!-- NAV -->
     <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#07070dcc] border-b border-[var(--border)]">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
             <a href="#" onclick="go('landing')" class="font-heading font-bold text-xl tracking-tight flex items-center gap-2">
@@ -104,7 +103,7 @@
         <div class="max-w-4xl mx-auto px-4 py-20 text-center">
             <div class="inline-flex items-center gap-2 tbadge mb-6"><div class="pdot bg-[var(--accent)]"></div>Speaking Course Platform</div>
             <h1 class="font-heading text-5xl md:text-7xl font-bold leading-tight mb-6">Learn Speaking.<br><span class="bg-gradient-to-r from-[var(--accent)] via-yellow-300 to-[var(--accent)] bg-clip-text text-transparent">Get Lifetime Access.</span></h1>
-            <p class="text-[var(--muted)] text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">Enroll in speaking courses, complete payment, receive your token instantly. No token, no access.</p>
+            <p class="text-[var(--muted)] text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">Enroll, pay, get your token instantly. No token, no access.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
                 <button onclick="go('apply')" class="btn-p text-lg px-10 py-4"><i class="fas fa-rocket mr-2"></i>Enroll Now</button>
                 <button onclick="go('login')" class="btn-o text-lg px-10 py-4"><i class="fas fa-sign-in-alt mr-2"></i>Login / My Courses</button>
@@ -156,18 +155,13 @@
                     <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--accent)] to-[var(--accent-dim)] flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-graduation-cap text-black text-2xl"></i>
                     </div>
-                    <h2 class="font-heading text-2xl font-bold">Login to Your Account</h2>
-                    <p class="text-[var(--muted)] text-sm mt-2">Enter your email to access your courses</p>
+                    <h2 class="font-heading text-2xl font-bold">Login</h2>
+                    <p class="text-[var(--muted)] text-sm mt-2">Enter your email to access courses</p>
                 </div>
                 <div class="space-y-5">
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Email Address</label>
-                        <input type="email" id="loginEmail" class="inp" placeholder="your@email.com">
-                    </div>
+                    <div><label class="block text-sm font-medium mb-2">Email Address</label><input type="email" id="loginEmail" class="inp" placeholder="your@email.com"></div>
                     <button onclick="doLogin()" class="btn-p w-full" id="loginBtn"><i class="fas fa-sign-in-alt mr-2"></i>Login</button>
-                    <div class="text-center">
-                        <a href="#" onclick="go('apply')" class="text-[var(--accent)] text-sm hover:underline">Don't have an account? Enroll now</a>
-                    </div>
+                    <div class="text-center"><a href="#" onclick="go('apply');return false" class="text-[var(--accent)] text-sm hover:underline">Don't have an account? Enroll now</a></div>
                 </div>
             </div>
         </div>
@@ -184,7 +178,7 @@
             </div>
             <div id="s1" class="card p-8">
                 <h2 class="font-heading text-2xl font-bold mb-2">Personal Information</h2>
-                <p class="text-[var(--muted)] text-sm mb-8">Create your account to get started.</p>
+                <p class="text-[var(--muted)] text-sm mb-8">Create your account.</p>
                 <div class="space-y-5">
                     <div><label class="block text-sm font-medium mb-2">Full Name <span class="text-[var(--error)]">*</span></label><input type="text" id="fN" class="inp" placeholder="Enter your full name"></div>
                     <div><label class="block text-sm font-medium mb-2">Email Address <span class="text-[var(--error)]">*</span></label><input type="email" id="fE" class="inp" placeholder="your@email.com"></div>
@@ -199,7 +193,7 @@
                 <div id="frMsg" style="display:none" class="text-center py-10">
                     <i class="fas fa-gift text-5xl text-[var(--accent)] mb-4"></i>
                     <h3 class="font-heading text-xl font-bold mb-2">Free Plan — No Payment</h3>
-                    <p class="text-[var(--muted)] text-sm mb-6">You'll get a token instantly.</p>
+                    <p class="text-[var(--muted)] text-sm mb-6">Token generated instantly.</p>
                     <button onclick="submitApp()" class="btn-p">Create Account & Get Token</button>
                 </div>
                 <div id="pdF" class="space-y-5">
@@ -216,9 +210,9 @@
             <div id="s3" class="card p-8 text-center" style="display:none">
                 <div class="w-20 h-20 rounded-full bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.3)] flex items-center justify-center mx-auto mb-6"><i class="fas fa-check text-3xl text-[var(--success)]"></i></div>
                 <h2 class="font-heading text-2xl font-bold mb-2 text-[var(--success)]">Token Generated!</h2>
-                <p class="text-[var(--muted)] text-sm mb-4">Your account is ready. You can now access your courses.</p>
+                <p class="text-[var(--muted)] text-sm mb-4">Your account is ready. Access your courses now.</p>
                 <div class="tbadge mx-auto mb-2" id="aBg"></div>
-                <p class="text-xs text-[var(--muted)] mb-8">Save this token — it's your lifetime access key</p>
+                <p class="text-xs text-[var(--muted)] mb-8">Save this token — your lifetime access key</p>
                 <div class="flex flex-col sm:flex-row gap-3 justify-center">
                     <button onclick="go('mycourses')" class="btn-p"><i class="fas fa-book-open mr-2"></i>Go to My Courses</button>
                     <button onclick="go('landing')" class="btn-o">Back to Home</button>
@@ -231,17 +225,14 @@
     <div id="v-mycourses" class="view pt-16">
         <div class="max-w-5xl mx-auto px-4 py-12">
             <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
-                <div>
-                    <h1 class="font-heading text-3xl md:text-4xl font-bold mb-1">My Courses</h1>
-                    <p class="text-[var(--muted)]">Your enrolled speaking courses with lifetime access</p>
-                </div>
+                <div><h1 class="font-heading text-3xl md:text-4xl font-bold mb-1">My Courses</h1><p class="text-[var(--muted)]">Your speaking courses — lifetime access</p></div>
                 <div class="tbadge" id="mcPlan"></div>
             </div>
             <div id="cGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
             <div id="noC" class="card p-12 text-center" style="display:none">
                 <i class="fas fa-book-open text-4xl text-[var(--muted)] mb-4 block"></i>
                 <h3 class="font-heading text-xl font-bold mb-2">No Courses Found</h3>
-                <p class="text-[var(--muted)] text-sm mb-6">Something went wrong. Try enrolling again.</p>
+                <p class="text-[var(--muted)] text-sm mb-6">Something went wrong.</p>
                 <button onclick="go('apply')" class="btn-p">Enroll Now</button>
             </div>
         </div>
@@ -251,7 +242,7 @@
     <div id="v-admin" class="view pt-16">
         <div class="max-w-7xl mx-auto px-4 py-12">
             <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
-                <div><h1 class="font-heading text-3xl font-bold mb-1">Admin Panel</h1><p class="text-[var(--muted)] text-sm">All enrollments — tokens are auto-generated</p></div>
+                <div><h1 class="font-heading text-3xl font-bold mb-1">Admin Panel</h1><p class="text-[var(--muted)] text-sm">All enrollments — tokens auto-generated</p></div>
                 <button onclick="loadAdmin()" class="btn-o text-sm"><i class="fas fa-refresh mr-2"></i>Refresh</button>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -308,13 +299,13 @@
     const ADM_MAIL = 'mmjplaysbusness@gmail.com';
     const BASE_URL = window.location.href.split('#')[0];
 
-    /* ===================== ALL SLUGS LIST (used for URL parsing) ===================== */
+    /* ===================== ALL KNOWN SLUGS ===================== */
     const ALL_SLUGS = [
-        'spiking-basics','spiking-confidence','spiking-fluency',
-        'spiking-advanced','spiking-public','spiking-mastery'
+        'spiking-mastery','spiking-advanced','spiking-fluency',
+        'spiking-confidence','spiking-public','spiking-basics'
     ];
 
-    /* ===================== SPEAKING COURSES ===================== */
+    /* ===================== COURSES ===================== */
     const PLANS = {
         free: { label:'Free',  price:0,    icon:'fa-gift',     clr:'var(--muted)', courses:['spiking-basics'] },
         noob: { label:'Noob',  price:100,  icon:'fa-seedling', clr:'var(--accent)', courses:['spiking-basics','spiking-confidence','spiking-fluency'] },
@@ -322,18 +313,18 @@
     };
 
     const COURSES = {
-        'spiking-basics':     { title:'Spiking Basics',      desc:'Foundation of confident speaking — breathing, posture, and voice control.',       icon:'fa-microphone',  color:'#e34c26', lvl:'Free' },
-        'spiking-confidence': { title:'Spiking Confidence',  desc:'Build unshakable confidence for any conversation or stage.',                    icon:'fa-fire',        color:'#f59e0b', lvl:'Noob' },
-        'spiking-fluency':    { title:'Spiking Fluency',     desc:'Speak smoothly without hesitation or filler words.',                              icon:'fa-water',       color:'#3b82f6', lvl:'Noob' },
-        'spiking-advanced':   { title:'Spiking Advanced',    desc:'Advanced techniques — persuasion, storytelling, and influence.',                 icon:'fa-bolt',        color:'#8b5cf6', lvl:'Pro' },
-        'spiking-public':     { title:'Public Spiking',      desc:'Master public speaking, presentations, and large audiences.',                   icon:'fa-users',       color:'#ec4899', lvl:'Pro' },
-        'spiking-mastery':    { title:'Spiking Mastery',     desc:'Complete mastery — voice modulation, debate, and live performance.',            icon:'fa-trophy',      color:'#d4a017', lvl:'Pro' }
+        'spiking-basics':     { title:'Spiking Basics',      desc:'Foundation of confident speaking — breathing, posture, voice control.',   icon:'fa-microphone',  color:'#e34c26', lvl:'Free' },
+        'spiking-confidence': { title:'Spiking Confidence',  desc:'Build unshakable confidence for any conversation or stage.',             icon:'fa-fire',        color:'#f59e0b', lvl:'Noob' },
+        'spiking-fluency':    { title:'Spiking Fluency',     desc:'Speak smoothly without hesitation or filler words.',                       icon:'fa-water',       color:'#3b82f6', lvl:'Noob' },
+        'spiking-advanced':   { title:'Spiking Advanced',    desc:'Advanced techniques — persuasion, storytelling, and influence.',          icon:'fa-bolt',        color:'#8b5cf6', lvl:'Pro' },
+        'spiking-public':     { title:'Public Spiking',      desc:'Master public speaking, presentations, and large audiences.',            icon:'fa-users',       color:'#ec4899', lvl:'Pro' },
+        'spiking-mastery':    { title:'Spiking Mastery',     desc:'Complete mastery — voice modulation, debate, live performance.',         icon:'fa-trophy',      color:'#d4a017', lvl:'Pro' }
     };
 
     /* ===================== STATE ===================== */
     let curView = 'landing', selPlan = 'free', admOk = false, loggedInUser = null;
 
-    /* ===================== SUPABASE REST ===================== */
+    /* ===================== SUPABASE ===================== */
     async function sb(table, method='GET', body=null, filters=null) {
         const u = new URL(`${SB_URL}/rest/v1/${table}`);
         u.searchParams.set('apikey', SB_KEY);
@@ -367,21 +358,20 @@
         document.getElementById('nAd').style.display = name === 'landing' ? '' : 'none';
         document.getElementById('navUser').style.display = loggedInUser ? '' : 'none';
         if (name === 'mycourses') renderMyCourses();
-        if (name === 'course') handleCourse();
         if (name === 'admin') loadAdmin();
+        /* NOTE: handleCourse is NOT called here — it's called by hashchange instead */
     }
 
     /* ===================== EMAILJS ===================== */
-    function initEJS() { try { emailjs.init({ publicKey: EJS_KEY }); } catch(e) { console.warn('EJS:', e); } }
+    function initEJS() { try { emailjs.init({ publicKey: EJS_KEY }); } catch(e) {} }
 
     async function sendMail(app) {
         const pi = PLANS[app.plan] || { label: app.plan, price: '?' };
-        const payLine = app.payment_method ? `${app.payment_method.toUpperCase()} — ${app.payment_number} | TrxID: ${app.trx_id}` : 'Free plan (no payment)';
-        const message = `New Course Enrollment!\nID: ${app.id}\nName: ${app.name}\nEmail: ${app.email}\nPhone: ${app.phone}\nPlan: ${pi.label} (${pi.price} Tk)\nPayment: ${payLine}\nToken: ${app.token}\nStatus: ACTIVE\nCourses: ${(PLANS[app.plan]?.courses||[]).join(', ')}`;
+        const payLine = app.payment_method ? `${app.payment_method.toUpperCase()} — ${app.payment_number} | TrxID: ${app.trx_id}` : 'Free plan';
+        const message = `New Enrollment!\nID: ${app.id}\nName: ${app.name}\nEmail: ${app.email}\nPhone: ${app.phone}\nPlan: ${pi.label} (${pi.price} Tk)\nPayment: ${payLine}\nToken: ${app.token}\nStatus: ACTIVE\nCourses: ${(PLANS[app.plan]?.courses||[]).join(', ')}`;
         try {
             await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, { to_email: ADM_MAIL, name: app.name, time: new Date().toLocaleString(), message });
         } catch(e) {
-            console.warn('EmailJS fail, mailto fallback:', e);
             window.open(`mailto:${ADM_MAIL}?subject=${encodeURIComponent(`[CourseHub] Enrollment: ${app.name}`)}&body=${encodeURIComponent(message)}`, '_blank');
         }
     }
@@ -394,25 +384,23 @@
         btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
         try {
             const data = await sb('applications','GET',null,{ email:`eq.${email}`, order:'created_at.desc', limit:'1' });
-            if (!data || data.length === 0) { toast('No account found. Please enroll first.','error'); btn.disabled=false; btn.innerHTML='<i class="fas fa-sign-in-alt mr-2"></i>Login'; return; }
+            if (!data || data.length === 0) { toast('No account found. Enroll first.','error'); btn.disabled=false; btn.innerHTML='<i class="fas fa-sign-in-alt mr-2"></i>Login'; return; }
             const app = data[0];
-            if (!app.token) { toast('No token found. Enroll again.','error'); btn.disabled=false; btn.innerHTML='<i class="fas fa-sign-in-alt mr-2"></i>Login'; return; }
+            if (!app.token) { toast('No token. Enroll again.','error'); btn.disabled=false; btn.innerHTML='<i class="fas fa-sign-in-alt mr-2"></i>Login'; return; }
             loggedInUser = app;
             localStorage.setItem('ch_user', JSON.stringify({ email: app.email }));
             document.getElementById('navUserName').textContent = app.name;
             toast(`Welcome, ${app.name}!`,'success');
             go('mycourses');
-        } catch(e) { toast('Login failed: '+e.message,'error'); }
+        } catch(e) { toast('Failed: '+e.message,'error'); }
         btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt mr-2"></i>Login';
     }
 
     function logout() {
-        loggedInUser = null;
-        localStorage.removeItem('ch_user');
+        loggedInUser = null; localStorage.removeItem('ch_user');
         document.getElementById('navUser').style.display = 'none';
         document.getElementById('loginEmail').value = '';
-        toast('Logged out.','info');
-        go('landing');
+        toast('Logged out.','info'); go('landing');
     }
 
     async function tryAutoLogin() {
@@ -430,8 +418,7 @@
 
     /* ===================== APPLY ===================== */
     function startApply(plan) {
-        selPlan = plan;
-        go('apply');
+        selPlan = plan; go('apply');
         ['fN','fE','fP','fM','fPN','fTX'].forEach(id => document.getElementById(id).value = '');
         const p = PLANS[plan];
         document.getElementById('plD').innerHTML = `<i class="fas ${p.icon}" style="color:${p.clr}"></i><span class="font-semibold">${p.label}</span><span class="ml-auto text-[var(--muted)]">${p.price===0?'Free':p.price+' Tk'}</span>`;
@@ -458,30 +445,21 @@
     async function submitApp() {
         if (selPlan !== 'free') {
             if (!document.getElementById('fM').value) { toast('Select payment method.','error'); return; }
-            if (!document.getElementById('fPN').value.trim() || document.getElementById('fPN').value.trim().length<11) { toast('Enter your Bkash/Nagad number.','error'); return; }
-            if (!document.getElementById('fTX').value.trim()) { toast('Enter the Transaction ID.','error'); return; }
+            if (!document.getElementById('fPN').value.trim() || document.getElementById('fPN').value.trim().length<11) { toast('Enter Bkash/Nagad number.','error'); return; }
+            if (!document.getElementById('fTX').value.trim()) { toast('Enter Transaction ID.','error'); return; }
         }
         const btn = document.getElementById('sBtn');
         if (btn) { btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Processing...'; }
-
         const appId = 'APP-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2,4).toUpperCase();
         const token = uuid();
-
         const app = {
-            id: appId,
-            name: document.getElementById('fN').value.trim(),
-            email: document.getElementById('fE').value.trim(),
-            phone: document.getElementById('fP').value.trim(),
-            plan: selPlan,
+            id: appId, name: document.getElementById('fN').value.trim(), email: document.getElementById('fE').value.trim(),
+            phone: document.getElementById('fP').value.trim(), plan: selPlan,
             payment_method: selPlan==='free' ? null : document.getElementById('fM').value,
             payment_number: selPlan==='free' ? null : document.getElementById('fPN').value.trim(),
             trx_id: selPlan==='free' ? null : document.getElementById('fTX').value.trim(),
-            status: 'approved',
-            token: token,
-            created_at: new Date().toISOString(),
-            confirmed_at: new Date().toISOString()
+            status: 'approved', token: token, created_at: new Date().toISOString(), confirmed_at: new Date().toISOString()
         };
-
         try {
             await sb('applications', 'POST', app);
             await sendMail(app);
@@ -492,7 +470,6 @@
             gs(3);
             toast('Token generated! You are enrolled.','success');
         } catch(err) {
-            console.error(err);
             toast('Failed: ' + err.message,'error');
             if (btn) { btn.disabled=false; btn.innerHTML='Pay & Get Token'; }
         }
@@ -504,19 +481,16 @@
         const app = loggedInUser;
         const pi = PLANS[app.plan] || { label: app.plan, icon: 'fa-book' };
         document.getElementById('mcPlan').innerHTML = `<i class="fas ${pi.icon}"></i> ${pi.label} Plan`;
-
         const grid = document.getElementById('cGrid');
         const noC = document.getElementById('noC');
         if (!app.token) { grid.innerHTML=''; noC.style.display=''; return; }
-
         const courses = PLANS[app.plan]?.courses || [];
         if (courses.length === 0) { grid.innerHTML=''; noC.style.display=''; return; }
-
         noC.style.display = 'none';
         grid.innerHTML = courses.map(slug => {
             const c = COURSES[slug]; if (!c) return '';
-            /* Build the course URL: course.html/Spiking.html/slug-TOKEN */
             const courseUrl = 'course.html/Spiking.html/' + slug + '-' + app.token;
+            /* IMPORTANT: plain href only, NO onclick — let hashchange handle it */
             return `<div class="card p-6">
                 <div class="flex items-start justify-between mb-4">
                     <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:${c.color}15;border:1px solid ${c.color}30"><i class="fas ${c.icon}" style="color:${c.color}"></i></div>
@@ -526,38 +500,30 @@
                 <p class="text-[var(--muted)] text-sm mb-4 leading-relaxed">${c.desc}</p>
                 <div class="flex items-center justify-between">
                     <div class="tbadge text-[10px]"><i class="fas fa-key"></i>${app.token.substring(0,12)}...</div>
-                    <a href="#${courseUrl}" onclick="go('course');return false" class="text-[var(--accent)] text-sm font-semibold hover:underline">Open Course <i class="fas fa-arrow-right ml-1"></i></a>
+                    <a href="#${courseUrl}" class="text-[var(--accent)] text-sm font-semibold hover:underline">Open Course <i class="fas fa-arrow-right ml-1"></i></a>
                 </div>
             </div>`;
         }).join('');
     }
 
-    /* ===================== COURSE TOKEN CHECK (FIXED) ===================== */
+    /* ===================== COURSE TOKEN CHECK ===================== */
     async function handleCourse() {
         const ld = document.getElementById('cAL');
         const dn = document.getElementById('cAD');
         const gn = document.getElementById('cAG');
         ld.style.display = ''; dn.style.display = 'none'; gn.style.display = 'none';
 
+        /* Read the CURRENT hash — it's already set by the browser before hashchange fires */
         const hash = window.location.hash.substring(1);
 
-        /* 
-         * URL format: course.html/Spiking.html/spiking-basics-TOKEN
-         * 
-         * The tricky part: slugs contain dashes (spiking-basics)
-         * and tokens also contain dashes (UUID: xxxxxxxx-xxxx-...)
-         * 
-         * Solution: find which known slug appears in the URL,
-         * then everything after that slug + dash is the token.
-         */
+        console.log('handleCourse hash:', hash);
+
+        /* Match: course.html/Spiking.html/{slug}-{token} */
+        /* Slugs have dashes, tokens have dashes — use known slug list to split correctly */
         let foundSlug = null;
         let foundToken = null;
 
-        /* Try every known slug — longest first to avoid partial matches */
-        const sortedSlugs = [...ALL_SLUGS].sort((a, b) => b.length - a.length);
-
-        for (const slug of sortedSlugs) {
-            /* Look for: course.html/Spiking.html/{slug}-{something} */
+        for (const slug of ALL_SLUGS) {
             const prefix = 'course.html/Spiking.html/' + slug + '-';
             if (hash.startsWith(prefix)) {
                 foundSlug = slug;
@@ -566,21 +532,20 @@
             }
         }
 
+        console.log('Found slug:', foundSlug, 'Found token:', foundToken);
+
         if (!foundSlug || !foundToken) {
-            ld.style.display = 'none';
-            dn.style.display = '';
-            document.getElementById('dR').textContent = 'Invalid course URL. Make sure you clicked the link from My Courses page.';
+            ld.style.display = 'none'; dn.style.display = '';
+            document.getElementById('dR').textContent = 'Invalid course URL. Click the link from My Courses page only.';
             return;
         }
 
-        /* Now verify the token against Supabase */
         try {
             const data = await sb('applications', 'GET', null, { token: `eq.${foundToken}` });
 
             if (!data || data.length === 0) {
-                ld.style.display = 'none';
-                dn.style.display = '';
-                document.getElementById('dR').textContent = 'Token not found in database. Make sure you copied the full link from My Courses.';
+                ld.style.display = 'none'; dn.style.display = '';
+                document.getElementById('dR').textContent = 'Token not found in database.';
                 return;
             }
 
@@ -588,18 +553,16 @@
             const planCourses = PLANS[app.plan]?.courses || [];
 
             if (!planCourses.includes(foundSlug)) {
-                ld.style.display = 'none';
-                dn.style.display = '';
-                document.getElementById('dR').textContent = `Your "${PLANS[app.plan].label}" plan does not include this course. Upgrade to access.`;
+                ld.style.display = 'none'; dn.style.display = '';
+                document.getElementById('dR').textContent = `Your "${PLANS[app.plan].label}" plan does not include this course.`;
                 return;
             }
 
             /* ===== ACCESS GRANTED ===== */
-            ld.style.display = 'none';
-            gn.style.display = '';
+            ld.style.display = 'none'; gn.style.display = '';
             document.getElementById('cTD').textContent = foundToken;
-
             const cm = COURSES[foundSlug];
+
             document.getElementById('cCA').innerHTML = `
                 <div class="flex items-center gap-4 mb-8">
                     <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl" style="background:${cm.color}15;border:1px solid ${cm.color}30">
@@ -614,33 +577,26 @@
                     ${['Introduction','Core Techniques','Practice Exercises','Advanced Methods','Final Assessment'].map((t, i) => `
                     <div class="flex items-center gap-3">
                         <div class="w-8 h-8 rounded-full ${i===0 ? 'bg-[var(--accent)] text-black' : 'bg-[var(--bg2)] border border-[var(--border)] text-[var(--muted)]'} flex items-center justify-center text-sm font-bold flex-shrink-0">${i+1}</div>
-                        <div class="flex-1">
-                            <h3 class="font-semibold">${t}</h3>
-                            <p class="text-[var(--muted)] text-sm">${cm.title} — ${t} video lesson</p>
-                        </div>
-                        ${i < 3
-                            ? '<i class="fas fa-play-circle text-[var(--accent)] text-xl cursor-pointer hover:scale-110 transition-transform flex-shrink-0"></i>'
-                            : '<i class="fas fa-lock text-[var(--muted)] text-xl flex-shrink-0"></i>'
-                        }
+                        <div class="flex-1"><h3 class="font-semibold">${t}</h3><p class="text-[var(--muted)] text-sm">${cm.title} — ${t} video lesson</p></div>
+                        ${i < 3 ? '<i class="fas fa-play-circle text-[var(--accent)] text-xl cursor-pointer hover:scale-110 transition-transform flex-shrink-0"></i>' : '<i class="fas fa-lock text-[var(--muted)] text-xl flex-shrink-0"></i>'}
                     </div>`).join('')}
                 </div>
                 <div class="mt-8 p-5 rounded-xl bg-[var(--bg2)] border border-[var(--border)]">
                     <div class="flex items-center gap-2 text-sm text-[var(--muted)]">
                         <i class="fas fa-shield-halved text-[var(--accent)]"></i>
-                        <span>Lifetime access — Token: <strong class="text-[var(--fg)]">${foundToken.substring(0, 8)}...</strong></span>
+                        <span>Lifetime access — Token: <strong class="text-[var(--fg)]">${foundToken.substring(0,8)}...</strong></span>
                     </div>
                 </div>`;
 
         } catch (e) {
-            ld.style.display = 'none';
-            dn.style.display = '';
+            ld.style.display = 'none'; dn.style.display = '';
             document.getElementById('dR').textContent = 'Error: ' + e.message;
         }
     }
 
     /* ===================== ADMIN ===================== */
     async function loadAdmin() {
-        if (!admOk) { const k = prompt('Enter admin key:'); if (k !== ADM_KEY) { toast('Invalid key.','error'); go('landing'); return; } admOk = true; toast('Admin access granted.','success'); }
+        if (!admOk) { const k = prompt('Enter admin key:'); if (k !== ADM_KEY) { toast('Invalid key.','error'); go('landing'); return; } admOk = true; }
         try {
             const data = await sb('applications','GET',null,{ order:'created_at.desc' });
             const d = data || [];
@@ -652,9 +608,7 @@
             if (!d.length) { tb.innerHTML = '<tr><td colspan="7" class="text-center py-10 text-[var(--muted)]">No enrollments yet.</td></tr>'; return; }
             tb.innerHTML = d.map(a => {
                 const pi = PLANS[a.plan] || { label: a.plan, clr: 'var(--muted)' };
-                const tk = a.token
-                    ? `<span class="tbadge text-[10px] cursor-pointer" onclick="cp('${a.token}')" title="Click to copy"><i class="fas fa-key"></i>${a.token.substring(0,8)}...</span>`
-                    : '<span class="text-[var(--error)] text-xs">No token</span>';
+                const tk = a.token ? `<span class="tbadge text-[10px] cursor-pointer" onclick="cp('${a.token}')" title="Copy"><i class="fas fa-key"></i>${a.token.substring(0,8)}...</span>` : '<span class="text-[var(--error)] text-xs">No token</span>';
                 return `<tr>
                     <td class="font-medium">${a.name}</td>
                     <td class="text-[var(--muted)] text-sm">${a.email}</td>
@@ -673,11 +627,9 @@
         go('confirm');
         const ld = document.getElementById('cfL'), rs = document.getElementById('cfR');
         ld.style.display = ''; rs.style.display = 'none';
-        if (key !== ADM_KEY) { ld.style.display='none'; rs.style.display=''; rs.innerHTML=`<div class="text-[var(--error)] text-4xl mb-4"><i class="fas fa-exclamation-triangle"></i></div><h2 class="font-heading text-2xl font-bold mb-2">Invalid Link</h2><button onclick="go('landing')" class="btn-p mt-6">Go Home</button>`; return; }
-        try {
-            ld.style.display='none'; rs.style.display='';
-            rs.innerHTML=`<div class="text-[var(--success)] text-4xl mb-4"><i class="fas fa-check-circle"></i></div><h2 class="font-heading text-2xl font-bold mb-2">Already Active</h2><p class="text-[var(--muted)]">Tokens are now auto-generated on enrollment. No manual approval needed.</p><button onclick="go('landing')" class="btn-p mt-6">Go Home</button>`;
-        } catch (e) { ld.style.display='none'; rs.style.display=''; rs.innerHTML=`<p class="text-[var(--error)]">${e.message}</p>`; }
+        if (key !== ADM_KEY) { ld.style.display='none'; rs.style.display=''; rs.innerHTML='<p class="text-[var(--error)] text-4xl mb-4"><i class="fas fa-exclamation-triangle"></i></p><h2 class="font-heading text-2xl font-bold mb-2">Invalid Link</h2><button onclick="go(\'landing\')" class="btn-p mt-6">Go Home</button>'; return; }
+        ld.style.display='none'; rs.style.display='';
+        rs.innerHTML='<p class="text-[var(--success)] text-4xl mb-4"><i class="fas fa-check-circle"></i></p><h2 class="font-heading text-2xl font-bold mb-2">Already Active</h2><p class="text-[var(--muted)]">Tokens are auto-generated now. No manual approval needed.</p><button onclick="go(\'landing\')" class="btn-p mt-6">Go Home</button>';
     }
 
     /* ===================== UTILS ===================== */
@@ -687,9 +639,23 @@
     /* ===================== HASH ROUTER ===================== */
     function handleHash() {
         const hash = window.location.hash.substring(1);
+        console.log('hashchange:', hash);
+
+        /* Email confirm link */
         const cm = hash.match(/^confirm\/([^/]+)\/([^/]+)\/([^/]+)$/);
         if (cm) { handleEmailConfirm(cm[1], cm[2], cm[3]); return true; }
-        if (hash.startsWith('course.html/')) { go('course'); return true; }
+
+        /* Course link — ONLY handle via hashchange, NOT via go() */
+        if (hash.startsWith('course.html/')) {
+            /* First show the course view, THEN verify token */
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById('v-course').classList.add('active');
+            curView = 'course';
+            window.scrollTo({top:0,behavior:'smooth'});
+            handleCourse();
+            return true;
+        }
+
         return false;
     }
 
@@ -697,12 +663,20 @@
     window.addEventListener('DOMContentLoaded', async () => {
         initEJS();
         await tryAutoLogin();
-        if (!handleHash()) go('landing');
+        /* Check if there's already a hash on page load */
+        const hash = window.location.hash.substring(1);
+        if (hash.startsWith('course.html/') || hash.startsWith('confirm/')) {
+            handleHash();
+        } else {
+            go('landing');
+        }
         setTimeout(() => {
             document.getElementById('nMC').style.display = loggedInUser ? '' : 'none';
             document.getElementById('nAd').style.display = '';
         }, 300);
     });
+
+    /* This fires AFTER the hash is already updated — perfect timing */
     window.addEventListener('hashchange', handleHash);
     </script>
 </body>
