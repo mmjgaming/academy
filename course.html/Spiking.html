@@ -3,245 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Portal — Enroll & Access</title>
+    <title>CourseHub — Enroll & Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        heading: ['Space Grotesk', 'sans-serif'],
-                        body: ['DM Sans', 'sans-serif'],
-                    }
-                }
-            }
+            theme: { extend: { fontFamily: { heading: ['Space Grotesk','sans-serif'], body: ['DM Sans','sans-serif'] } } }
         }
     </script>
     <style>
         :root {
-            --bg: #07070d;
-            --bg2: #0e0e18;
-            --card: #131320;
-            --card-hover: #1a1a2e;
-            --border: #1e1e35;
-            --accent: #d4a017;
-            --accent-dim: #a67c12;
-            --accent-glow: rgba(212, 160, 23, 0.15);
-            --fg: #eaeaf0;
-            --muted: #6b6b8a;
-            --success: #22c55e;
-            --error: #ef4444;
-            --info: #3b82f6;
+            --bg:#07070d;--bg2:#0e0e18;--card:#131320;--border:#1e1e35;
+            --accent:#d4a017;--accent-dim:#a67c12;--accent-glow:rgba(212,160,23,0.15);
+            --fg:#eaeaf0;--muted:#6b6b8a;--success:#22c55e;--error:#ef4444;
         }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--bg);
-            color: var(--fg);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Animated background */
-        .bg-grid {
-            position: fixed; inset: 0; z-index: 0; pointer-events: none;
-            background-image:
-                radial-gradient(ellipse 600px 400px at 20% 30%, rgba(212,160,23,0.04), transparent),
-                radial-gradient(ellipse 500px 500px at 80% 70%, rgba(100,60,180,0.03), transparent),
-                linear-gradient(rgba(30,30,53,0.3) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(30,30,53,0.3) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
-            animation: gridDrift 20s linear infinite;
-        }
-        @keyframes gridDrift {
-            0% { background-position: 0 0, 0 0, 0 0, 0 0; }
-            100% { background-position: 0 0, 0 0, 60px 60px, 60px 60px; }
-        }
-
-        .glow-orb {
-            position: fixed; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0;
-        }
-        .glow-orb-1 { width: 400px; height: 400px; background: rgba(212,160,23,0.06); top: -100px; left: -100px; animation: orbFloat1 15s ease-in-out infinite; }
-        .glow-orb-2 { width: 300px; height: 300px; background: rgba(100,60,200,0.05); bottom: -50px; right: -50px; animation: orbFloat2 18s ease-in-out infinite; }
-        @keyframes orbFloat1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(80px,60px); } }
-        @keyframes orbFloat2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-60px,-80px); } }
-
-        .view { display: none; position: relative; z-index: 1; }
-        .view.active { display: block; animation: fadeSlideIn 0.4s ease-out; }
-        @keyframes fadeSlideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            transition: all 0.3s ease;
-        }
-        .card:hover { border-color: rgba(212,160,23,0.3); }
-        .card.selected {
-            border-color: var(--accent);
-            box-shadow: 0 0 30px var(--accent-glow), inset 0 0 30px var(--accent-glow);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent), var(--accent-dim));
-            color: #000; font-weight: 700; border: none; border-radius: 12px;
-            padding: 14px 32px; cursor: pointer; font-size: 16px;
-            transition: all 0.3s ease; position: relative; overflow: hidden;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212,160,23,0.3); }
-        .btn-primary:active { transform: translateY(0); }
-        .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
-
-        .btn-outline {
-            background: transparent; color: var(--fg); border: 1px solid var(--border);
-            border-radius: 12px; padding: 12px 24px; cursor: pointer; font-size: 14px;
-            transition: all 0.3s ease; font-family: 'DM Sans', sans-serif;
-        }
-        .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-
-        .input-field {
-            width: 100%; background: var(--bg2); border: 1px solid var(--border);
-            border-radius: 10px; padding: 12px 16px; color: var(--fg); font-size: 15px;
-            font-family: 'DM Sans', sans-serif; transition: all 0.3s ease; outline: none;
-        }
-        .input-field:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
-        .input-field::placeholder { color: var(--muted); }
-
-        select.input-field { appearance: none; cursor: pointer; }
-
-        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-        .toast {
-            padding: 14px 20px; border-radius: 12px; font-size: 14px; font-weight: 500;
-            animation: toastIn 0.3s ease-out; min-width: 280px; max-width: 400px;
-            display: flex; align-items: center; gap: 10px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-        .toast.success { background: #0a2a14; border: 1px solid #166534; color: #86efac; }
-        .toast.error { background: #2a0a0a; border: 1px solid #991b1b; color: #fca5a5; }
-        .toast.info { background: #0a1a2a; border: 1px solid #1e40af; color: #93c5fd; }
-        @keyframes toastIn { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
-
-        .token-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(212,160,23,0.1); border: 1px solid rgba(212,160,23,0.2);
-            color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 12px;
-            font-family: 'Space Grotesk', monospace;
-        }
-
-        .spinner { width: 20px; height: 20px; border: 2px solid transparent; border-top-color: currentColor; border-radius: 50%; animation: spin 0.6s linear infinite; display: inline-block; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .step-indicator { display: flex; align-items: center; gap: 0; margin-bottom: 40px; }
-        .step-dot {
-            width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 14px; font-weight: 700; border: 2px solid var(--border); color: var(--muted);
-            font-family: 'Space Grotesk', sans-serif; transition: all 0.3s ease; flex-shrink: 0;
-        }
-        .step-dot.active { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
-        .step-dot.done { border-color: var(--success); color: #fff; background: var(--success); }
-        .step-line { flex: 1; height: 2px; background: var(--border); transition: background 0.3s; }
-        .step-line.done { background: var(--success); }
-
-        .course-card-access {
-            position: relative; overflow: hidden;
-        }
-        .course-card-access::before {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(135deg, rgba(212,160,23,0.05), transparent);
-            opacity: 0; transition: opacity 0.3s;
-        }
-        .course-card-access:hover::before { opacity: 1; }
-
-        .lock-overlay {
-            position: absolute; inset: 0; background: rgba(7,7,13,0.85);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 8px; border-radius: 16px; backdrop-filter: blur(4px);
-        }
-
-        .admin-table { width: 100%; border-collapse: collapse; }
-        .admin-table th { text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); border-bottom: 1px solid var(--border); }
-        .admin-table td { padding: 14px 16px; font-size: 14px; border-bottom: 1px solid var(--border); }
-        .admin-table tr:hover td { background: rgba(255,255,255,0.02); }
-
-        @media (max-width: 768px) {
-            .admin-table { font-size: 12px; }
-            .admin-table th, .admin-table td { padding: 8px 10px; }
-        }
-
-        .pulse-dot { width: 8px; height: 8px; border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
-        @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;overflow-x:hidden}
+        .bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+            background-image:radial-gradient(ellipse 600px 400px at 20% 30%,rgba(212,160,23,0.04),transparent),radial-gradient(ellipse 500px 500px at 80% 70%,rgba(100,60,180,0.03),transparent),linear-gradient(rgba(30,30,53,0.3) 1px,transparent 1px),linear-gradient(90deg,rgba(30,30,53,0.3) 1px,transparent 1px);
+            background-size:100% 100%,100% 100%,60px 60px,60px 60px;animation:gd 20s linear infinite}
+        @keyframes gd{to{background-position:0 0,0 0,60px 60px,60px 60px}}
+        .glow-orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0}
+        .glow-orb-1{width:400px;height:400px;background:rgba(212,160,23,0.06);top:-100px;left:-100px;animation:o1 15s ease-in-out infinite}
+        .glow-orb-2{width:300px;height:300px;background:rgba(100,60,200,0.05);bottom:-50px;right:-50px;animation:o2 18s ease-in-out infinite}
+        @keyframes o1{0%,100%{transform:translate(0,0)}50%{transform:translate(80px,60px)}}
+        @keyframes o2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-80px)}}
+        .view{display:none;position:relative;z-index:1}
+        .view.active{display:block;animation:fi .4s ease-out}
+        @keyframes fi{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .card{background:var(--card);border:1px solid var(--border);border-radius:16px;transition:all .3s ease}
+        .card:hover{border-color:rgba(212,160,23,0.3)}
+        .btn-p{background:linear-gradient(135deg,var(--accent),var(--accent-dim));color:#000;font-weight:700;border:none;border-radius:12px;padding:14px 32px;cursor:pointer;font-size:16px;transition:all .3s ease;font-family:'Space Grotesk',sans-serif}
+        .btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,160,23,0.3)}
+        .btn-p:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+        .btn-o{background:transparent;color:var(--fg);border:1px solid var(--border);border-radius:12px;padding:12px 24px;cursor:pointer;font-size:14px;transition:all .3s ease;font-family:'DM Sans',sans-serif}
+        .btn-o:hover{border-color:var(--accent);color:var(--accent)}
+        .inp{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--fg);font-size:15px;font-family:'DM Sans',sans-serif;transition:all .3s ease;outline:none}
+        .inp:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+        .inp::placeholder{color:var(--muted)}
+        select.inp{appearance:none;cursor:pointer}
+        .toast-c{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:10px}
+        .toast{padding:14px 20px;border-radius:12px;font-size:14px;font-weight:500;animation:ti .3s ease-out;min-width:280px;max-width:420px;display:flex;align-items:center;gap:10px;box-shadow:0 10px 40px rgba(0,0,0,0.5)}
+        .toast.success{background:#0a2a14;border:1px solid #166534;color:#86efac}
+        .toast.error{background:#2a0a0a;border:1px solid #991b1b;color:#fca5a5}
+        .toast.info{background:#0a1a2a;border:1px solid #1e40af;color:#93c5fd}
+        @keyframes ti{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+        .tbadge{display:inline-flex;align-items:center;gap:6px;background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.2);color:var(--accent);padding:4px 12px;border-radius:20px;font-size:12px;font-family:'Space Grotesk',monospace}
+        .spinner{width:20px;height:20px;border:2px solid transparent;border-top-color:currentColor;border-radius:50%;animation:sp .6s linear infinite;display:inline-block}
+        @keyframes sp{to{transform:rotate(360deg)}}
+        .sd{display:flex;align-items:center;gap:0;margin-bottom:40px}
+        .sdd{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;border:2px solid var(--border);color:var(--muted);font-family:'Space Grotesk',sans-serif;transition:all .3s ease;flex-shrink:0}
+        .sdd.active{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+        .sdd.done{border-color:var(--success);color:#fff;background:var(--success)}
+        .sdl{flex:1;height:2px;background:var(--border);transition:background .3s}
+        .sdl.done{background:var(--success)}
+        .atbl{width:100%;border-collapse:collapse}
+        .atbl th{text-align:left;padding:12px 16px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--border)}
+        .atbl td{padding:14px 16px;font-size:14px;border-bottom:1px solid var(--border)}
+        .atbl tr:hover td{background:rgba(255,255,255,0.02)}
+        .pdot{width:8px;height:8px;border-radius:50%;animation:pp 2s ease-in-out infinite}
+        @keyframes pp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+        ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+        @media(max-width:768px){.atbl{font-size:11px}.atbl th,.atbl td{padding:8px 6px}}
     </style>
 </head>
 <body>
     <div class="bg-grid"></div>
     <div class="glow-orb glow-orb-1"></div>
     <div class="glow-orb glow-orb-2"></div>
-    <div class="toast-container" id="toastContainer"></div>
+    <div class="toast-c" id="toastC"></div>
 
-    <!-- ===================== NAVBAR ===================== -->
+    <!-- NAV -->
     <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#07070dcc] border-b border-[var(--border)]">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="#" onclick="showView('landing')" class="font-heading font-bold text-xl tracking-tight flex items-center gap-2">
+            <a href="#" onclick="go('landing')" class="font-heading font-bold text-xl tracking-tight flex items-center gap-2">
                 <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--accent)] to-[var(--accent-dim)] flex items-center justify-center">
                     <i class="fas fa-graduation-cap text-black text-sm"></i>
                 </div>
-                <span>Course<span class="text-[var(--accent)]">Hub</span></span>
+                Course<span class="text-[var(--accent)]">Hub</span>
             </a>
             <div class="flex items-center gap-3">
-                <button onclick="showView('mycourses')" class="btn-outline text-sm py-2 px-4" id="navMyCourses" style="display:none;">
-                    <i class="fas fa-book-open mr-2"></i>My Courses
-                </button>
-                <button onclick="showView('admin')" class="btn-outline text-sm py-2 px-4" id="navAdmin" style="display:none;">
-                    <i class="fas fa-shield-halved mr-2"></i>Admin
-                </button>
-                <button onclick="showView('landing')" class="btn-outline text-sm py-2 px-4" id="navHome">
-                    <i class="fas fa-home mr-2"></i>Home
-                </button>
+                <button onclick="go('mycourses')" class="btn-o text-sm py-2 px-4" id="nMC" style="display:none"><i class="fas fa-book-open mr-2"></i>My Courses</button>
+                <button onclick="go('admin')" class="btn-o text-sm py-2 px-4" id="nAd" style="display:none"><i class="fas fa-shield-halved mr-2"></i>Admin</button>
+                <button onclick="go('landing')" class="btn-o text-sm py-2 px-4" id="nHo" style="display:none"><i class="fas fa-home mr-2"></i>Home</button>
             </div>
         </div>
     </nav>
 
-    <!-- ===================== LANDING ===================== -->
-    <div id="view-landing" class="view active pt-16">
+    <!-- LANDING -->
+    <div id="v-landing" class="view active pt-16">
         <div class="max-w-4xl mx-auto px-4 py-20 text-center">
-            <div class="inline-flex items-center gap-2 token-badge mb-6">
-                <div class="pulse-dot bg-[var(--accent)]"></div>
-                Web3 Token-Gated Learning
-            </div>
-            <h1 class="font-heading text-5xl md:text-7xl font-bold leading-tight mb-6">
-                Learn. Earn.<br>
-                <span class="bg-gradient-to-r from-[var(--accent)] via-yellow-300 to-[var(--accent)] bg-clip-text text-transparent">Get Token Access.</span>
-            </h1>
-            <p class="text-[var(--muted)] text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-                Enroll in premium courses, complete payment, receive a unique lifetime token upon admin confirmation.
-                No token, no access — simple, secure, decentralized logic.
-            </p>
+            <div class="inline-flex items-center gap-2 tbadge mb-6"><div class="pdot bg-[var(--accent)]"></div>Web3 Token-Gated Learning</div>
+            <h1 class="font-heading text-5xl md:text-7xl font-bold leading-tight mb-6">Learn. Earn.<br><span class="bg-gradient-to-r from-[var(--accent)] via-yellow-300 to-[var(--accent)] bg-clip-text text-transparent">Get Token Access.</span></h1>
+            <p class="text-[var(--muted)] text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">Enroll in premium courses, complete payment, receive a unique lifetime token upon admin confirmation. No token, no access.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-                <button onclick="showView('apply')" class="btn-primary text-lg px-10 py-4">
-                    <i class="fas fa-rocket mr-2"></i>Apply Now
-                </button>
-                <button onclick="showView('mycourses')" class="btn-outline text-lg px-10 py-4">
-                    <i class="fas fa-key mr-2"></i>Access Courses
-                </button>
+                <button onclick="go('apply')" class="btn-p text-lg px-10 py-4"><i class="fas fa-rocket mr-2"></i>Apply Now</button>
+                <button onclick="go('mycourses')" class="btn-o text-lg px-10 py-4"><i class="fas fa-key mr-2"></i>Access Courses</button>
             </div>
-
-            <!-- Pricing Cards -->
             <div class="grid md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
-                <!-- Free -->
                 <div class="card p-8">
                     <div class="text-sm font-semibold text-[var(--muted)] uppercase tracking-wider mb-3">Free</div>
                     <div class="font-heading text-4xl font-bold mb-1">0 Tk</div>
@@ -251,10 +112,9 @@
                         <li class="flex items-center gap-2"><i class="fas fa-check text-[var(--success)] text-xs"></i>Community access</li>
                         <li class="flex items-center gap-2"><i class="fas fa-times text-[var(--muted)] text-xs"></i>No token issued</li>
                     </ul>
-                    <button onclick="startApply('free')" class="btn-outline w-full text-center">Select Free</button>
+                    <button onclick="startApply('free')" class="btn-o w-full text-center">Select Free</button>
                 </div>
-                <!-- Noob -->
-                <div class="card p-8 relative">
+                <div class="card p-8 relative" style="border-color:rgba(212,160,23,0.2)">
                     <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--accent)] text-black text-xs font-bold px-4 py-1 rounded-full">POPULAR</div>
                     <div class="text-sm font-semibold text-[var(--accent)] uppercase tracking-wider mb-3">Noob</div>
                     <div class="font-heading text-4xl font-bold mb-1">100 Tk</div>
@@ -264,9 +124,8 @@
                         <li class="flex items-center gap-2"><i class="fas fa-check text-[var(--success)] text-xs"></i>Lifetime token access</li>
                         <li class="flex items-center gap-2"><i class="fas fa-check text-[var(--success)] text-xs"></i>Email support</li>
                     </ul>
-                    <button onclick="startApply('noob')" class="btn-primary w-full text-center">Select Noob</button>
+                    <button onclick="startApply('noob')" class="btn-p w-full text-center">Select Noob</button>
                 </div>
-                <!-- Pro -->
                 <div class="card p-8">
                     <div class="text-sm font-semibold text-purple-400 uppercase tracking-wider mb-3">Pro</div>
                     <div class="font-heading text-4xl font-bold mb-1">1,000 Tk</div>
@@ -275,1007 +134,573 @@
                         <li class="flex items-center gap-2"><i class="fas fa-check text-[var(--success)] text-xs"></i>All courses included</li>
                         <li class="flex items-center gap-2"><i class="fas fa-check text-[var(--success)] text-xs"></i>Priority token access</li>
                         <li class="flex items-center gap-2"><i class="fas fa-check text-[var(--success)] text-xs"></i>1-on-1 mentoring</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-[var(--success)] text-xs"></i>Certificate on completion</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-[var(--success)] text-xs"></i>Certificate</li>
                     </ul>
-                    <button onclick="startApply('pro')" class="btn-outline w-full text-center" style="border-color: #7c3aed; color: #a78bfa;">Select Pro</button>
+                    <button onclick="startApply('pro')" class="btn-o w-full text-center" style="border-color:#7c3aed;color:#a78bfa">Select Pro</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ===================== APPLY FORM ===================== -->
-    <div id="view-apply" class="view pt-16">
+    <!-- APPLY -->
+    <div id="v-apply" class="view pt-16">
         <div class="max-w-xl mx-auto px-4 py-12">
-            <button onclick="showView('landing')" class="text-[var(--muted)] hover:text-[var(--fg)] text-sm mb-6 inline-flex items-center gap-2 transition-colors">
-                <i class="fas fa-arrow-left"></i> Back to Home
-            </button>
-
-            <div class="step-indicator" id="stepIndicator">
-                <div class="step-dot active" data-step="1">1</div>
-                <div class="step-line"></div>
-                <div class="step-dot" data-step="2">2</div>
-                <div class="step-line"></div>
-                <div class="step-dot" data-step="3">3</div>
+            <button onclick="go('landing')" class="text-[var(--muted)] hover:text-[var(--fg)] text-sm mb-6 inline-flex items-center gap-2 transition-colors"><i class="fas fa-arrow-left"></i> Back</button>
+            <div class="sd" id="si">
+                <div class="sdd active" data-s="1">1</div><div class="sdl"></div>
+                <div class="sdd" data-s="2">2</div><div class="sdl"></div>
+                <div class="sdd" data-s="3">3</div>
             </div>
-
-            <!-- Step 1: Personal Info -->
-            <div id="applyStep1" class="card p-8">
+            <!-- Step 1 -->
+            <div id="s1" class="card p-8">
                 <h2 class="font-heading text-2xl font-bold mb-2">Personal Information</h2>
                 <p class="text-[var(--muted)] text-sm mb-8">Tell us about yourself to get started.</p>
-
                 <div class="space-y-5">
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Full Name <span class="text-[var(--error)]">*</span></label>
-                        <input type="text" id="applyName" class="input-field" placeholder="Enter your full name">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Email Address <span class="text-[var(--error)]">*</span></label>
-                        <input type="email" id="applyEmail" class="input-field" placeholder="your@email.com">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Phone Number <span class="text-[var(--error)]">*</span></label>
-                        <input type="tel" id="applyPhone" class="input-field" placeholder="01XXXXXXXXX">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Selected Plan</label>
-                        <div id="selectedPlanDisplay" class="input-field flex items-center gap-3" style="cursor:default;"></div>
-                    </div>
-                    <button onclick="goToStep(2)" class="btn-primary w-full mt-4">
-                        Continue to Payment <i class="fas fa-arrow-right ml-2"></i>
-                    </button>
+                    <div><label class="block text-sm font-medium mb-2">Full Name <span class="text-[var(--error)]">*</span></label><input type="text" id="fN" class="inp" placeholder="Enter your full name"></div>
+                    <div><label class="block text-sm font-medium mb-2">Email Address <span class="text-[var(--error)]">*</span></label><input type="email" id="fE" class="inp" placeholder="your@email.com"></div>
+                    <div><label class="block text-sm font-medium mb-2">Phone Number <span class="text-[var(--error)]">*</span></label><input type="tel" id="fP" class="inp" placeholder="01XXXXXXXXX"></div>
+                    <div><label class="block text-sm font-medium mb-2">Selected Plan</label><div id="plD" class="inp flex items-center gap-3" style="cursor:default"></div></div>
+                    <button onclick="gs(2)" class="btn-p w-full mt-4">Continue to Payment <i class="fas fa-arrow-right ml-2"></i></button>
                 </div>
             </div>
-
-            <!-- Step 2: Payment -->
-            <div id="applyStep2" class="card p-8" style="display:none;">
+            <!-- Step 2 -->
+            <div id="s2" class="card p-8" style="display:none">
                 <h2 class="font-heading text-2xl font-bold mb-2">Payment Details</h2>
-                <p class="text-[var(--muted)] text-sm mb-8" id="paymentInstruction">Send payment via Bkash or Nagad, then fill in your transaction info below.</p>
-
-                <div id="freePaymentMsg" style="display:none;" class="text-center py-10">
+                <p class="text-[var(--muted)] text-sm mb-8">Send payment via Bkash or Nagad, then enter your transaction info.</p>
+                <div id="frMsg" style="display:none" class="text-center py-10">
                     <i class="fas fa-gift text-5xl text-[var(--accent)] mb-4"></i>
-                    <h3 class="font-heading text-xl font-bold mb-2">Free Plan — No Payment Needed</h3>
-                    <p class="text-[var(--muted)] text-sm mb-6">You selected the free plan. Just submit and wait for confirmation.</p>
-                    <button onclick="submitApplication()" class="btn-primary">Submit Application</button>
+                    <h3 class="font-heading text-xl font-bold mb-2">Free Plan — No Payment</h3>
+                    <p class="text-[var(--muted)] text-sm mb-6">Just submit and wait for admin confirmation.</p>
+                    <button onclick="submitApp()" class="btn-p">Submit Application</button>
                 </div>
-
-                <div id="paidPaymentForm" class="space-y-5">
-                    <div class="card p-5 bg-[var(--bg2)] border-dashed">
-                        <div class="text-sm font-semibold text-[var(--accent)] mb-2">Payment Amount</div>
-                        <div class="font-heading text-3xl font-bold" id="paymentAmount">100 Tk</div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Payment Method <span class="text-[var(--error)]">*</span></label>
-                        <div class="relative">
-                            <select id="payMethod" class="input-field pr-10">
-                                <option value="">Select method</option>
-                                <option value="bkash">Bkash</option>
-                                <option value="nagad">Nagad</option>
-                            </select>
-                            <i class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-[var(--muted)] text-xs pointer-events-none"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Your Bkash / Nagad Number <span class="text-[var(--error)]">*</span></label>
-                        <input type="tel" id="payNumber" class="input-field" placeholder="01XXXXXXXXX">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Transaction ID (TrxID) <span class="text-[var(--error)]">*</span></label>
-                        <input type="text" id="payTrxId" class="input-field" placeholder="e.g. A1B2C3D4E5">
-                    </div>
+                <div id="pdF" class="space-y-5">
+                    <div class="card p-5 bg-[var(--bg2)] border-dashed"><div class="text-sm font-semibold text-[var(--accent)] mb-2">Payment Amount</div><div class="font-heading text-3xl font-bold" id="pAmt">100 Tk</div></div>
+                    <div><label class="block text-sm font-medium mb-2">Payment Method <span class="text-[var(--error)]">*</span></label><div class="relative"><select id="fM" class="inp pr-10"><option value="">Select method</option><option value="bkash">Bkash</option><option value="nagad">Nagad</option></select><i class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-[var(--muted)] text-xs pointer-events-none"></i></div></div>
+                    <div><label class="block text-sm font-medium mb-2">Your Bkash / Nagad Number <span class="text-[var(--error)]">*</span></label><input type="tel" id="fPN" class="inp" placeholder="01XXXXXXXXX"></div>
+                    <div><label class="block text-sm font-medium mb-2">Transaction ID (TrxID) <span class="text-[var(--error)]">*</span></label><input type="text" id="fTX" class="inp" placeholder="e.g. A1B2C3D4E5"></div>
                     <div class="flex gap-3 mt-4">
-                        <button onclick="goToStep(1)" class="btn-outline flex-1"><i class="fas fa-arrow-left mr-2"></i>Back</button>
-                        <button onclick="submitApplication()" class="btn-primary flex-1" id="submitBtn">Submit Application</button>
+                        <button onclick="gs(1)" class="btn-o flex-1"><i class="fas fa-arrow-left mr-2"></i>Back</button>
+                        <button onclick="submitApp()" class="btn-p flex-1" id="sBtn">Submit Application</button>
                     </div>
                 </div>
             </div>
-
-            <!-- Step 3: Success -->
-            <div id="applyStep3" class="card p-8 text-center" style="display:none;">
-                <div class="w-20 h-20 rounded-full bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.3)] flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-check text-3xl text-[var(--success)]"></i>
-                </div>
+            <!-- Step 3 -->
+            <div id="s3" class="card p-8 text-center" style="display:none">
+                <div class="w-20 h-20 rounded-full bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.3)] flex items-center justify-center mx-auto mb-6"><i class="fas fa-check text-3xl text-[var(--success)]"></i></div>
                 <h2 class="font-heading text-2xl font-bold mb-2">Application Submitted</h2>
-                <p class="text-[var(--muted)] text-sm mb-6">Your application has been recorded. You will receive a confirmation email shortly. After the admin verifies your payment, you'll get a token to access your courses.</p>
-                <div class="token-badge mx-auto mb-8" id="appIdBadge"></div>
+                <p class="text-[var(--muted)] text-sm mb-6">Your application has been recorded. Admin received an email with one-click confirm link.</p>
+                <div class="tbadge mx-auto mb-8" id="aBg"></div>
                 <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                    <button onclick="showView('mycourses')" class="btn-primary">View My Courses</button>
-                    <button onclick="showView('landing')" class="btn-outline">Back to Home</button>
+                    <button onclick="go('mycourses')" class="btn-p">View My Courses</button>
+                    <button onclick="go('landing')" class="btn-o">Back to Home</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ===================== MY COURSES ===================== -->
-    <div id="view-mycourses" class="view pt-16">
+    <!-- MY COURSES -->
+    <div id="v-mycourses" class="view pt-16">
         <div class="max-w-5xl mx-auto px-4 py-12">
-            <button onclick="showView('landing')" class="text-[var(--muted)] hover:text-[var(--fg)] text-sm mb-6 inline-flex items-center gap-2 transition-colors">
-                <i class="fas fa-arrow-left"></i> Back to Home
-            </button>
-
+            <button onclick="go('landing')" class="text-[var(--muted)] hover:text-[var(--fg)] text-sm mb-6 inline-flex items-center gap-2 transition-colors"><i class="fas fa-arrow-left"></i> Back</button>
             <h1 class="font-heading text-3xl md:text-4xl font-bold mb-2">My Courses</h1>
             <p class="text-[var(--muted)] mb-8">Enter your email to check enrolled courses and access tokens.</p>
-
             <div class="flex flex-col sm:flex-row gap-3 mb-10 max-w-xl">
-                <input type="email" id="lookupEmail" class="input-field flex-1" placeholder="Enter your email address">
-                <button onclick="lookupCourses()" class="btn-primary whitespace-nowrap" id="lookupBtn">
-                    <i class="fas fa-search mr-2"></i>Lookup
-                </button>
+                <input type="email" id="lkE" class="inp flex-1" placeholder="Enter your email address">
+                <button onclick="lookupCourses()" class="btn-p whitespace-nowrap" id="lkB"><i class="fas fa-search mr-2"></i>Lookup</button>
             </div>
-
-            <div id="lookupResult" style="display:none;">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 rounded-full bg-[var(--accent-glow)] border border-[rgba(212,160,23,0.3)] flex items-center justify-center">
-                        <i class="fas fa-user text-[var(--accent)] text-sm"></i>
-                    </div>
-                    <div>
-                        <div class="font-semibold" id="lookupName"></div>
-                        <div class="text-sm text-[var(--muted)]" id="lookupEmailDisplay"></div>
-                    </div>
-                    <div class="ml-auto" id="lookupStatus"></div>
+            <div id="lkR" style="display:none">
+                <div class="flex items-center gap-3 mb-6 flex-wrap">
+                    <div class="w-10 h-10 rounded-full bg-[var(--accent-glow)] border border-[rgba(212,160,23,0.3)] flex items-center justify-center"><i class="fas fa-user text-[var(--accent)] text-sm"></i></div>
+                    <div><div class="font-semibold" id="lkN"></div><div class="text-sm text-[var(--muted)]" id="lkEd"></div></div>
+                    <div class="ml-auto" id="lkSt"></div>
                 </div>
-
-                <div id="coursesGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-
-                <div id="noCourses" class="card p-12 text-center" style="display:none;">
-                    <i class="fas fa-book-open text-4xl text-[var(--muted)] mb-4"></i>
+                <div id="cGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+                <div id="noC" class="card p-12 text-center" style="display:none">
+                    <i class="fas fa-book-open text-4xl text-[var(--muted)] mb-4 block"></i>
                     <h3 class="font-heading text-xl font-bold mb-2">No Courses Yet</h3>
-                    <p class="text-[var(--muted)] text-sm mb-6">Your application hasn't been confirmed yet, or you haven't enrolled in any courses.</p>
-                    <button onclick="showView('apply')" class="btn-primary">Apply Now</button>
+                    <p class="text-[var(--muted)] text-sm mb-6">Your application hasn't been confirmed yet.</p>
+                    <button onclick="go('apply')" class="btn-p">Apply Now</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ===================== ADMIN PANEL ===================== -->
-    <div id="view-admin" class="view pt-16">
-        <div class="max-w-6xl mx-auto px-4 py-12">
+    <!-- ADMIN -->
+    <div id="v-admin" class="view pt-16">
+        <div class="max-w-7xl mx-auto px-4 py-12">
             <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
-                <div>
-                    <h1 class="font-heading text-3xl font-bold mb-1">Admin Panel</h1>
-                    <p class="text-[var(--muted)] text-sm">Manage applications, confirm payments, issue tokens.</p>
-                </div>
-                <button onclick="loadAdminData()" class="btn-outline text-sm">
-                    <i class="fas fa-refresh mr-2"></i>Refresh
-                </button>
+                <div><h1 class="font-heading text-3xl font-bold mb-1">Admin Panel</h1><p class="text-[var(--muted)] text-sm">Manage applications, confirm payments, issue tokens.</p></div>
+                <button onclick="loadAdmin()" class="btn-o text-sm"><i class="fas fa-refresh mr-2"></i>Refresh</button>
             </div>
-
-            <!-- Stats -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div class="card p-5">
-                    <div class="text-sm text-[var(--muted)] mb-1">Total</div>
-                    <div class="font-heading text-2xl font-bold" id="statTotal">0</div>
-                </div>
-                <div class="card p-5">
-                    <div class="text-sm text-[var(--muted)] mb-1">Pending</div>
-                    <div class="font-heading text-2xl font-bold text-yellow-400" id="statPending">0</div>
-                </div>
-                <div class="card p-5">
-                    <div class="text-sm text-[var(--muted)] mb-1">Approved</div>
-                    <div class="font-heading text-2xl font-bold text-green-400" id="statApproved">0</div>
-                </div>
-                <div class="card p-5">
-                    <div class="text-sm text-[var(--muted)] mb-1">Rejected</div>
-                    <div class="font-heading text-2xl font-bold text-red-400" id="statRejected">0</div>
-                </div>
+                <div class="card p-5"><div class="text-sm text-[var(--muted)] mb-1">Total</div><div class="font-heading text-2xl font-bold" id="sT">0</div></div>
+                <div class="card p-5"><div class="text-sm text-[var(--muted)] mb-1">Pending</div><div class="font-heading text-2xl font-bold text-yellow-400" id="sP">0</div></div>
+                <div class="card p-5"><div class="text-sm text-[var(--muted)] mb-1">Approved</div><div class="font-heading text-2xl font-bold text-green-400" id="sA">0</div></div>
+                <div class="card p-5"><div class="text-sm text-[var(--muted)] mb-1">Rejected</div><div class="font-heading text-2xl font-bold text-red-400" id="sR">0</div></div>
             </div>
-
-            <!-- Table -->
-            <div class="card overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="admin-table" id="adminTable">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Plan</th>
-                                <th>Payment</th>
-                                <th>TrxID</th>
-                                <th>Status</th>
-                                <th>Token</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminTableBody">
-                            <tr><td colspan="8" class="text-center py-10 text-[var(--muted)]">Loading applications...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <div class="card overflow-hidden"><div class="overflow-x-auto">
+                <table class="atbl"><thead><tr><th>Name</th><th>Email</th><th>Plan</th><th>Payment</th><th>TrxID</th><th>Status</th><th>Token</th><th>Actions</th></tr></thead>
+                <tbody id="aTB"><tr><td colspan="8" class="text-center py-10 text-[var(--muted)]">Loading...</td></tr></tbody></table>
+            </div></div>
         </div>
     </div>
 
-    <!-- ===================== COURSE ACCESS PAGE ===================== -->
-    <div id="view-course" class="view pt-16">
+    <!-- COURSE ACCESS -->
+    <div id="v-course" class="view pt-16">
         <div class="max-w-4xl mx-auto px-4 py-12">
-            <button onclick="showView('mycourses')" class="text-[var(--muted)] hover:text-[var(--fg)] text-sm mb-6 inline-flex items-center gap-2 transition-colors">
-                <i class="fas fa-arrow-left"></i> Back to My Courses
-            </button>
-
-            <div id="courseAccessLoading" class="text-center py-20">
-                <div class="spinner text-[var(--accent)] mx-auto mb-4" style="width:40px;height:40px;border-width:3px;"></div>
-                <p class="text-[var(--muted)]">Verifying token...</p>
-            </div>
-
-            <div id="courseAccessDenied" style="display:none;" class="card p-12 text-center">
-                <i class="fas fa-lock text-5xl text-[var(--error)] mb-4"></i>
+            <button onclick="go('mycourses')" class="text-[var(--muted)] hover:text-[var(--fg)] text-sm mb-6 inline-flex items-center gap-2 transition-colors"><i class="fas fa-arrow-left"></i> Back to My Courses</button>
+            <div id="cAL" class="text-center py-20"><div class="spinner text-[var(--accent)] mx-auto mb-4" style="width:40px;height:40px;border-width:3px"></div><p class="text-[var(--muted)]">Verifying token...</p></div>
+            <div id="cAD" style="display:none" class="card p-12 text-center">
+                <i class="fas fa-lock text-5xl text-[var(--error)] mb-4 block"></i>
                 <h2 class="font-heading text-2xl font-bold mb-2">Access Denied</h2>
-                <p class="text-[var(--muted)] mb-2" id="denyReason">Invalid or missing token.</p>
-                <p class="text-sm text-[var(--muted)] mb-6">You need a valid lifetime token to access this course. Please contact support if you believe this is an error.</p>
-                <button onclick="showView('landing')" class="btn-primary">Go Home</button>
+                <p class="text-[var(--muted)] mb-2" id="dR">Invalid or missing token.</p>
+                <p class="text-sm text-[var(--muted)] mb-6">You need a valid lifetime token to access this course.</p>
+                <button onclick="go('landing')" class="btn-p">Go Home</button>
             </div>
-
-            <div id="courseAccessGranted" style="display:none;">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="token-badge">
-                        <i class="fas fa-unlock-alt"></i>
-                        <span id="courseTokenDisplay"></span>
-                    </div>
+            <div id="cAG" style="display:none">
+                <div class="flex items-center gap-3 mb-6 flex-wrap">
+                    <div class="tbadge"><i class="fas fa-unlock-alt"></i><span id="cTD"></span></div>
                     <span class="text-[var(--success)] text-sm font-medium">Lifetime Access Verified</span>
                 </div>
-                <div class="card p-8" id="courseContentArea">
-                    <!-- Dynamic course content -->
-                </div>
+                <div class="card p-8" id="cCA"></div>
             </div>
         </div>
     </div>
 
-    <!-- ===================== JAVASCRIPT ===================== -->
+    <!-- EMAIL CONFIRM ACTION -->
+    <div id="v-confirm" class="view pt-16">
+        <div class="max-w-lg mx-auto px-4 py-20 text-center">
+            <div id="cfL"><div class="spinner text-[var(--accent)] mx-auto mb-4" style="width:40px;height:40px;border-width:3px"></div><p class="text-[var(--muted)]">Processing confirmation...</p></div>
+            <div id="cfR" style="display:none"></div>
+        </div>
+    </div>
+
     <script>
-        // ==========================================
-        // CONFIGURATION
-        // ==========================================
-        const SUPABASE_URL = 'https://hegyyjazkmovyyczotnw.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhlZ3l5amF6a21vdnl5Y3pvdG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0NDUyNzIsImV4cCI6MjA5MDAyMTI3Mn0._UMi4rG9RGc0rTsko2w8oEYmbXzdVEkwjnh1Uk6f8PE';
-        const ADMIN_KEY = '70955cf3-8787-4a54-8b52-8b69e3555259';
-        const ADMIN_EMAIL = 'mmjplaysbusness@gmail.com';
+    // ===================== CONFIG =====================
+    const EJS_SERVICE  = 'service_6j2w6lf';
+    const EJS_TEMPLATE = 'template_uppvg8p';
+    const EJS_KEY      = 'tLK-BfzuCRQ6ELSQo';
 
-        const PLAN_DETAILS = {
-            free:  { label: 'Free',  price: 0,    icon: 'fa-gift',        color: 'var(--muted)', courses: ['html-basics'] },
-            noob:  { label: 'Noob',  price: 100,  icon: 'fa-seedling',    color: 'var(--accent)', courses: ['html-basics', 'css-fundamentals', 'js-intro'] },
-            pro:   { label: 'Pro',   price: 1000, icon: 'fa-crown',       color: '#a78bfa',      courses: ['html-basics', 'css-fundamentals', 'js-intro', 'react-mastery', 'node-backend', 'fullstack-project'] }
-        };
+    const SB_URL  = 'https://hegyyjazkmovyyczotnw.supabase.co';
+    const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhlZ3l5amF6a21vdnl5Y3pvdG53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0NDUyNzIsImV4cCI6MjA5MDAyMTI3Mn0._UMi4rG9RGc0rTsko2w8oEYmbXzdVEkwjnh1Uk6f8PE';
+    const ADM_KEY = '70955cf3-8787-4a54-8b52-8b69e3555259';
+    const ADM_MAIL = 'mmjplaysbusness@gmail.com';
+    const BASE_URL = window.location.href.split('#')[0];
 
-        const COURSE_META = {
-            'html-basics':          { title: 'HTML Basics',           desc: 'Learn the foundation of web development with HTML5.', icon: 'fa-code', color: '#e34c26', level: 'Beginner' },
-            'css-fundamentals':     { title: 'CSS Fundamentals',      desc: 'Master styling, layouts, flexbox, grid, and animations.', icon: 'fa-palette', color: '#264de4', level: 'Beginner' },
-            'js-intro':             { title: 'JavaScript Introduction', desc: 'Variables, functions, DOM, events, and async programming.', icon: 'fa-js', color: '#f7df1e', level: 'Noob' },
-            'react-mastery':        { title: 'React Mastery',          desc: 'Components, hooks, state management, and routing.', icon: 'fa-atom', color: '#61dafb', level: 'Pro' },
-            'node-backend':         { title: 'Node.js Backend',        desc: 'Express, REST APIs, middleware, and database integration.', icon: 'fa-server', color: '#68a063', level: 'Pro' },
-            'fullstack-project':    { title: 'Full-Stack Project',     desc: 'Build and deploy a complete application from scratch.', icon: 'fa-rocket', color: '#ff6b6b', level: 'Pro' }
-        };
+    const PLANS = {
+        free: { label:'Free',  price:0,    icon:'fa-gift',     clr:'var(--muted)', courses:['html-basics'] },
+        noob: { label:'Noob',  price:100,  icon:'fa-seedling', clr:'var(--accent)', courses:['html-basics','css-fundamentals','js-intro'] },
+        pro:  { label:'Pro',   price:1000, icon:'fa-crown',    clr:'#a78bfa',      courses:['html-basics','css-fundamentals','js-intro','react-mastery','node-backend','fullstack-project'] }
+    };
 
-        // ==========================================
-        // SUPABASE CLIENT
-        // ==========================================
-        const { createClient } = window.supabase || {};
-        let supabase = null;
+    const COURSES = {
+        'html-basics':       { title:'HTML Basics',             desc:'Learn the foundation of web development with HTML5.',          icon:'fa-code',    color:'#e34c26', lvl:'Beginner' },
+        'css-fundamentals':  { title:'CSS Fundamentals',        desc:'Master styling, flexbox, grid, and animations.',              icon:'fa-palette', color:'#264de4', lvl:'Beginner' },
+        'js-intro':          { title:'JavaScript Introduction', desc:'Variables, functions, DOM, events, and async programming.',   icon:'fa-js',      color:'#f7df1e', lvl:'Noob' },
+        'react-mastery':     { title:'React Mastery',           desc:'Components, hooks, state management, and routing.',           icon:'fa-atom',    color:'#61dafb', lvl:'Pro' },
+        'node-backend':      { title:'Node.js Backend',         desc:'Express, REST APIs, middleware, and database integration.',   icon:'fa-server',  color:'#68a063', lvl:'Pro' },
+        'fullstack-project': { title:'Full-Stack Project',      desc:'Build and deploy a complete application from scratch.',       icon:'fa-rocket',  color:'#ff6b6b', lvl:'Pro' }
+    };
 
-        function initSupabase() {
-            try {
-                if (typeof supabase !== 'undefined' && supabase.createClient) {
-                    supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-                } else if (window.Supabase) {
-                    supabase = window.Supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-                }
-            } catch (e) {
-                console.error('Supabase init failed:', e);
-            }
+    // ===================== SUPABASE REST =====================
+    async function sb(table, method='GET', body=null, filters=null) {
+        const u = new URL(`${SB_URL}/rest/v1/${table}`);
+        u.searchParams.set('apikey', SB_KEY);
+        if (filters) Object.entries(filters).forEach(([k,v]) => u.searchParams.set(k,v));
+        const o = { method, headers: { 'apikey':SB_KEY, 'Authorization':`Bearer ${SB_KEY}`, 'Content-Type':'application/json', 'Prefer': (method==='POST'||method==='PATCH') ? 'return=representation' : 'count=exact' } };
+        if (body) o.body = JSON.stringify(body);
+        const r = await fetch(u.toString(), o);
+        if (!r.ok) { const e = await r.json().catch(()=>({})); throw new Error(e.message || `HTTP ${r.status}`); }
+        return await r.json();
+    }
+
+    // ===================== TOAST =====================
+    function toast(msg, type='info') {
+        const c = document.getElementById('toastC');
+        const ic = {success:'fa-check-circle',error:'fa-exclamation-circle',info:'fa-info-circle'};
+        const t = document.createElement('div');
+        t.className = `toast ${type}`;
+        t.innerHTML = `<i class="fas ${ic[type]}"></i><span>${msg}</span>`;
+        c.appendChild(t);
+        setTimeout(()=>{ t.style.transition='opacity .3s,transform .3s'; t.style.opacity='0'; t.style.transform='translateX(40px)'; setTimeout(()=>t.remove(),300); },5000);
+    }
+
+    // ===================== NAVIGATION =====================
+    let curView = 'landing', selPlan = 'free', admOk = false;
+
+    function go(name) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        const el = document.getElementById(`v-${name}`);
+        if (el) { el.classList.add('active'); curView = name; window.scrollTo({top:0,behavior:'smooth'}); }
+        document.getElementById('nMC').style.display = ['landing','mycourses'].includes(name) ? '' : 'none';
+        document.getElementById('nHo').style.display = name === 'landing' ? 'none' : '';
+        document.getElementById('nAd').style.display = name === 'landing' ? '' : 'none';
+        if (name === 'course') handleCourse();
+        if (name === 'admin') loadAdmin();
+    }
+
+    // ===================== EMAILJS =====================
+    function initEJS() {
+        try { emailjs.init({ publicKey: EJS_KEY }); return true; } catch(e) { console.warn('EJS init fail:', e); return false; }
+    }
+
+    async function sendMail(app, action) {
+        const pi = PLANS[app.plan] || { label: app.plan, price: '?' };
+        const payLine = app.payment_method
+            ? `${app.payment_method.toUpperCase()} — ${app.payment_number} | TrxID: ${app.trx_id}`
+            : 'No payment (Free plan)';
+
+        const approveLink = `${BASE_URL}#confirm/${app.id}/approved/${ADM_KEY}`;
+        const rejectLink  = `${BASE_URL}#confirm/${app.id}/rejected/${ADM_KEY}`;
+
+        let actions = '';
+        if (action === 'received') {
+            actions = `\n\n====== ONE-CLICK ACTION ======\nAPPROVE (click): ${approveLink}\nREJECT (click): ${rejectLink}\n==============================`;
+        } else if (action === 'approved') {
+            actions = `\nToken Issued: ${app.token}\nStudent can now access courses at My Courses page.`;
+        } else if (action === 'rejected') {
+            actions = `\nApplication rejected. Student will see "No Courses Yet" on lookup.`;
         }
 
-        // Fallback: use fetch directly with Supabase REST API
-        async function sbQuery(table, method = 'GET', body = null, filters = null) {
-            const url = new URL(`${SUPABASE_URL}/rest/v1/${table}`);
-            url.searchParams.set('apikey', SUPABASE_KEY);
-            if (filters) {
-                for (const [key, val] of Object.entries(filters)) {
-                    url.searchParams.set(key, val);
-                }
-            }
-            const opts = {
-                method,
-                headers: {
-                    'apikey': SUPABASE_KEY,
-                    'Authorization': `Bearer ${SUPABASE_KEY}`,
-                    'Content-Type': 'application/json',
-                    'Prefer': method === 'POST' ? 'return=representation' : method === 'PATCH' ? 'return=representation' : 'count=exact'
-                }
-            };
-            if (body) opts.body = JSON.stringify(body);
-            const res = await fetch(url.toString(), opts);
-            if (!res.ok) {
-                const err = await res.json().catch(() => ({}));
-                throw new Error(err.message || `HTTP ${res.status}`);
-            }
-            const contentRange = res.headers.get('content-range');
-            let count = null;
-            if (contentRange) {
-                count = parseInt(contentRange.split('/')[1]);
-            }
-            const data = await res.json();
-            return { data, count };
-        }
+        const message = `New Course Application!\nID: ${app.id}\nName: ${app.name}\nEmail: ${app.email}\nPhone: ${app.phone}\nPlan: ${pi.label} (${pi.price} Tk)\nPayment: ${payLine}\nStatus: ${app.status.toUpperCase()}${actions}`;
 
-        async function sbInsert(table, row) {
-            return sbQuery(table, 'POST', row);
-        }
-
-        async function sbSelect(table, filters) {
-            return sbQuery(table, 'GET', null, filters);
-        }
-
-        async function sbUpdate(table, filters, updates) {
-            const url = new URL(`${SUPABASE_URL}/rest/v1/${table}`);
-            url.searchParams.set('apikey', SUPABASE_KEY);
-            for (const [key, val] of Object.entries(filters)) {
-                url.searchParams.set(key, val);
-            }
-            const res = await fetch(url.toString(), {
-                method: 'PATCH',
-                headers: {
-                    'apikey': SUPABASE_KEY,
-                    'Authorization': `Bearer ${SUPABASE_KEY}`,
-                    'Content-Type': 'application/json',
-                    'Prefer': 'return=representation'
-                },
-                body: JSON.stringify(updates)
+        try {
+            await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
+                to_email: ADM_MAIL,
+                name: app.name,
+                time: new Date().toLocaleString(),
+                message: message
             });
-            if (!res.ok) {
-                const err = await res.json().catch(() => ({}));
-                throw new Error(err.message || `HTTP ${res.status}`);
-            }
-            return await res.json();
-        }
-
-        // ==========================================
-        // TOAST NOTIFICATIONS
-        // ==========================================
-        function showToast(message, type = 'info') {
-            const container = document.getElementById('toastContainer');
-            const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle' };
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.innerHTML = `<i class="fas ${icons[type]}"></i><span>${message}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.style.transition = 'opacity 0.3s, transform 0.3s';
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(40px)';
-                setTimeout(() => toast.remove(), 300);
-            }, 4000);
-        }
-
-        // ==========================================
-        // VIEW NAVIGATION
-        // ==========================================
-        let currentView = 'landing';
-        let selectedPlan = 'free';
-
-        function showView(viewName) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            const target = document.getElementById(`view-${viewName}`);
-            if (target) {
-                target.classList.add('active');
-                currentView = viewName;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-
-            // Show/hide nav buttons
-            document.getElementById('navMyCourses').style.display = (viewName === 'landing' || viewName === 'mycourses') ? '' : 'none';
-            document.getElementById('navHome').style.display = viewName === 'landing' ? 'none' : '';
-
-            // Check for course token in URL
-            if (viewName === 'course') {
-                handleCourseAccess();
-            }
-            if (viewName === 'admin') {
-                loadAdminData();
-            }
-        }
-
-        // ==========================================
-        // APPLICATION FLOW
-        // ==========================================
-        function startApply(plan) {
-            selectedPlan = plan;
-            showView('apply');
-            resetApplyForm();
-            updatePlanDisplay();
-
-            // Show/hide payment step content
-            if (plan === 'free') {
-                document.getElementById('paymentInstruction').style.display = 'none';
-                document.getElementById('freePaymentMsg').style.display = '';
-                document.getElementById('paidPaymentForm').style.display = 'none';
-            } else {
-                document.getElementById('paymentInstruction').style.display = '';
-                document.getElementById('freePaymentMsg').style.display = 'none';
-                document.getElementById('paidPaymentForm').style.display = '';
-                document.getElementById('paymentAmount').textContent = `${PLAN_DETAILS[plan].price} Tk`;
-            }
-        }
-
-        function updatePlanDisplay() {
-            const p = PLAN_DETAILS[selectedPlan];
-            document.getElementById('selectedPlanDisplay').innerHTML = `
-                <i class="fas ${p.icon}" style="color:${p.color}"></i>
-                <span class="font-semibold">${p.label}</span>
-                <span class="ml-auto text-[var(--muted)]">${p.price === 0 ? 'Free' : p.price + ' Tk'}</span>
-            `;
-        }
-
-        function resetApplyForm() {
-            document.getElementById('applyName').value = '';
-            document.getElementById('applyEmail').value = '';
-            document.getElementById('applyPhone').value = '';
-            document.getElementById('payMethod').value = '';
-            document.getElementById('payNumber').value = '';
-            document.getElementById('payTrxId').value = '';
-            goToStep(1);
-        }
-
-        function goToStep(step) {
-            // Validation
-            if (step === 2) {
-                const name = document.getElementById('applyName').value.trim();
-                const email = document.getElementById('applyEmail').value.trim();
-                const phone = document.getElementById('applyPhone').value.trim();
-                if (!name) { showToast('Please enter your full name.', 'error'); return; }
-                if (!email || !email.includes('@')) { showToast('Please enter a valid email address.', 'error'); return; }
-                if (!phone || phone.length < 11) { showToast('Please enter a valid phone number.', 'error'); return; }
-            }
-
-            document.getElementById('applyStep1').style.display = step === 1 ? '' : 'none';
-            document.getElementById('applyStep2').style.display = step === 2 ? '' : 'none';
-            document.getElementById('applyStep3').style.display = step === 3 ? '' : 'none';
-
-            // Update step indicators
-            document.querySelectorAll('.step-dot').forEach(dot => {
-                const s = parseInt(dot.dataset.step);
-                dot.classList.remove('active', 'done');
-                if (s < step) dot.classList.add('done');
-                if (s === step) dot.classList.add('active');
-            });
-            document.querySelectorAll('.step-line').forEach((line, i) => {
-                line.classList.toggle('done', i + 1 < step);
-            });
-        }
-
-        async function submitApplication() {
-            // Validate payment fields for paid plans
-            if (selectedPlan !== 'free') {
-                const method = document.getElementById('payMethod').value;
-                const number = document.getElementById('payNumber').value.trim();
-                const trxId = document.getElementById('payTrxId').value.trim();
-                if (!method) { showToast('Please select a payment method (Bkash/Nagad).', 'error'); return; }
-                if (!number || number.length < 11) { showToast('Please enter your Bkash/Nagad number.', 'error'); return; }
-                if (!trxId) { showToast('Please enter the Transaction ID.', 'error'); return; }
-            }
-
-            const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner"></span> Submitting...';
-
-            const appId = 'APP-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
-
-            const application = {
-                id: appId,
-                name: document.getElementById('applyName').value.trim(),
-                email: document.getElementById('applyEmail').value.trim(),
-                phone: document.getElementById('applyPhone').value.trim(),
-                plan: selectedPlan,
-                payment_method: selectedPlan === 'free' ? null : document.getElementById('payMethod').value,
-                payment_number: selectedPlan === 'free' ? null : document.getElementById('payNumber').value.trim(),
-                trx_id: selectedPlan === 'free' ? null : document.getElementById('payTrxId').value.trim(),
-                status: 'pending',
-                token: null,
-                created_at: new Date().toISOString()
-            };
-
-            try {
-                await sbInsert('applications', application);
-
-                // Send email notification via EmailJS (fallback to mailto)
-                await sendNotificationEmail(application, 'Application Received');
-
-                document.getElementById('appIdBadge').innerHTML = `<i class="fas fa-hashtag"></i> ${appId}`;
-                goToStep(3);
-                showToast('Application submitted successfully!', 'success');
-            } catch (err) {
-                console.error('Submit error:', err);
-                showToast('Failed to submit. Please try again. ' + err.message, 'error');
-                btn.disabled = false;
-                btn.innerHTML = 'Submit Application';
-            }
-        }
-
-        // ==========================================
-        // EMAIL NOTIFICATION (EmailJS + mailto fallback)
-        // ==========================================
-        async function sendNotificationEmail(app, subject) {
-            const planInfo = PLAN_DETAILS[app.plan];
-            let body = `COURSE APPLICATION — ${subject.toUpperCase()}\n`;
-            body += `═══════════════════════════════════\n`;
-            body += `ID: ${app.id}\n`;
-            body += `Name: ${app.name}\n`;
-            body += `Email: ${app.email}\n`;
-            body += `Phone: ${app.phone}\n`;
-            body += `Plan: ${planInfo.label} (${planInfo.price} Tk)\n`;
-            if (app.payment_method) {
-                body += `Payment: ${app.payment_method.toUpperCase()} — ${app.payment_number}\n`;
-                body += `TrxID: ${app.trx_id}\n`;
-            }
-            body += `Status: ${app.status.toUpperCase()}\n`;
-            if (app.token) body += `Token: ${app.token}\n`;
-            body += `Time: ${app.created_at}\n`;
-            body += `═══════════════════════════════════`;
-
-            // Try EmailJS first
-            if (window.emailjs) {
-                try {
-                    await window.emailjs.send('default_service', 'template_default', {
-                        to_email: ADMIN_EMAIL,
-                        subject: `[CourseHub] ${subject}: ${app.name} — ${app.id}`,
-                        message: body
-                    });
-                    return;
-                } catch (e) {
-                    console.warn('EmailJS failed, using mailto fallback:', e);
-                }
-            }
-
-            // Fallback: open mailto
-            const mailtoUrl = `mailto:${ADMIN_EMAIL}?subject=${encodeURIComponent(`[CourseHub] ${subject}: ${app.name} — ${app.id}`)}&body=${encodeURIComponent(body)}`;
-            window.open(mailtoUrl, '_blank');
-        }
-
-        // ==========================================
-        // COURSE LOOKUP
-        // ==========================================
-        async function lookupCourses() {
-            const email = document.getElementById('lookupEmail').value.trim();
-            if (!email || !email.includes('@')) {
-                showToast('Please enter a valid email address.', 'error');
-                return;
-            }
-
-            const btn = document.getElementById('lookupBtn');
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner"></span>';
-
-            try {
-                const { data } = await sbSelect('applications', { email: `eq.${email}` });
-
-                if (!data || data.length === 0) {
-                    document.getElementById('lookupResult').style.display = 'none';
-                    showToast('No application found with this email.', 'error');
-                } else {
-                    const app = data[0]; // Latest
-                    renderLookupResult(app);
-                }
-            } catch (err) {
-                showToast('Failed to lookup. ' + err.message, 'error');
-            }
-
-            btn.disabled = false;
-            btn.innerHTML = '<i class="fas fa-search mr-2"></i>Lookup';
-        }
-
-        function renderLookupResult(app) {
-            document.getElementById('lookupResult').style.display = '';
-            document.getElementById('lookupName').textContent = app.name;
-            document.getElementById('lookupEmailDisplay').textContent = app.email;
-
-            // Status badge
-            const statusEl = document.getElementById('lookupStatus');
-            const statusColors = { pending: 'text-yellow-400', approved: 'text-green-400', rejected: 'text-red-400' };
-            const statusIcons = { pending: 'fa-clock', approved: 'fa-check-circle', rejected: 'fa-times-circle' };
-            statusEl.innerHTML = `<span class="${statusColors[app.status]} text-sm font-medium"><i class="fas ${statusIcons[app.status]} mr-1"></i>${app.status.charAt(0).toUpperCase() + app.status.slice(1)}</span>`;
-
-            const grid = document.getElementById('coursesGrid');
-            const noCourses = document.getElementById('noCourses');
-
-            if (app.status !== 'approved' || !app.token) {
-                grid.innerHTML = '';
-                noCourses.style.display = '';
-                return;
-            }
-
-            noCourses.style.display = 'none';
-            const courses = PLAN_DETAILS[app.plan]?.courses || [];
-            grid.innerHTML = courses.map(slug => {
-                const c = COURSE_META[slug];
-                if (!c) return '';
-                const courseUrl = `course.html/${slug}-${app.token}`;
-                return `
-                    <div class="card course-card-access p-6">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:${c.color}15; border:1px solid ${c.color}30;">
-                                <i class="fas ${c.icon}" style="color:${c.color}"></i>
-                            </div>
-                            <span class="text-xs px-2 py-1 rounded-full bg-[var(--bg2)] text-[var(--muted)]">${c.level}</span>
-                        </div>
-                        <h3 class="font-heading font-bold text-lg mb-2">${c.title}</h3>
-                        <p class="text-[var(--muted)] text-sm mb-4 leading-relaxed">${c.desc}</p>
-                        <div class="flex items-center justify-between">
-                            <div class="token-badge text-[10px]"><i class="fas fa-key"></i>${app.token.substring(0, 12)}...</div>
-                            <a href="#${courseUrl}" onclick="openCourse('${slug}','${app.token}');return false;" class="text-[var(--accent)] text-sm font-semibold hover:underline">
-                                Access <i class="fas fa-arrow-right ml-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function openCourse(slug, token) {
-            window.location.hash = `course.html/${slug}-${token}`;
-            showView('course');
-        }
-
-        // ==========================================
-        // COURSE TOKEN VERIFICATION
-        // ==========================================
-        async function handleCourseAccess() {
-            const loading = document.getElementById('courseAccessLoading');
-            const denied = document.getElementById('courseAccessDenied');
-            const granted = document.getElementById('courseAccessGranted');
-
-            loading.style.display = '';
-            denied.style.display = 'none';
-            granted.style.display = 'none';
-
-            const hash = window.location.hash.substring(1); // Remove #
-            // Expected format: course.html/slug-token
-            const match = hash.match(/^course\.html\/([a-z0-9-]+)-([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})$/i);
-
-            if (!match) {
-                loading.style.display = 'none';
-                denied.style.display = '';
-                document.getElementById('denyReason').textContent = 'Invalid course URL format. The URL should be: course.html/{course-name}-{token}';
-                return;
-            }
-
-            const slug = match[1];
-            const token = match[2];
-
-            try {
-                // Verify token in database
-                const { data } = await sbSelect('applications', { token: `eq.${token}`, status: `eq.approved` });
-
-                if (!data || data.length === 0) {
-                    loading.style.display = 'none';
-                    denied.style.display = '';
-                    document.getElementById('denyReason').textContent = 'Token not found or application not approved. Contact admin for help.';
-                    return;
-                }
-
-                const app = data[0];
-                const courses = PLAN_DETAILS[app.plan]?.courses || [];
-
-                if (!courses.includes(slug)) {
-                    loading.style.display = 'none';
-                    denied.style.display = '';
-                    document.getElementById('denyReason').textContent = `Your "${PLAN_DETAILS[app.plan].label}" plan does not include this course. Upgrade to access.`;
-                    return;
-                }
-
-                // ACCESS GRANTED
-                loading.style.display = 'none';
-                granted.style.display = '';
-                document.getElementById('courseTokenDisplay').textContent = token;
-
-                const courseMeta = COURSE_META[slug];
-                renderCourseContent(slug, courseMeta, app);
-
-            } catch (err) {
-                loading.style.display = 'none';
-                denied.style.display = '';
-                document.getElementById('denyReason').textContent = 'Verification failed: ' + err.message;
-            }
-        }
-
-        function renderCourseContent(slug, meta, app) {
-            const area = document.getElementById('courseContentArea');
-            // Simulated course content — in production this would load actual course HTML
-            area.innerHTML = `
-                <div class="flex items-center gap-4 mb-8">
-                    <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl" style="background:${meta.color}15; border:1px solid ${meta.color}30;">
-                        <i class="fas ${meta.icon}" style="color:${meta.color}"></i>
-                    </div>
-                    <div>
-                        <h2 class="font-heading text-2xl font-bold">${meta.title}</h2>
-                        <p class="text-[var(--muted)] text-sm">${meta.level} Level — Enrolled as ${PLAN_DETAILS[app.plan].label}</p>
-                    </div>
-                </div>
-
-                <div class="border-t border-[var(--border)] pt-8 space-y-6">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-[var(--accent)] text-black flex items-center justify-center text-sm font-bold">1</div>
-                        <div>
-                            <h3 class="font-semibold">Introduction to ${meta.title}</h3>
-                            <p class="text-[var(--muted)] text-sm">Getting started with the fundamentals</p>
-                        </div>
-                        <i class="fas fa-play-circle text-[var(--accent)] ml-auto text-xl cursor-pointer hover:scale-110 transition-transform"></i>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-[var(--bg2)] border border-[var(--border)] text-[var(--muted)] flex items-center justify-center text-sm font-bold">2</div>
-                        <div>
-                            <h3 class="font-semibold">Core Concepts Deep Dive</h3>
-                            <p class="text-[var(--muted)] text-sm">Understanding the building blocks</p>
-                        </div>
-                        <i class="fas fa-play-circle text-[var(--muted)] ml-auto text-xl cursor-pointer hover:text-[var(--accent)] transition-colors"></i>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-[var(--bg2)] border border-[var(--border)] text-[var(--muted)] flex items-center justify-center text-sm font-bold">3</div>
-                        <div>
-                            <h3 class="font-semibold">Hands-On Practice</h3>
-                            <p class="text-[var(--muted)] text-sm">Build real projects step by step</p>
-                        </div>
-                        <i class="fas fa-play-circle text-[var(--muted)] ml-auto text-xl cursor-pointer hover:text-[var(--accent)] transition-colors"></i>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-[var(--bg2)] border border-[var(--border)] text-[var(--muted)] flex items-center justify-center text-sm font-bold">4</div>
-                        <div>
-                            <h3 class="font-semibold">Advanced Techniques</h3>
-                            <p class="text-[var(--muted)] text-sm">Level up your skills</p>
-                        </div>
-                        <i class="fas fa-lock text-[var(--muted)] ml-auto text-xl"></i>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-[var(--bg2)] border border-[var(--border)] text-[var(--muted)] flex items-center justify-center text-sm font-bold">5</div>
-                        <div>
-                            <h3 class="font-semibold">Final Project & Review</h3>
-                            <p class="text-[var(--muted)] text-sm">Complete your capstone project</p>
-                        </div>
-                        <i class="fas fa-lock text-[var(--muted)] ml-auto text-xl"></i>
-                    </div>
-                </div>
-
-                <div class="mt-8 p-5 rounded-xl bg-[var(--bg2)] border border-[var(--border)]">
-                    <div class="flex items-center gap-2 text-sm text-[var(--muted)]">
-                        <i class="fas fa-shield-halved text-[var(--accent)]"></i>
-                        <span>Lifetime access secured by token <strong class="text-[var(--fg)]">${token.substring(0, 8)}...</strong></span>
-                    </div>
-                </div>
-            `;
-        }
-
-        // ==========================================
-        // ADMIN PANEL
-        // ==========================================
-        let isAdminVerified = false;
-
-        async function loadAdminData() {
-            if (!isAdminVerified) {
-                const key = prompt('Enter admin access key:');
-                if (key !== ADMIN_KEY) {
-                    showToast('Invalid admin key. Access denied.', 'error');
-                    showView('landing');
-                    return;
-                }
-                isAdminVerified = true;
-                showToast('Admin access granted.', 'success');
-            }
-
-            try {
-                const { data } = await sbSelect('applications', { order: 'created_at.desc' });
-                renderAdminTable(data || []);
-                updateStats(data || []);
-            } catch (err) {
-                showToast('Failed to load applications: ' + err.message, 'error');
-            }
-        }
-
-        function updateStats(data) {
-            document.getElementById('statTotal').textContent = data.length;
-            document.getElementById('statPending').textContent = data.filter(a => a.status === 'pending').length;
-            document.getElementById('statApproved').textContent = data.filter(a => a.status === 'approved').length;
-            document.getElementById('statRejected').textContent = data.filter(a => a.status === 'rejected').length;
-        }
-
-        function renderAdminTable(data) {
-            const tbody = document.getElementById('adminTableBody');
-            if (data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="text-center py-10 text-[var(--muted)]">No applications yet.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = data.map(app => {
-                const planInfo = PLAN_DETAILS[app.plan] || { label: app.plan, color: 'var(--muted)' };
-                const statusBadge = {
-                    pending: '<span class="text-xs px-2 py-1 rounded-full bg-yellow-900/30 text-yellow-400 border border-yellow-800/30">Pending</span>',
-                    approved: '<span class="text-xs px-2 py-1 rounded-full bg-green-900/30 text-green-400 border border-green-800/30">Approved</span>',
-                    rejected: '<span class="text-xs px-2 py-1 rounded-full bg-red-900/30 text-red-400 border border-red-800/30">Rejected</span>'
-                };
-
-                const tokenDisplay = app.token
-                    ? `<span class="token-badge text-[10px] cursor-pointer" onclick="copyText('${app.token}')" title="Click to copy"><i class="fas fa-key"></i>${app.token.substring(0, 8)}...</span>`
-                    : '<span class="text-[var(--muted)] text-xs">—</span>';
-
-                let actions = '';
-                if (app.status === 'pending') {
-                    actions = `
-                        <button onclick="confirmApp('${app.id}','approved')" class="text-xs px-3 py-1.5 rounded-lg bg-green-900/30 text-green-400 border border-green-800/30 hover:bg-green-900/50 transition-colors cursor-pointer">
-                            <i class="fas fa-check mr-1"></i>Approve
-                        </button>
-                        <button onclick="confirmApp('${app.id}','rejected')" class="text-xs px-3 py-1.5 rounded-lg bg-red-900/30 text-red-400 border border-red-800/30 hover:bg-red-900/50 transition-colors cursor-pointer ml-1">
-                            <i class="fas fa-times mr-1"></i>Reject
-                        </button>
-                    `;
-                } else {
-                    actions = `<span class="text-[var(--muted)] text-xs">${app.status}</span>`;
-                }
-
-                return `<tr>
-                    <td class="font-medium">${app.name}</td>
-                    <td class="text-[var(--muted)]">${app.email}</td>
-                    <td><span style="color:${planInfo.color}" class="font-semibold text-sm">${planInfo.label}</span></td>
-                    <td class="text-sm">${app.payment_method ? app.payment_method.toUpperCase() : '—'}</td>
-                    <td class="text-sm font-mono text-[var(--muted)]">${app.trx_id || '—'}</td>
-                    <td>${statusBadge[app.status]}</td>
-                    <td>${tokenDisplay}</td>
-                    <td>${actions}</td>
-                </tr>`;
-            }).join('');
-        }
-
-        async function confirmApp(appId, newStatus) {
-            if (!confirm(`Are you sure you want to ${newStatus} application ${appId}?`)) return;
-
-            let updates = { status: newStatus };
-
-            if (newStatus === 'approved') {
-                // Generate UUID v4 token
-                const token = generateUUID();
-                updates.token = token;
-                updates.confirmed_at = new Date().toISOString();
-            }
-
-            try {
-                await sbUpdate('applications', { id: `eq.${appId}` }, updates);
-
-                // Get full app data for email
-                const { data } = await sbSelect('applications', { id: `eq.${appId}` });
-                if (data && data[0]) {
-                    await sendNotificationEmail(data[0], newStatus === 'approved' ? 'APPROVED — Token Issued' : 'REJECTED');
-                }
-
-                showToast(`Application ${newStatus}!${newStatus === 'approved' ? ' Token generated.' : ''}`, newStatus === 'approved' ? 'success' : 'info');
-                loadAdminData();
-            } catch (err) {
-                showToast('Failed to update: ' + err.message, 'error');
-            }
-        }
-
-        function generateUUID() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                const r = Math.random() * 16 | 0;
-                const v = c === 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
-        }
-
-        function copyText(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showToast('Token copied to clipboard!', 'success');
-            }).catch(() => {
-                // Fallback
-                const ta = document.createElement('textarea');
-                ta.value = text;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-                showToast('Token copied!', 'success');
-            });
-        }
-
-        // ==========================================
-        // SUPABASE TABLE SETUP CHECK
-        // ==========================================
-        async function checkAndCreateTable() {
-            try {
-                const { data, count } = await sbSelect('applications', { limit: '1' });
-                // Table exists
-                return true;
-            } catch (err) {
-                if (err.message && (err.message.includes('does not exist') || err.message.includes('404') || err.message.includes('relation'))) {
-                    console.warn('Table "applications" does not exist. Please create it in Supabase dashboard.');
-                    showToast('Database table not found. Please create the "applications" table in your Supabase dashboard. See console for SQL.', 'error', 10000);
-                    console.log(`
-═══════════════════════════════════════════════════════
-  RUN THIS SQL IN YOUR SUPABASE DASHBOARD (SQL Editor):
-═══════════════════════════════════════════════════════
-
-CREATE TABLE IF NOT EXISTS applications (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    email TEXT NOT NULL,
-    phone TEXT NOT NULL,
-    plan TEXT NOT NULL DEFAULT 'free',
-    payment_method TEXT,
-    payment_number TEXT,
-    trx_id TEXT,
-    status TEXT NOT NULL DEFAULT 'pending',
-    token TEXT UNIQUE,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    confirmed_at TIMESTAMPTZ
-);
-
--- Enable Row Level Security
-ALTER TABLE applications ENABLE ROW LEVEL SECURITY;
-
--- Allow public read (needed for token verification)
-CREATE POLICY "Allow public read" ON applications
-    FOR SELECT USING (true);
-
--- Allow public insert (needed for applications)
-CREATE POLICY "Allow public insert" ON applications
-    FOR INSERT WITH CHECK (true);
-
--- Allow public update (needed for admin confirmation)
-CREATE POLICY "Allow public update" ON applications
-    FOR UPDATE USING (true);
-
-═══════════════════════════════════════════════════════
-                    `);
-                    return false;
-                }
-                return false;
-            }
-        }
-
-        // ==========================================
-        // HASH ROUTING
-        // ==========================================
-        function handleHashRoute() {
-            const hash = window.location.hash.substring(1);
-            if (hash.startsWith('course.html/')) {
-                showView('course');
-                return true;
-            }
+            console.log('Email sent successfully');
+            return true;
+        } catch(e) {
+            console.error('EmailJS error:', e);
+            // Fallback to mailto
+            const subj = encodeURIComponent(`[CourseHub] ${action.toUpperCase()}: ${app.name} — ${app.id}`);
+            const bod = encodeURIComponent(message);
+            window.open(`mailto:${ADM_MAIL}?subject=${subj}&body=${bod}`, '_blank');
             return false;
         }
+    }
 
-        // ==========================================
-        // INITIALIZATION
-        // ==========================================
-        window.addEventListener('DOMContentLoaded', async () => {
-            // Try to init Supabase JS client (if loaded via CDN)
-            if (window.supabase) {
-                try {
-                    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-                } catch (e) { /* fallback to REST API */ }
-            }
-
-            // Check for hash-based course route
-            if (!handleHashRoute()) {
-                showView('landing');
-            }
-
-            // Check database table
-            await checkAndCreateTable();
-
-            // Show nav buttons after a moment
-            setTimeout(() => {
-                document.getElementById('navMyCourses').style.display = '';
-            }, 500);
-        });
-
-        window.addEventListener('hashchange', () => {
-            handleHashRoute();
-        });
-    </script>
-
-    <!-- Load Supabase JS SDK as fallback (for createClient) -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- Load EmailJS SDK for email notifications -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>
-        // Initialize EmailJS (users should replace with their own service/template IDs)
-        if (window.emailjs) {
-            // emailjs.init("YOUR_PUBLIC_KEY"); // Uncomment and add your EmailJS public key
+    // ===================== APPLY FLOW =====================
+    function startApply(plan) {
+        selPlan = plan;
+        go('apply');
+        resetForm();
+        const p = PLANS[plan];
+        document.getElementById('plD').innerHTML = `<i class="fas ${p.icon}" style="color:${p.clr}"></i><span class="font-semibold">${p.label}</span><span class="ml-auto text-[var(--muted)]">${p.price===0?'Free':p.price+' Tk'}</span>`;
+        if (plan === 'free') {
+            document.getElementById('frMsg').style.display = '';
+            document.getElementById('pdF').style.display = 'none';
+        } else {
+            document.getElementById('frMsg').style.display = 'none';
+            document.getElementById('pdF').style.display = '';
+            document.getElementById('pAmt').textContent = p.price + ' Tk';
         }
+    }
+
+    function resetForm() {
+        ['fN','fE','fP','fM','fPN','fTX'].forEach(id => document.getElementById(id).value = '');
+        gs(1);
+    }
+
+    function gs(step) {
+        if (step === 2) {
+            const n=document.getElementById('fN').value.trim(), e=document.getElementById('fE').value.trim(), p=document.getElementById('fP').value.trim();
+            if (!n) { toast('Please enter your full name.','error'); return; }
+            if (!e || !e.includes('@')) { toast('Please enter a valid email.','error'); return; }
+            if (!p || p.length < 11) { toast('Please enter a valid phone number.','error'); return; }
+        }
+        document.getElementById('s1').style.display = step===1 ? '' : 'none';
+        document.getElementById('s2').style.display = step===2 ? '' : 'none';
+        document.getElementById('s3').style.display = step===3 ? '' : 'none';
+        document.querySelectorAll('.sdd').forEach(d => { const s=+d.dataset.s; d.classList.remove('active','done'); if(s<step) d.classList.add('done'); if(s===step) d.classList.add('active'); });
+        document.querySelectorAll('.sdl').forEach((l,i) => l.classList.toggle('done', i+1 < step));
+    }
+
+    async function submitApp() {
+        if (selPlan !== 'free') {
+            if (!document.getElementById('fM').value) { toast('Select payment method (Bkash/Nagad).','error'); return; }
+            if (!document.getElementById('fPN').value.trim() || document.getElementById('fPN').value.trim().length < 11) { toast('Enter your Bkash/Nagad number.','error'); return; }
+            if (!document.getElementById('fTX').value.trim()) { toast('Enter the Transaction ID.','error'); return; }
+        }
+
+        const btn = document.getElementById('sBtn');
+        if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Submitting...'; }
+
+        const appId = 'APP-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2,4).toUpperCase();
+
+        const app = {
+            id: appId,
+            name: document.getElementById('fN').value.trim(),
+            email: document.getElementById('fE').value.trim(),
+            phone: document.getElementById('fP').value.trim(),
+            plan: selPlan,
+            payment_method: selPlan==='free' ? null : document.getElementById('fM').value,
+            payment_number: selPlan==='free' ? null : document.getElementById('fPN').value.trim(),
+            trx_id: selPlan==='free' ? null : document.getElementById('fTX').value.trim(),
+            status: 'pending',
+            token: null,
+            created_at: new Date().toISOString()
+        };
+
+        try {
+            await sb('applications', 'POST', app);
+            await sendMail(app, 'received');
+            document.getElementById('aBg').innerHTML = `<i class="fas fa-hashtag"></i> ${appId}`;
+            gs(3);
+            toast('Application submitted! Admin notified via email.','success');
+        } catch(err) {
+            console.error(err);
+            toast('Failed to submit: ' + err.message,'error');
+            if (btn) { btn.disabled = false; btn.innerHTML = 'Submit Application'; }
+        }
+    }
+
+    // ===================== COURSE LOOKUP =====================
+    async function lookupCourses() {
+        const email = document.getElementById('lkE').value.trim();
+        if (!email || !email.includes('@')) { toast('Enter a valid email address.','error'); return; }
+        const btn = document.getElementById('lkB');
+        btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
+        try {
+            const data = await sb('applications', 'GET', null, { email:`eq.${email}`, order:'created_at.desc', limit:'1' });
+            if (!data || data.length === 0) {
+                document.getElementById('lkR').style.display = 'none';
+                toast('No application found with this email.','error');
+            } else {
+                renderLookup(data[0]);
+            }
+        } catch(e) { toast('Lookup failed: ' + e.message,'error'); }
+        btn.disabled = false; btn.innerHTML = '<i class="fas fa-search mr-2"></i>Lookup';
+    }
+
+    function renderLookup(app) {
+        document.getElementById('lkR').style.display = '';
+        document.getElementById('lkN').textContent = app.name;
+        document.getElementById('lkEd').textContent = app.email;
+        const stC = { pending:'text-yellow-400', approved:'text-green-400', rejected:'text-red-400' };
+        const stI = { pending:'fa-clock', approved:'fa-check-circle', rejected:'fa-times-circle' };
+        document.getElementById('lkSt').innerHTML = `<span class="${stC[app.status]} text-sm font-medium"><i class="fas ${stI[app.status]} mr-1"></i>${app.status.charAt(0).toUpperCase()+app.status.slice(1)}</span>`;
+
+        const grid = document.getElementById('cGrid');
+        const noC = document.getElementById('noC');
+
+        if (app.status !== 'approved' || !app.token) {
+            grid.innerHTML = ''; noC.style.display = ''; return;
+        }
+        noC.style.display = 'none';
+        const courses = PLANS[app.plan]?.courses || [];
+        grid.innerHTML = courses.map(slug => {
+            const c = COURSES[slug]; if (!c) return '';
+            return `<div class="card p-6" style="position:relative;overflow:hidden">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:${c.color}15;border:1px solid ${c.color}30"><i class="fas ${c.icon}" style="color:${c.color}"></i></div>
+                    <span class="text-xs px-2 py-1 rounded-full bg-[var(--bg2)] text-[var(--muted)]">${c.lvl}</span>
+                </div>
+                <h3 class="font-heading font-bold text-lg mb-2">${c.title}</h3>
+                <p class="text-[var(--muted)] text-sm mb-4 leading-relaxed">${c.desc}</p>
+                <div class="flex items-center justify-between">
+                    <div class="tbadge text-[10px]"><i class="fas fa-key"></i>${app.token.substring(0,12)}...</div>
+                    <a href="#course.html/${slug}-${app.token}" onclick="go('course');return false" class="text-[var(--accent)] text-sm font-semibold hover:underline">Access <i class="fas fa-arrow-right ml-1"></i></a>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    // ===================== COURSE TOKEN CHECK =====================
+    async function handleCourse() {
+        const ld=document.getElementById('cAL'), dn=document.getElementById('cAD'), gn=document.getElementById('cAG');
+        ld.style.display=''; dn.style.display='none'; gn.style.display='none';
+        const hash = window.location.hash.substring(1);
+        const m = hash.match(/^course\.html\/([a-z0-9-]+)-([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})$/i);
+        if (!m) { ld.style.display='none'; dn.style.display=''; document.getElementById('dR').textContent='Invalid course URL format.'; return; }
+        const slug=m[1], token=m[2];
+        try {
+            const data = await sb('applications','GET',null,{ token:`eq.${token}`, status:'eq.approved' });
+            if (!data || data.length===0) { ld.style.display='none'; dn.style.display=''; document.getElementById('dR').textContent='Token not found or not approved.'; return; }
+            const app=data[0], courses=PLANS[app.plan]?.courses||[];
+            if (!courses.includes(slug)) { ld.style.display='none'; dn.style.display=''; document.getElementById('dR').textContent=`Your ${PLANS[app.plan].label} plan does not include this course.`; return; }
+            ld.style.display='none'; gn.style.display='';
+            document.getElementById('cTD').textContent=token;
+            const cm=COURSES[slug];
+            document.getElementById('cCA').innerHTML = `
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl" style="background:${cm.color}15;border:1px solid ${cm.color}30"><i class="fas ${cm.icon}" style="color:${cm.color}"></i></div>
+                    <div><h2 class="font-heading text-2xl font-bold">${cm.title}</h2><p class="text-[var(--muted)] text-sm">${cm.lvl} Level — ${PLANS[app.plan].label} Plan</p></div>
+                </div>
+                <div class="border-t border-[var(--border)] pt-8 space-y-6">
+                    ${['Introduction to '+cm.title,'Core Concepts Deep Dive','Hands-On Practice','Advanced Techniques','Final Project & Review'].map((t,i)=>`
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full ${i===0?'bg-[var(--accent)] text-black':'bg-[var(--bg2)] border border-[var(--border)] text-[var(--muted)]'} flex items-center justify-center text-sm font-bold">${i+1}</div>
+                        <div><h3 class="font-semibold">${t}</h3><p class="text-[var(--muted)] text-sm">Lesson content</p></div>
+                        ${i<3?'<i class="fas fa-play-circle text-[var(--accent)] ml-auto text-xl cursor-pointer hover:scale-110 transition-transform"></i>':'<i class="fas fa-lock text-[var(--muted)] ml-auto text-xl"></i>'}
+                    </div>`).join('')}
+                </div>
+                <div class="mt-8 p-5 rounded-xl bg-[var(--bg2)] border border-[var(--border)]">
+                    <div class="flex items-center gap-2 text-sm text-[var(--muted)]"><i class="fas fa-shield-halved text-[var(--accent)]"></i><span>Lifetime access secured by token <strong class="text-[var(--fg)]">${token.substring(0,8)}...</strong></span></div>
+                </div>`;
+        } catch(e) { ld.style.display='none'; dn.style.display=''; document.getElementById('dR').textContent='Verification failed: '+e.message; }
+    }
+
+    // ===================== ADMIN =====================
+    async function loadAdmin() {
+        if (!admOk) {
+            const k = prompt('Enter admin access key:');
+            if (k !== ADM_KEY) { toast('Invalid admin key.','error'); go('landing'); return; }
+            admOk = true; toast('Admin access granted.','success');
+        }
+        try {
+            const data = await sb('applications','GET',null,{ order:'created_at.desc' });
+            renderTable(data||[]); updateStats(data||[]);
+        } catch(e) { toast('Failed to load: '+e.message,'error'); }
+    }
+
+    function updateStats(d) {
+        document.getElementById('sT').textContent=d.length;
+        document.getElementById('sP').textContent=d.filter(a=>a.status==='pending').length;
+        document.getElementById('sA').textContent=d.filter(a=>a.status==='approved').length;
+        document.getElementById('sR').textContent=d.filter(a=>a.status==='rejected').length;
+    }
+
+    function renderTable(data) {
+        const tb=document.getElementById('aTB');
+        if (!data.length) { tb.innerHTML='<tr><td colspan="8" class="text-center py-10 text-[var(--muted)]">No applications yet.</td></tr>'; return; }
+        const sbg = { pending:'bg-yellow-900/30 text-yellow-400 border-yellow-800/30', approved:'bg-green-900/30 text-green-400 border-green-800/30', rejected:'bg-red-900/30 text-red-400 border-red-800/30' };
+        tb.innerHTML = data.map(a => {
+            const pi=PLANS[a.plan]||{label:a.plan,clr:'var(--muted)'};
+            const tk = a.token ? `<span class="tbadge text-[10px] cursor-pointer" onclick="cp('${a.token}')" title="Click to copy"><i class="fas fa-key"></i>${a.token.substring(0,8)}...</span>` : '<span class="text-[var(--muted)] text-xs">—</span>';
+            let act = '';
+            if (a.status==='pending') {
+                act = `<button onclick="admAct('${a.id}','approved')" class="text-xs px-3 py-1.5 rounded-lg bg-green-900/30 text-green-400 border border-green-800/30 hover:bg-green-900/50 transition-colors cursor-pointer"><i class="fas fa-check mr-1"></i>Approve</button>
+                       <button onclick="admAct('${a.id}','rejected')" class="text-xs px-3 py-1.5 rounded-lg bg-red-900/30 text-red-400 border border-red-800/30 hover:bg-red-900/50 transition-colors cursor-pointer ml-1"><i class="fas fa-times mr-1"></i>Reject</button>`;
+            } else { act=`<span class="text-[var(--muted)] text-xs">${a.status}</span>`; }
+            return `<tr>
+                <td class="font-medium">${a.name}</td>
+                <td class="text-[var(--muted)]">${a.email}</td>
+                <td><span style="color:${pi.clr}" class="font-semibold text-sm">${pi.label}</span></td>
+                <td class="text-sm">${a.payment_method?a.payment_method.toUpperCase():'—'}</td>
+                <td class="text-sm font-mono text-[var(--muted)]">${a.trx_id||'—'}</td>
+                <td><span class="text-xs px-2 py-1 rounded-full border ${sbg[a.status]}">${a.status.charAt(0).toUpperCase()+a.status.slice(1)}</span></td>
+                <td>${tk}</td>
+                <td>${act}</td>
+            </tr>`;
+        }).join('');
+    }
+
+    async function admAct(id, status) {
+        if (!confirm(`${status==='approved'?'Approve':'Reject'} application ${id}?`)) return;
+        const updates = { status };
+        if (status === 'approved') { updates.token = uuid(); updates.confirmed_at = new Date().toISOString(); }
+        try {
+            await sb('applications','PATCH',updates,{ id:`eq.${id}` });
+            const data = await sb('applications','GET',null,{ id:`eq.${id}` });
+            if (data && data[0]) await sendMail(data[0], status);
+            toast(`Application ${status}!${status==='approved'?' Token generated & email sent.':''}`, status==='approved'?'success':'info');
+            loadAdmin();
+        } catch(e) { toast('Failed: '+e.message,'error'); }
+    }
+
+    // ===================== ONE-CLICK EMAIL CONFIRM =====================
+    async function handleEmailConfirm(appId, status, key) {
+        go('confirm');
+        const ld=document.getElementById('cfL'), rs=document.getElementById('cfR');
+        ld.style.display=''; rs.style.display='none';
+
+        if (key !== ADM_KEY) {
+            ld.style.display='none'; rs.style.display='';
+            rs.innerHTML = `<div class="w-20 h-20 rounded-full bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.3)] flex items-center justify-center mx-auto mb-6"><i class="fas fa-exclamation-triangle text-3xl text-[var(--error)]"></i></div>
+                <h2 class="font-heading text-2xl font-bold mb-2">Invalid Confirm Link</h2><p class="text-[var(--muted)]">The access key in this link is invalid. This link may have been tampered with.</p>
+                <button onclick="go('landing')" class="btn-p mt-6">Go Home</button>`;
+            return;
+        }
+
+        try {
+            // Check current status
+            const data = await sb('applications','GET',null,{ id:`eq.${appId}` });
+            if (!data || data.length === 0) {
+                ld.style.display='none'; rs.style.display='';
+                rs.innerHTML = `<div class="w-20 h-20 rounded-full bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.3)] flex items-center justify-center mx-auto mb-6"><i class="fas fa-times text-3xl text-[var(--error)]"></i></div>
+                    <h2 class="font-heading text-2xl font-bold mb-2">Application Not Found</h2><p class="text-[var(--muted)]">No application with ID ${appId} exists.</p>
+                    <button onclick="go('landing')" class="btn-p mt-6">Go Home</button>`;
+                return;
+            }
+
+            const app = data[0];
+            if (app.status !== 'pending') {
+                ld.style.display='none'; rs.style.display='';
+                const alreadyDone = app.status === status;
+                rs.innerHTML = `<div class="w-20 h-20 rounded-full bg-[rgba(234,179,8,0.1)] border border-[rgba(234,179,8,0.3)] flex items-center justify-center mx-auto mb-6"><i class="fas fa-exclamation text-3xl text-yellow-400"></i></div>
+                    <h2 class="font-heading text-2xl font-bold mb-2">Already Processed</h2>
+                    <p class="text-[var(--muted)]">This application is already <strong class="text-[var(--fg)]">${app.status}</strong>.${alreadyDone ? ' This confirm link has already been used.' : ''}</p>
+                    <button onclick="go('landing')" class="btn-p mt-6">Go Home</button>`;
+                return;
+            }
+
+            // Process
+            const updates = { status };
+            if (status === 'approved') { updates.token = uuid(); updates.confirmed_at = new Date().toISOString(); }
+            await sb('applications','PATCH',updates,{ id:`eq.${appId}` });
+
+            // Re-fetch for email
+            const updated = await sb('applications','GET',null,{ id:`eq.${appId}` });
+            if (updated && updated[0]) await sendMail(updated[0], status);
+
+            ld.style.display='none'; rs.style.display='';
+
+            if (status === 'approved') {
+                rs.innerHTML = `<div class="w-20 h-20 rounded-full bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.3)] flex items-center justify-center mx-auto mb-6"><i class="fas fa-check text-3xl text-[var(--success)]"></i></div>
+                    <h2 class="font-heading text-2xl font-bold mb-2 text-[var(--success)]">Application Approved</h2>
+                    <p class="text-[var(--muted)] mb-4"><strong class="text-[var(--fg)]">${app.name}</strong> (${app.email}) has been approved.</p>
+                    <div class="card p-5 bg-[var(--bg2)] mb-6 text-left">
+                        <div class="text-sm text-[var(--muted)] mb-1">Token Issued</div>
+                        <div class="font-mono text-[var(--accent)] text-lg break-all">${updates.token}</div>
+                    </div>
+                    <p class="text-[var(--muted)] text-sm mb-6">Confirmation email sent to admin. Student can now access courses.</p>
+                    <button onclick="go('landing')" class="btn-p">Go Home</button>`;
+            } else {
+                rs.innerHTML = `<div class="w-20 h-20 rounded-full bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.3)] flex items-center justify-center mx-auto mb-6"><i class="fas fa-times text-3xl text-[var(--error)]"></i></div>
+                    <h2 class="font-heading text-2xl font-bold mb-2 text-[var(--error)]">Application Rejected</h2>
+                    <p class="text-[var(--muted)] mb-6"><strong class="text-[var(--fg)]">${app.name}</strong> (${app.email}) has been rejected. Notification email sent.</p>
+                    <button onclick="go('landing')" class="btn-p">Go Home</button>`;
+            }
+
+        } catch(e) {
+            ld.style.display='none'; rs.style.display='';
+            rs.innerHTML = `<div class="w-20 h-20 rounded-full bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.3)] flex items-center justify-center mx-auto mb-6"><i class="fas fa-exclamation-triangle text-3xl text-[var(--error)]"></i></div>
+                <h2 class="font-heading text-2xl font-bold mb-2">Error</h2><p class="text-[var(--muted)]">${e.message}</p>
+                <button onclick="go('landing')" class="btn-p mt-6">Go Home</button>`;
+        }
+    }
+
+    // ===================== UTILS =====================
+    function uuid() { return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{ const r=Math.random()*16|0; return(c==='x'?r:(r&0x3|0x8)).toString(16); }); }
+
+    function cp(text) {
+        navigator.clipboard.writeText(text).then(()=>toast('Token copied!','success')).catch(()=>{
+            const t=document.createElement('textarea'); t.value=text; document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); toast('Token copied!','success');
+        });
+    }
+
+    // ===================== HASH ROUTER =====================
+    function handleHash() {
+        const hash = window.location.hash.substring(1);
+        // Email confirm link: #confirm/appId/status/key
+        const cm = hash.match(/^confirm\/([^/]+)\/([^/]+)\/([^/]+)$/);
+        if (cm) { handleEmailConfirm(cm[1], cm[2], cm[3]); return true; }
+        // Course link: #course.html/slug-token
+        if (hash.startsWith('course.html/')) { go('course'); return true; }
+        return false;
+    }
+
+    // ===================== INIT =====================
+    window.addEventListener('DOMContentLoaded', () => {
+        initEJS();
+        if (!handleHash()) go('landing');
+        setTimeout(() => { document.getElementById('nMC').style.display = ''; document.getElementById('nAd').style.display = ''; }, 300);
+    });
+    window.addEventListener('hashchange', handleHash);
     </script>
 </body>
 </html>
